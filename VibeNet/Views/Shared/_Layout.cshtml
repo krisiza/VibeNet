@@ -33,13 +33,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Contact</a>
+                        </li>
                     </ul>
-                    <partial style="color:purple;" name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="main-container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
