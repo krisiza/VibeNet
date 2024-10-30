@@ -1,14 +1,72 @@
 ﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+body{
+    width: 50em;
+    margin: 0 auto;
+}
+
+header{
+    display: flex;
+    width:100%;
+    justify-content:space-between;
+}
+
+.logo-container{
+    align-content:center;
+}
+
+.vibe-span {
+    text-decoration: none;
+    color: mediumpurple;
+    font-weight:600;
+    font-size:1.6em;
+    text-transform:uppercase;
+    letter-spacing : 5px;
+    border-bottom: 2px solid mediumpurple;
+}
+
+.net-span {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 1.6em;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+}
+
+.connected-span {
+    text-decoration: none;
+    color: gray;
+    font-size: 0.6em;
+    text-align:end;
+    margin-top: -2px;
+    margin-left: 10px;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.container-fluid{
+    display:flex;
+    gap: 3em;
+}
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+.logo-container{
+    width:10em;
 }
 
 a {
-  color: #0077cc;
+    color: #0077cc;
 }
 
 .btn-primary {
@@ -24,7 +82,7 @@ a {
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
