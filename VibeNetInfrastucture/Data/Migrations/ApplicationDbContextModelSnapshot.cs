@@ -334,9 +334,11 @@ namespace VibeNet.Data.Migrations
 
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.VibeNetUser", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
@@ -367,7 +369,13 @@ namespace VibeNet.Data.Migrations
                     b.Property<string>("ProfilePicture")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("VibeNetUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("VibeNetUserId");
 
                     b.ToTable("VibeNetUsers");
                 });
@@ -494,6 +502,17 @@ namespace VibeNet.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("VibeNetInfrastucture.Data.Models.VibeNetUser", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("VibeNetUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.Post", b =>

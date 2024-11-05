@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using VibeNetInfrastucture.Data.Models.Enums;
 using static VibeNetInfrastucture.Validations.ValidationConstants.User;
 
@@ -6,15 +9,18 @@ namespace VibeNetInfrastucture.Data.Models
 {
     public class VibeNetUser
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
-        [Required]
+        public string VibeNetUserId { get; set; } = null!;
+
+        [ForeignKey(nameof(VibeNetUserId))]
+        public virtual IdentityUser User { get; set; } = null!;
+
         [MaxLength(FirstNameMaxLength)]
-        public required string FirstName { get; set; }
+        public string FirstName { get; set; } = null!;
 
-        [Required]
         [MaxLength(LastNameMaxLength)]
-        public required string Lastname { get; set; }
+        public string Lastname { get; set; } = null!;
 
         public DateTime Birthday { get; set; }
 

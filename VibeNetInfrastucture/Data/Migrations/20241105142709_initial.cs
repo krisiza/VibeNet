@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VibeNet.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -90,7 +90,9 @@ namespace VibeNet.Data.Migrations
                 name: "VibeNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VibeNetUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Lastname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -103,6 +105,12 @@ namespace VibeNet.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_VibeNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VibeNetUsers_AspNetUsers_VibeNetUserId",
+                        column: x => x.VibeNetUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -162,6 +170,11 @@ namespace VibeNet.Data.Migrations
                 name: "IX_Posts_OwnerId",
                 table: "Posts",
                 column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VibeNetUsers_VibeNetUserId",
+                table: "VibeNetUsers",
+                column: "VibeNetUserId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_AspNetUsers_Posts_PostId",

@@ -38,7 +38,7 @@ h1 {
     border-radius: 2em;
 }
 
-form, input, label, p {
+form, label, p {
     color: white !important;
     text-align: center;
 }
