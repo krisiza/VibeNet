@@ -12,10 +12,6 @@ header{
     justify-content:space-between;
 }
 
-main{
-    display: grid;
-}
-
 .main-container {
     background: rgb(174,218,238);
     background: radial-gradient(circle, rgba(174,218,238,1) 0%, rgba(202,148,233,1) 100%);
