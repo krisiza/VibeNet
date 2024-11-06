@@ -99,7 +99,7 @@ namespace VibeNet.Data.Migrations
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HomeTown = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Gender = table.Column<int>(type: "int", nullable: true),
-                    ProfilePicture = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

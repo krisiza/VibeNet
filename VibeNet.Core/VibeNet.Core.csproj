@@ -13,12 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VibeNet.ViewModels\VibeNet.ViewModels.csproj" />
     <ProjectReference Include="..\VibeNetInfrastucture\VibeNet.Infrastucture.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

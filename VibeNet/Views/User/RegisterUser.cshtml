@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@using VibeNet.ViewModels
+@using VibeNet.Core.ViewModels
 
 @model VibeNetUserRegisterViewModel
 @{
@@ -25,6 +25,9 @@
                         <input asp-for="@Model.ProfilePicture" type="file" class="form-control d-none" id="customFile2" onchange="displaySelectedImage(event, 'selectedAvatar')" />
                     </div>
                 </div>
+            </div>
+            <div style="visibility:hidden" class="form-floating mb-3">
+                <input asp-for="@Model.CreatedOn" class="form-control" value="@DateTime.Now.ToString()" aria-required="true" />
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="@Model.FirstName" class="form-control" aria-required="true"/>

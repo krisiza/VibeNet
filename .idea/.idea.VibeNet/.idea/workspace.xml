@@ -12,11 +12,14 @@
     <list default="true" id="6fc90041-c76c-4c1b-bd30-c225fc76d3f2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet.Core/VibeNet.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/VibeNet.Core.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/ViewModels/VibeNetUserRegisterViewModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.ViewModels/VibeNetUserRegisterViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.ViewModels/VibeNetUserRegisterViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet.sln" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/VibeNet.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/VibeNet.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/Views/User/RegisterUser.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/User/RegisterUser.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/VibeNetUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/VibeNetUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Repository/Contracts/IRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Repository/Contracts/IRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Repository/Repository.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +34,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/294078ecfce6fdb942ecfee089f09717de7a6fcfe5efd9fdb6f4f93c0fb4813/ActionMethodExecutor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/VibeNet.ViewModels/VibeNetUserRegisterViewModel.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -41,20 +45,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.VibeNet: IIS Express.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.VibeNet: IIS Express.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.VibeNet: IIS Express">
     <configuration name="VibeNet: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/VibeNet/VibeNet.csproj" />
@@ -113,6 +117,7 @@
       <workItem from="1730879282946" duration="640000" />
       <workItem from="1730880199415" duration="655000" />
       <workItem from="1730882112862" duration="126000" />
+      <workItem from="1730891828934" duration="178000" />
     </task>
     <servers />
   </component>

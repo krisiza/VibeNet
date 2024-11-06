@@ -4,13 +4,13 @@ using VibeNet.Infrastucture.Repository.Contracts;
 
 namespace VibeNet.Infrastucture.Repository
 {
-    public class Repository<TType, TId> : IRepository<TType, TId>
+    public class BaseRepository<TType, TId> : IRepository<TType, TId>
         where TType : class
     {
         private readonly VibeNetDbContext context;
         private readonly DbSet<TType> dbSet;
 
-        public Repository(VibeNetDbContext context)
+        public BaseRepository(VibeNetDbContext context)
         {
             this.context = context;
             this.dbSet = this.context.Set<TType>();
@@ -28,7 +28,7 @@ namespace VibeNet.Infrastucture.Repository
         public async Task<IEnumerable<TType>> GetAllAsync()
             => await dbSet.ToArrayAsync();
 
-        public IEnumerable<TType> GetAllAttached()
+        public IQueryable<TType> GetAllAttached()
             => dbSet.AsQueryable();
 
         public void Add(TType item)

@@ -5,10 +5,11 @@ using VibeNetInfrastucture.Data.Models.Enums;
 using VibeNet.Core.Mapping;
 using static VibeNetInfrastucture.Validations.ValidationConstants.User;
 
-namespace VibeNet.ViewModels
+namespace VibeNet.Core.ViewModels
 {
     public class VibeNetUserRegisterViewModel : IMapFrom<VibeNetUser>
     {
+        public Guid Id { get; set; }
 
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
         [Required]
@@ -21,7 +22,6 @@ namespace VibeNet.ViewModels
         [Required]
         public string Birthday { get; set; } = null!;
 
-        [Required]
         public string CreatedOn { get; set; } = null!;
 
         [StringLength(HomeTownMaxLength, MinimumLength = HomeTownMinLength)]
@@ -30,6 +30,6 @@ namespace VibeNet.ViewModels
 
         public Gender? Gender { get; set; }
 
-        public IFormFile ProfilePicture { get; set; }
+        public IFormFile? ProfilePicture { get; set; }
     }
 }

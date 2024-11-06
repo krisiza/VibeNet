@@ -12,7 +12,7 @@ using VibeNet.Data;
 namespace VibeNet.Data.Migrations
 {
     [DbContext(typeof(VibeNetDbContext))]
-    [Migration("20241106060056_initial")]
+    [Migration("20241106113306_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -369,8 +369,9 @@ namespace VibeNet.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("ProfilePicture")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("ProfilePicture")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("VibeNetUserId")
                         .IsRequired()

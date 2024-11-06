@@ -9,7 +9,7 @@ namespace VibeNetInfrastucture.Data.Models
     {
         public int Id { get; set; }
 
-        public required string OwnerId { get; set; }
+        public string OwnerId { get; set; } = null!;
 
         [ForeignKey(nameof(OwnerId))]
         public virtual IdentityUser Owner { get; set; } = null!;
@@ -19,12 +19,14 @@ namespace VibeNetInfrastucture.Data.Models
 
         public string? Picture { get; set; }
 
+        [Required]
         public DateTime PostedOn { get; set; }
 
         public IEnumerable<IdentityUser> UserLiked { get; set; } = new List<IdentityUser>();
 
         public IEnumerable<Comment> Comments { get; set; } = new List<Comment>();
 
+        [Required]
         public bool IsDeleted { get; set; }
     }
 }

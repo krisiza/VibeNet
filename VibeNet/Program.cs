@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using VibeNet.Core.Contracts;
+using VibeNet.Core.Interfaces;
 using VibeNet.Core.Mapping;
+using VibeNet.Core.Services;
 using VibeNet.Data;
 using VibeNet.Infrastucture.Repository;
 using VibeNet.Infrastucture.Repository.Contracts;
@@ -24,11 +27,15 @@ namespace VibeNet
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<VibeNetDbContext>();
 
-            builder.Services.AddScoped<IRepository<VibeNetUser, int>, Repository<VibeNetUser, int>>();
-            builder.Services.AddScoped<IRepository<Comment, int>, Repository<Comment, int>>();
-            builder.Services.AddScoped<IRepository<Post, int>, Repository<Post, int>>();
-            builder.Services.AddScoped<IRepository<Friendship, object>, Repository<Friendship, object>>();
-            builder.Services.AddScoped<IRepository<Friendshiprequest, object>, Repository<Friendshiprequest, object>>();
+            builder.Services.AddScoped<IRepository<VibeNetUser, int>, BaseRepository<VibeNetUser, int>>();
+            builder.Services.AddScoped<IRepository<Comment, int>, BaseRepository<Comment, int>>();
+            builder.Services.AddScoped<IRepository<Post, int>, BaseRepository<Post, int>>();
+            builder.Services.AddScoped<IRepository<Friendship, object>, BaseRepository<Friendship, object>>();
+            builder.Services.AddScoped<IRepository<Friendshiprequest, object>, BaseRepository<Friendshiprequest, object>>();
+            builder.Services.AddScoped<IRepository<IdentityUser, Guid>, BaseRepository<IdentityUser, Guid>>();
+
+            builder.Services.AddScoped<IVibeNetService, VibeNetService>();
+            builder.Services.AddScoped<IIdentityUserService, IdentityUserService>();
 
             builder.Services.AddControllersWithViews();
 

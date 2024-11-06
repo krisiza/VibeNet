@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VibeNetInfrastucture.Data.Models
@@ -7,16 +8,17 @@ namespace VibeNetInfrastucture.Data.Models
     [PrimaryKey(nameof(UserRecipientId), nameof(UserTransmitterId))]
     public class Friendshiprequest
     {
-        public required string UserRecipientId { get; set; }
+        public string UserRecipientId { get; set; } = null!;
 
         [ForeignKey(nameof(UserRecipientId))]
         public virtual IdentityUser UserRecipient { get; set; } = null!;
 
-        public required string UserTransmitterId { get; set; }
+        public string UserTransmitterId { get; set; } = null!;
 
         [ForeignKey(nameof(UserTransmitterId))]
         public virtual IdentityUser UserTransmitter { get; set; } = null!;
 
+        [Required]
         public DateTime SendOn { get; set; }
     }
 }

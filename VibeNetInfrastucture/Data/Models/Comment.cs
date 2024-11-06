@@ -14,13 +14,15 @@ namespace VibeNetInfrastucture.Data.Models
         [ForeignKey(nameof(PostId))]
         public virtual Post? Post { get; set; }
 
-        public required virtual string OwnerId { get; set; }
+        [Required]
+        public virtual string OwnerId { get; set; } = null!;
 
         [ForeignKey(nameof(OwnerId))]
         public virtual IdentityUser Owner { get; set; } = null!;
 
         [MaxLength(ValidationConstants.Comment.ContentMaxLength)]
-        public required string Content { get; set; }
+        [Required]
+        public string Content { get; set; } = null!;
 
         public DateTime PostedOn { get; set; }
 

@@ -7,12 +7,12 @@ namespace VibeNetInfrastucture.Data.Models
     [PrimaryKey(nameof(FirstUserId), nameof(SecondUserId))]
     public class Friendship
     {
-        public required string FirstUserId { get; set; }
+        public string FirstUserId { get; set; } = null!;
 
         [ForeignKey(nameof(FirstUserId))]
         public virtual IdentityUser FirstUser { get; set; } = null!;
 
-        public required string SecondUserId { get; set; }
+        public string SecondUserId { get; set; } = null!;
 
         [ForeignKey(nameof(SecondUserId))]
         public virtual IdentityUser SecondUser { get; set; } = null!;
