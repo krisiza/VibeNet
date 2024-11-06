@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VibeNet", "VibeNet\VibeNet.csproj", "{B37E82C3-193E-4CB5-80EA-5409ED210325}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibeNet", "VibeNet\VibeNet.csproj", "{B37E82C3-193E-4CB5-80EA-5409ED210325}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VibeNet.Core", "VibeNet.Core\VibeNet.Core.csproj", "{9F13F0F2-B3C4-40C3-8B15-39A9297A3521}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibeNet.Core", "VibeNet.Core\VibeNet.Core.csproj", "{9F13F0F2-B3C4-40C3-8B15-39A9297A3521}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VibeNetInfrastucture", "VibeNetInfrastucture\VibeNetInfrastucture.csproj", "{5B67AACF-4A66-455A-8BF8-5590632FAF55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibeNet.Infrastucture", "VibeNetInfrastucture\VibeNet.Infrastucture.csproj", "{5B67AACF-4A66-455A-8BF8-5590632FAF55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

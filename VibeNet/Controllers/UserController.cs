@@ -1,0 +1,33 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Web.Helpers;
+using VibeNet.Core.ViewModels;
+
+namespace VibeNet.Controllers
+{
+    public class UserController : Controller
+    {
+        [HttpGet]
+        public IActionResult RegisterUser()
+        {
+            VibeNetUserRegisterViewModel model = new();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult RegisterUser(VibeNetUserRegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+       
+            }
+            return RedirectToAction(nameof(ShowProfile));
+        }
+        
+        public IActionResult ShowProfile()
+        {
+
+            return View();
+        }
+    }
+}

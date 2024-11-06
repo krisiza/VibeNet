@@ -17,14 +17,14 @@ namespace VibeNetInfrastucture.Data.Models
         public virtual IdentityUser User { get; set; } = null!;
 
         [MaxLength(FirstNameMaxLength)]
-        public string FirstName { get; set; } = null!;
+        public required string FirstName { get; set; } 
 
         [MaxLength(LastNameMaxLength)]
-        public string Lastname { get; set; } = null!;
+        public required string Lastname { get; set; } 
 
-        public DateTime Birthday { get; set; }
+        public required DateTime Birthday { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public required DateTime CreatedOn { get; set; }
 
         [MaxLength(HomeTownMaxLength)]
         public string? HomeTown { get; set; }

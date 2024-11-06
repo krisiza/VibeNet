@@ -12,7 +12,7 @@ using VibeNet.Data;
 namespace VibeNet.Data.Migrations
 {
     [DbContext(typeof(VibeNetDbContext))]
-    [Migration("20241105142709_initial")]
+    [Migration("20241106060056_initial")]
     partial class initial
     {
         /// <inheritdoc />
