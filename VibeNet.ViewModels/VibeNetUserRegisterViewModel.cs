@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Helpers;
 using VibeNetInfrastucture.Data.Models.Enums;
 using static VibeNetInfrastucture.Validations.ValidationConstants.User;
 
-namespace VibeNet.Core.ViewModels
+namespace VibeNet.ViewModels
 {
     public class VibeNetUserRegisterViewModel
     {
@@ -29,6 +28,6 @@ namespace VibeNet.Core.ViewModels
 
         public Gender? Gender { get; set; }
 
-        public IFormFile ProfilePicture { get; set; } 
+        public IFormFile ProfilePicture { get; set; }
     }
 }

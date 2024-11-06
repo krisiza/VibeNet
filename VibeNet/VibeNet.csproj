@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VibeNet.Core\VibeNet.Core.csproj" />
+    <ProjectReference Include="..\VibeNet.ViewModels\VibeNet.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

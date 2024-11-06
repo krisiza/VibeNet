@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibeNet.Core", "VibeNet.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VibeNet.Infrastucture", "VibeNetInfrastucture\VibeNet.Infrastucture.csproj", "{5B67AACF-4A66-455A-8BF8-5590632FAF55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VibeNet.ViewModels", "VibeNet.ViewModels\VibeNet.ViewModels.csproj", "{0426CE5E-52A7-40AA-BC59-25BC47910D68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5B67AACF-4A66-455A-8BF8-5590632FAF55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B67AACF-4A66-455A-8BF8-5590632FAF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B67AACF-4A66-455A-8BF8-5590632FAF55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0426CE5E-52A7-40AA-BC59-25BC47910D68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0426CE5E-52A7-40AA-BC59-25BC47910D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0426CE5E-52A7-40AA-BC59-25BC47910D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0426CE5E-52A7-40AA-BC59-25BC47910D68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

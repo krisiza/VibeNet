@@ -10,15 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fc90041-c76c-4c1b-bd30-c225fc76d3f2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/VibeNet/Views/User/ShowProfile.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet.Core/VibeNet.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/VibeNet.Core.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/ViewModels/VibeNetUserRegisterViewModel.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet.sln" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Areas/Identity/Pages/Account/Register.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Areas/Identity/Pages/Account/Register.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/VibeNet.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/VibeNet.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Migrations/20241105142709_initial.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Migrations/20241105142709_initial.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/VibeNetUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/VibeNetUser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/VibeNetInfrastucture.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/Views/User/RegisterUser.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/User/RegisterUser.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +43,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Launch Settings Profile.VibeNet: IIS Express.executor": "Debug",
+    ".NET Launch Settings Profile.VibeNet: IIS Express.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "node.js.detected.package.eslint": "true",
@@ -114,6 +112,7 @@
       <updated>1730879281074</updated>
       <workItem from="1730879282946" duration="640000" />
       <workItem from="1730880199415" duration="655000" />
+      <workItem from="1730882112862" duration="126000" />
     </task>
     <servers />
   </component>

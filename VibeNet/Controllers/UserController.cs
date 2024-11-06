@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Web.Helpers;
-using VibeNet.Core.ViewModels;
+using VibeNet.ViewModels;
 
 namespace VibeNet.Controllers
 {
