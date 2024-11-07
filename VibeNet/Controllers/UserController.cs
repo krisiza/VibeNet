@@ -4,10 +4,11 @@ using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
 using VibeNet.Core.Utilities;
 using VibeNet.Core.ViewModels;
+using static VibeNetInfrastucture.Validations.ValidationConstants;
 
 namespace VibeNet.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IVibeNetService vibeNetService;
         private readonly IIdentityUserService identityUserService;
@@ -29,20 +30,32 @@ namespace VibeNet.Controllers
         }
 
         [HttpPost]
-        public IActionResult RegisterUser([FromForm] VibeNetUserRegisterViewModel model)
+        public async Task<IActionResult> RegisterUser([FromForm] VibeNetUserRegisterViewModel model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null) return View(model);
-
             model.Id = Guid.Parse(userId);
 
             if (ModelState.IsValid)
             {
-                vibeNetService.AddUserAsync(model);
+                await vibeNetService.AddUserAsync(model);
+
+                if (userId == null) return View(model);
+                var user = await vibeNetService.GetByIdentityIdAsync(userId);
+
+                byte[] data = await VibeNetHepler.ConvertToBytesAsync(model.ProfilePictureFile);
+                await profilePictureService.SavePicture(model.ProfilePictureFile, user.Id, data);
+                var profilePicture = await profilePictureService.GetProfilePictureAsync(user.Id);
+
+                if (profilePicture != null)
+                {
+                    user.ProfilePictureId = profilePicture.Id;
+                    await vibeNetService.UpdateAsync(user);
+                }
+
                 return RedirectToAction(nameof(ShowProfile));
             }
 
-            identityUserService.DeleteIdentityUserAsync(model.Id);
+            await identityUserService.DeleteIdentityUserAsync(model.Id);
             return View(model);
         }
 
@@ -69,27 +82,6 @@ namespace VibeNet.Controllers
                 ViewBag.Base64String = $"data:{profilePicture.ContentType};base64," + Convert.ToBase64String(profilePicture.Data, 0, profilePicture.Data.Length);
                 model.ProfilePicture = profilePicture;
             }
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ShowProfile([FromForm] VibeNetUserProfileViewModel model)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null) return RedirectToAction(nameof(ShowProfile));
-            var user = await vibeNetService.GetByIdentityIdAsync(userId);
-            byte[] data = await VibeNetHepler.ConvertToBytesAsync(model.ProfilePictureFile);
-            await profilePictureService.SavePicture(model.ProfilePictureFile, user.Id, data);
-            var profilePicture = await profilePictureService.GetProfilePictureAsync(user.Id);
-
-            if (profilePicture != null)
-            {
-                user.ProfilePictureId = profilePicture.Id;
-                await vibeNetService.UpdateAsync(user);
-            }
-
-            ViewBag.Base64String = $"data:{profilePicture.ContentType};base64," + Convert.ToBase64String(profilePicture.Data, 0, profilePicture.Data.Length);
 
             return View(model);
         }

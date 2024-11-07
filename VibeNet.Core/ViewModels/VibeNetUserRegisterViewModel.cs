@@ -28,7 +28,7 @@ namespace VibeNet.Core.ViewModels
 
         public Gender? Gender { get; set; }
 
-        public IFormFile? ProfilePicture { get; set; }
+        public IFormFile? ProfilePictureFile { get; set; }
 
         public bool IsDeleted { get; set; } = false;
     }

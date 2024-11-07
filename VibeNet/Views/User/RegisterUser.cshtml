@@ -14,7 +14,7 @@
 <div class="row register-container justify-content-center">
     <div class="flex-lg-shrink-0">
         <h1>Enter your data</h1>
-        <form style="width:55%; justify-self:center;" id="registerForm" class="form-container" asp-route-returnUrl="/Home/Index" method="post">
+        <form style="width:55%; justify-self:center;" id="registerForm" class="form-container" enctype="multipart/form-data" asp-route-returnUrl="/Home/Index" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div style="visibility:hidden" class="form-floating mb-3">
                 <input asp-for="@Model.CreatedOn" class="form-control" value="@DateTime.Now.ToString()" aria-required="true" />
@@ -47,6 +47,9 @@
                 <input asp-for="@Model.HomeTown" class="form-control" aria-required="true"/>
                 <label asp-for="@Model.HomeTown">HomeTown</label>
                 <span asp-validation-for="@Model.HomeTown" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="@Model.ProfilePictureFile" class="form-control-lg" id="formFileLg" type="file" />
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
