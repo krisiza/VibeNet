@@ -16,7 +16,7 @@ namespace VibeNetInfrastucture.Data.Models
         public string VibeNetUserId { get; set; } = null!;
 
         [ForeignKey(nameof(VibeNetUserId))]
-        public virtual IdentityUser User { get; set; } = null!;
+        public virtual IdentityUser? User { get; set; }
 
         [MaxLength(FirstNameMaxLength)]
         [Required]
@@ -24,7 +24,8 @@ namespace VibeNetInfrastucture.Data.Models
 
         [MaxLength(LastNameMaxLength)]
         [Required]
-        public string Lastname { get; set; } = null!;
+        public string LastName { get; set; } = null!;
+
         [Required]
         public DateTime Birthday { get; set; }
 
@@ -36,7 +37,7 @@ namespace VibeNetInfrastucture.Data.Models
 
         public Gender? Gender { get; set; }
 
-        public byte[] ProfilePicture { get; set; }
+        public int ProfilePictureId { get; set; }
 
         [Required]  
         public bool IsDeleted { get; set; }

@@ -1,1 +1,100 @@
-﻿<h2> My Profile</h2>
+﻿@using VibeNet.Core.ViewModels
+@model VibeNetUserProfileViewModel
+
+<style>
+    .profile-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 60%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+        .profile-container img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+            .profile-container img:hover {
+                transform: scale(1.05);
+            }
+
+    .profile-info h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .profile-info p {
+        font-size: 16px;
+        color: #666;
+    }
+
+    .btn-rounded {
+        border-radius: 25px;
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        background-color: #1877f2;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #165eab;
+        }
+</style>
+
+
+
+<div class="profile-container">
+
+    div class="profile-container">
+    <form method="post" enctype="multipart/form-data">
+        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Save Changes</button>
+
+        <div class="d-flex justify-content-center mb-4">
+            <img id="selectedAvatar" src="@ViewBag.Base64String" class="rounded-circle" alt="Profile Avatar" />
+        </div>
+
+        <div class="profile-info mt-4">
+            <h2>@Model.FirstName @Model.LastName</h2>
+            <p class="text-muted">@Model.HomeTown</p>
+            <p><strong>Birthday:</strong> @Model.Birthday</p>
+            <p><strong>Gender:</strong> @Model.Gender</p>
+        </div>
+
+        <!-- Hidden fields for properties that are not being edited -->
+        <input type="hidden" asp-for="FirstName" />
+        <input type="hidden" asp-for="LastName" />
+        <input type="hidden" asp-for="HomeTown" />
+        <input type="hidden" asp-for="Birthday" />
+        <input type="hidden" asp-for="Gender" />
+        <input type="hidden" asp-for="ProfilePicture" />
+
+        <div class="d-flex justify-content-center">
+            <div style="width: 50%" class="btn btn-primary btn-rounded">
+                <label asp-for="ProfilePictureFile" class="form-label text-white m-1" for="customFile2">Choose file</label>
+                <input asp-for="ProfilePictureFile" type="file" class="form-control d-none" id="customFile2" onchange="displaySelectedImage(event, 'selectedAvatar')" />
+            </div>
+        </div>
+    </form>
+</div>
+
+</div>
+
+<script>
+    function displaySelectedImage(event, imageId) {
+        const reader = new FileReader();
+        reader.onload = function () {
+            const output = document.getElementById(imageId);
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>

@@ -6,7 +6,7 @@ namespace VibeNet.Core.Services
 {
     public class IdentityUserService : IIdentityUserService
     {
-        private IRepository<IdentityUser, Guid> identityUserRepository;
+        private readonly IRepository<IdentityUser, Guid> identityUserRepository;
 
         public IdentityUserService(IRepository<IdentityUser, Guid> identityUserRepository)
         {

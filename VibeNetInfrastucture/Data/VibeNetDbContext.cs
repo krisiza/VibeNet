@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using VibeNet.Infrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models;
 
 namespace VibeNet.Data
@@ -16,6 +17,8 @@ namespace VibeNet.Data
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Friendshiprequest> Friendshiprequests { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
+
+        public virtual DbSet<ProfilePicture> ProfilePictures { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

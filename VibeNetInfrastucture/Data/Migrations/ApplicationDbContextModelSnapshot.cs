@@ -229,6 +229,36 @@ namespace VibeNet.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("VibeNet.Infrastucture.Data.Models.ProfilePicture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Data")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<bool?>("IsSelected")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("ProfilePictures");
+                });
+
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
@@ -361,14 +391,13 @@ namespace VibeNet.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Lastname")
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<byte[]>("ProfilePicture")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                    b.Property<int>("ProfilePictureId")
+                        .HasColumnType("int");
 
                     b.Property<string>("VibeNetUserId")
                         .IsRequired()
@@ -437,6 +466,17 @@ namespace VibeNet.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("VibeNet.Infrastucture.Data.Models.ProfilePicture", b =>
+                {
+                    b.HasOne("VibeNetInfrastucture.Data.Models.VibeNetUser", "VibeNetUser")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("VibeNetUser");
                 });
 
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.Comment", b =>

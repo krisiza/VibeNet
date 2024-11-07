@@ -94,12 +94,12 @@ namespace VibeNet.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     VibeNetUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Lastname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HomeTown = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Gender = table.Column<int>(type: "int", nullable: true),
-                    ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    ProfilePictureId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -141,6 +141,29 @@ namespace VibeNet.Data.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ProfilePictures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OwnerId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Data = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    IsSelected = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProfilePictures", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProfilePictures_VibeNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "VibeNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_PostId",
                 table: "AspNetUsers",
@@ -169,6 +192,11 @@ namespace VibeNet.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_OwnerId",
                 table: "Posts",
+                column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProfilePictures_OwnerId",
+                table: "ProfilePictures",
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
@@ -201,10 +229,13 @@ namespace VibeNet.Data.Migrations
                 name: "Friendships");
 
             migrationBuilder.DropTable(
-                name: "VibeNetUsers");
+                name: "ProfilePictures");
 
             migrationBuilder.DropTable(
                 name: "Posts");
+
+            migrationBuilder.DropTable(
+                name: "VibeNetUsers");
 
             migrationBuilder.DropIndex(
                 name: "IX_AspNetUsers_PostId",

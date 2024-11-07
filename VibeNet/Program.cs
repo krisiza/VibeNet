@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
-using VibeNet.Core.Mapping;
 using VibeNet.Core.Services;
 using VibeNet.Data;
+using VibeNet.Infrastucture.Data.Models;
 using VibeNet.Infrastucture.Repository;
 using VibeNet.Infrastucture.Repository.Contracts;
 using VibeNet.Models;
@@ -27,21 +27,23 @@ namespace VibeNet
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<VibeNetDbContext>();
 
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             builder.Services.AddScoped<IRepository<VibeNetUser, int>, BaseRepository<VibeNetUser, int>>();
             builder.Services.AddScoped<IRepository<Comment, int>, BaseRepository<Comment, int>>();
             builder.Services.AddScoped<IRepository<Post, int>, BaseRepository<Post, int>>();
             builder.Services.AddScoped<IRepository<Friendship, object>, BaseRepository<Friendship, object>>();
             builder.Services.AddScoped<IRepository<Friendshiprequest, object>, BaseRepository<Friendshiprequest, object>>();
             builder.Services.AddScoped<IRepository<IdentityUser, Guid>, BaseRepository<IdentityUser, Guid>>();
+            builder.Services.AddScoped<IRepository<ProfilePicture, int>, BaseRepository<ProfilePicture, int>>();
 
             builder.Services.AddScoped<IVibeNetService, VibeNetService>();
             builder.Services.AddScoped<IIdentityUserService, IdentityUserService>();
+            builder.Services.AddScoped<IProfilePictureService, ProfilePictureService>();
 
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
-
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).Assembly);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

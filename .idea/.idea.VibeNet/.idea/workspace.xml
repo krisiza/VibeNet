@@ -11,15 +11,20 @@
   <component name="ChangeListManager">
     <list default="true" id="6fc90041-c76c-4c1b-bd30-c225fc76d3f2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/VibeNet.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/VibeNet.Core.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.ViewModels/VibeNetUserRegisterViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.ViewModels/VibeNetUserRegisterViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.sln" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Mapping/AutoMapperConfig.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Mapping/IHaveCustomMappings.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Mapping/IMapFrom.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Mapping/IMapTo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Mapping/QueryableMappingExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/ViewModels/VibeNetUserRegisterViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/ViewModels/VibeNetUserRegisterViewModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/Views/User/RegisterUser.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/User/RegisterUser.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Migrations/20241106113306_initial.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Migrations/20241106113306_initial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/VibeNetUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/VibeNetUser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Repository/Contracts/IRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Repository/Contracts/IRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Repository/Repository.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +38,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/109fd7428848d7e3885e256f1afd90efb43c3483fd4c136f1a2f1389cca69e/TypePair.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1fce37416598a5fb677f9b329d52e2e9d64e126621a5229f5a5884d87827b9ad/Mapper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/294078ecfce6fdb942ecfee089f09717de7a6fcfe5efd9fdb6f4f93c0fb4813/ActionMethodExecutor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/32315a7862a13c113e896f49189c638c955d6253d316f9d6b721c602a403c59/PropertyHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/394cf11a64687141fd58fb926ff8b3d5a299eba3bbadaf2de9b93928d523d4/Type.CoreCLR.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/819b78c8fb09922ad951cfc5a623bf78c60308927139e9f819014e9fd8994/ValidationEntry.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/96a4cc66aa48dda8a9d8be8febec4a769fc143f7a86dd53ecdebfb9c3177d/ControllerBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/9d589990b96cd4c4e23b1931e2459301078a39fe5ab42ee3782761988d32/MapperConfiguration.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ca3c7b6f6d1eb3e3cd996493e72456d9a3af1a35adeac64a6f439b10d8c91c/ValidationVisitor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/VibeNet.ViewModels/VibeNetUserRegisterViewModel.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -47,7 +60,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.VibeNet: IIS Express.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Launch Settings Profile.VibeNet: IIS Express.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -118,6 +131,10 @@
       <workItem from="1730880199415" duration="655000" />
       <workItem from="1730882112862" duration="126000" />
       <workItem from="1730891828934" duration="178000" />
+      <workItem from="1730895314628" duration="83000" />
+      <workItem from="1730898458165" duration="162000" />
+      <workItem from="1730899119693" duration="117000" />
+      <workItem from="1730901029354" duration="356000" />
     </task>
     <servers />
   </component>
@@ -127,5 +144,68 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/VibeNet/Controllers/UserController.cs</url>
+          <line>33</line>
+          <properties documentPath="C:\Users\kristiyana.za\source\repos\VibeNet\VibeNet\Controllers\UserController.cs" containingFunctionPresentation="Method 'RegisterUser'">
+            <startOffsets>
+              <option value="993" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1023" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs</url>
+          <line>23</line>
+          <properties documentPath="C:\Users\kristiyana.za\source\repos\VibeNet\VibeNet.Core\Services\VibeNetService.cs" containingFunctionPresentation="Method 'AddUserAsync'">
+            <startOffsets>
+              <option value="715" />
+            </startOffsets>
+            <endOffsets>
+              <option value="765" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs</url>
+          <line>25</line>
+          <properties documentPath="C:\Users\kristiyana.za\source\repos\VibeNet\VibeNet.Core\Services\VibeNetService.cs" containingFunctionPresentation="Method 'AddUserAsync'">
+            <startOffsets>
+              <option value="782" />
+            </startOffsets>
+            <endOffsets>
+              <option value="818" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/VibeNet.Core/ViewModels/VibeNetUserRegisterViewModel.cs</url>
+          <line>11</line>
+          <properties documentPath="C:\Users\kristiyana.za\source\repos\VibeNet\VibeNet.Core\ViewModels\VibeNetUserRegisterViewModel.cs" containingFunctionPresentation="Property 'Id'">
+            <startOffsets>
+              <option value="379" />
+            </startOffsets>
+            <endOffsets>
+              <option value="383" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Type#VibeNet.Core.ViewModels.VibeNetUserRegisterViewModel" memberName="Lastname" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

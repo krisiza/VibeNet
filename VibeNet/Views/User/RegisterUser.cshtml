@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using VibeNet.Core.Utilities
 @using VibeNet.Core.ViewModels
+@using VibeNetInfrastucture.Data.Models.Enums
 
 @model VibeNetUserRegisterViewModel
 @{
@@ -12,20 +14,8 @@
 <div class="row register-container justify-content-center">
     <div class="flex-lg-shrink-0">
         <h1>Enter your data</h1>
-        <form style="width:55%; justify-self:center;" id="registerForm" class="form-container" asp-route-returnUrl="/Home/Index" method="post" enctype="multipart/form-data">
+        <form style="width:55%; justify-self:center;" id="registerForm" class="form-container" asp-route-returnUrl="/Home/Index" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div>
-                <div class="d-flex justify-content-center mb-4">
-                    <img id="selectedAvatar" src="~/my-icons/profile-avatar.jpg"
-                         class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover;" alt="example placeholder" />
-                </div>
-                <div class="d-flex justify-content-center">
-                    <div style="width: 50%" data-mdb-ripple-init class="btn btn-primary btn-rounded">
-                        <label asp-for="@Model.ProfilePicture" class="form-label text-white m-1" for="customFile2">Choose file</label>
-                        <input asp-for="@Model.ProfilePicture" type="file" class="form-control d-none" id="customFile2" onchange="displaySelectedImage(event, 'selectedAvatar')" />
-                    </div>
-                </div>
-            </div>
             <div style="visibility:hidden" class="form-floating mb-3">
                 <input asp-for="@Model.CreatedOn" class="form-control" value="@DateTime.Now.ToString()" aria-required="true" />
             </div>
@@ -35,14 +25,23 @@
                 <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="@Model.Lastname" class="form-control" aria-required="true"/>
-                <label asp-for="@Model.Lastname">Lastname</label>
-                <span asp-validation-for="@Model.Lastname" class="text-danger"></span>
+                <input asp-for="@Model.LastName" class="form-control" aria-required="true"/>
+                <label asp-for="@Model.LastName">LastName</label>
+                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="@Model.Birthday" id="startDate" value="@DateTime.Now.ToString()" class="form-control" type="date"/>
                 <label asp-for="@Model.Birthday">Birthday</label>
                 <span asp-validation-for="@Model.Birthday" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <select asp-for="@Model.Gender" class="form-control">
+                    @foreach (var gen in Enum.GetValues(typeof(Gender)).Cast<Gender>())
+                    {
+                        <option value="@gen.GetDisplayName()">@gen.GetDisplayName()</option>
+                    }
+                </select>
+                <label asp-for="@Model.Gender">Gender</label>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="@Model.HomeTown" class="form-control" aria-required="true"/>
