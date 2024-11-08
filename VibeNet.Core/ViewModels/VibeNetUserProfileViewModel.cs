@@ -5,6 +5,7 @@ namespace VibeNet.Core.ViewModels
 {
     public class VibeNetUserProfileViewModel
     {
+        public int Id { get; set; }
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
 
@@ -17,5 +18,7 @@ namespace VibeNet.Core.ViewModels
         public ProfilePictureViewModel ProfilePicture { get; set; } = null!;
 
         public IFormFile? ProfilePictureFile { get; set; }
+
+        public string? PostContent { get; set; }
     }
 }

@@ -22,9 +22,9 @@ namespace VibeNetInfrastucture.Data.Models
         [Required]
         public DateTime PostedOn { get; set; }
 
-        public IEnumerable<IdentityUser> UserLiked { get; set; } = new List<IdentityUser>();
+        public IList<VibeNetUser> UserLiked { get; set; } = new List<VibeNetUser>();
 
-        public IEnumerable<Comment> Comments { get; set; } = new List<Comment>();
+        public IList<Comment> Comments { get; set; } = new List<Comment>();
 
         [Required]
         public bool IsDeleted { get; set; }

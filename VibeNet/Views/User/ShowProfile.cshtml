@@ -1,89 +1,30 @@
 ﻿@using VibeNet.Core.ViewModels
 @model VibeNetUserProfileViewModel
 
-<style>
-    .profile-container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 60%;
-        margin: 0 auto;
-        text-align: center;
-    }
+<link rel="stylesheet" href="~/css/ShowProfileStyleSheet.css" asp-append-version="true" />
 
-        .profile-container img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            transition: transform 0.3s;
-        }
+<div class="main-container">
+    <div class="profile-container">
+        <div class="d-flex justify-content-center mb-4 img-container">
+            <img id="selected-avatar" src="@ViewBag.Base64String" class="rounded-circle" alt="Profile Avatar" />
+        </div>
 
-            .profile-container img:hover {
-                transform: scale(1.05);
-            }
-
-    .profile-info h2 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .profile-info p {
-        font-size: 16px;
-        color: #666;
-    }
-
-    .btn-rounded {
-        border-radius: 25px;
-        font-size: 14px;
-    }
-
-    .btn-primary {
-        background-color: #1877f2;
-        border: none;
-    }
-
-        .btn-primary:hover {
-            background-color: #165eab;
-        }
-
-    .post-container {
-        overflow: scroll;
-    }
-
-    .status-label {
-        font-weight: 600;
-        font-size: 1.5em;
-        color: #c8a3e6;
-    }
-
-    .btn-primary {
-        background: rgb(174,218,238);
-        border: 2px solid white;
-        border-radius: 2em;
-        margin-top: 1em;
-        padding: 0.5em 2em;
-    }
-</style>
-
-
-<div class="profile-container">
-    <div class="d-flex justify-content-center mb-4">
-        <img id="selectedAvatar" src="@ViewBag.Base64String" class="rounded-circle" alt="Profile Avatar" />
-    </div>
-
-    <div class="profile-info mt-4">
-        <h2>@Model.FirstName @Model.LastName</h2>
-        <p class="text-muted">@Model.HomeTown</p>
-        <p><strong>Birthday:</strong> @Model.Birthday</p>
-        <p><strong>Gender:</strong> @Model.Gender</p>
-        <div class="textarea-container">
-            <label class="status-label">How you feel today?</label>
-            <textarea class="form-control" rows="4" cols="50"></textarea>
-            <button id="registerSubmit" class="btn-primary">Post</button>
+        <div class="profile-info mt-4">
+            <h2>@Model.FirstName @Model.LastName</h2>
+            <p class="text-muted">@Model.HomeTown</p>
+            <p><strong>Birthday:</strong> @Model.Birthday</p>
+            <p><strong>Gender:</strong> @Model.Gender</p>
+            <div class="textarea-container">
+                <label class="status-label">How you feel today?</label>
+                <form class="form-container" asp-action="Add" asp-controller="Post" method="post">
+                    <textarea asp-for="@Model.PostContent" class="form-control" rows="4" cols="50"></textarea>
+                    <button type="submit" class="btn-primary">Post</button>
+                </form>
+            </div>
         </div>
     </div>
+    <a asp-controller="Post" asp-action="AllPosts" id="registerSubmit" class="btn-primary my-posts-button">Show Posts</a>
 </div>
+
+
 

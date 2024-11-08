@@ -11,12 +11,6 @@ namespace VibeNet.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "PostId",
-                table: "AspNetUsers",
-                type: "int",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "Friendshiprequests",
                 columns: table => new
@@ -87,33 +81,6 @@ namespace VibeNet.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VibeNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    VibeNetUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    HomeTown = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Gender = table.Column<int>(type: "int", nullable: true),
-                    ProfilePictureId = table.Column<int>(type: "int", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VibeNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_VibeNetUsers_AspNetUsers_VibeNetUserId",
-                        column: x => x.VibeNetUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -142,6 +109,39 @@ namespace VibeNet.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "VibeNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VibeNetUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HomeTown = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Gender = table.Column<int>(type: "int", nullable: true),
+                    ProfilePictureId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    PostId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VibeNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_VibeNetUsers_AspNetUsers_VibeNetUserId",
+                        column: x => x.VibeNetUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VibeNetUsers_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProfilePictures",
                 columns: table => new
                 {
@@ -163,11 +163,6 @@ namespace VibeNet.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_PostId",
-                table: "AspNetUsers",
-                column: "PostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_OwnerId",
@@ -200,25 +195,19 @@ namespace VibeNet.Data.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_VibeNetUsers_PostId",
+                table: "VibeNetUsers",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VibeNetUsers_VibeNetUserId",
                 table: "VibeNetUsers",
                 column: "VibeNetUserId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_Posts_PostId",
-                table: "AspNetUsers",
-                column: "PostId",
-                principalTable: "Posts",
-                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_AspNetUsers_Posts_PostId",
-                table: "AspNetUsers");
-
             migrationBuilder.DropTable(
                 name: "Comments");
 
@@ -232,18 +221,10 @@ namespace VibeNet.Data.Migrations
                 name: "ProfilePictures");
 
             migrationBuilder.DropTable(
-                name: "Posts");
-
-            migrationBuilder.DropTable(
                 name: "VibeNetUsers");
 
-            migrationBuilder.DropIndex(
-                name: "IX_AspNetUsers_PostId",
-                table: "AspNetUsers");
-
-            migrationBuilder.DropColumn(
-                name: "PostId",
-                table: "AspNetUsers");
+            migrationBuilder.DropTable(
+                name: "Posts");
         }
     }
 }

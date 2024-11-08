@@ -36,10 +36,13 @@ namespace VibeNet
             builder.Services.AddScoped<IRepository<Friendshiprequest, object>, BaseRepository<Friendshiprequest, object>>();
             builder.Services.AddScoped<IRepository<IdentityUser, Guid>, BaseRepository<IdentityUser, Guid>>();
             builder.Services.AddScoped<IRepository<ProfilePicture, int>, BaseRepository<ProfilePicture, int>>();
+            builder.Services.AddScoped<IRepository<Post, int>, BaseRepository<Post, int>>();
+            builder.Services.AddScoped<IRepository<Comment, int>, BaseRepository<Comment, int>>();
 
             builder.Services.AddScoped<IVibeNetService, VibeNetService>();
             builder.Services.AddScoped<IIdentityUserService, IdentityUserService>();
             builder.Services.AddScoped<IProfilePictureService, ProfilePictureService>();
+            builder.Services.AddScoped<IPostService, PostService>();
 
             builder.Services.AddControllersWithViews();
 

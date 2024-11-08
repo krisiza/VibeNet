@@ -1,0 +1,94 @@
+﻿a{
+    text-decoration:none;
+}
+
+.main-container{
+    display:flex;
+    flex-direction:column;
+    gap:3em;
+}
+
+.profile-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+    .profile-container img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        transition: transform 0.3s;
+    }
+
+        .profile-container img:hover {
+            transform: scale(1.05);
+        }
+
+.profile-info h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    font-size: 16px;
+    color: #666;
+}
+
+.btn-rounded {
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background-color: #1877f2;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #165eab;
+    }
+
+.post-container {
+    overflow: scroll;
+}
+
+.status-label {
+    font-weight: 600;
+    font-size: 1.5em;
+    color: #c8a3e6;
+}
+
+.btn-primary {
+    background: #9252eb;
+    border: 2px solid white;
+    border-radius: 2em;
+    margin-top: 3em;
+    padding: 0.5em 2em;
+    width: 10em;
+    align-self: center;
+}
+
+#registerSubmit{
+    background-color: transparent;
+}
+
+.btn-primary:hover {
+    background-color: #7d29f2;
+    border: 2px solid #9252eb;
+}
+
+#registerSubmit:hover {
+    border: 2px solid #9252eb;
+}
+
+.status-label:hover {
+    color: #9794e0;
+    text-shadow: 5px -3px 3px #d9bdf2;
+}

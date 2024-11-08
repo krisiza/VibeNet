@@ -68,6 +68,7 @@ namespace VibeNet.Controllers
 
             VibeNetUserProfileViewModel model = new VibeNetUserProfileViewModel
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Gender = user.Gender,

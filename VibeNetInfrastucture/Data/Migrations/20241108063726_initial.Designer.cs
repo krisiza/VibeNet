@@ -12,7 +12,7 @@ using VibeNet.Data;
 namespace VibeNet.Data.Migrations
 {
     [DbContext(typeof(VibeNetDbContext))]
-    [Migration("20241107121103_initial")]
+    [Migration("20241108063726_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -119,9 +119,6 @@ namespace VibeNet.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("PostId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -141,8 +138,6 @@ namespace VibeNet.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("PostId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -399,6 +394,9 @@ namespace VibeNet.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProfilePictureId")
                         .HasColumnType("int");
 
@@ -407,6 +405,8 @@ namespace VibeNet.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.HasIndex("VibeNetUserId");
 
@@ -420,13 +420,6 @@ namespace VibeNet.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.HasOne("VibeNetInfrastucture.Data.Models.Post", null)
-                        .WithMany("UserLiked")
-                        .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -550,6 +543,10 @@ namespace VibeNet.Data.Migrations
 
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.VibeNetUser", b =>
                 {
+                    b.HasOne("VibeNetInfrastucture.Data.Models.Post", null)
+                        .WithMany("UserLiked")
+                        .HasForeignKey("PostId");
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("VibeNetUserId")
