@@ -2,17 +2,19 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection.Metadata;
 using VibeNetInfrastucture.Data.Models.Enums;
 using static VibeNetInfrastucture.Validations.ValidationConstants.User;
 
 namespace VibeNetInfrastucture.Data.Models
 {
+    [Comment("Application User")]
     public class VibeNetUser
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
+        [Comment("User Identifier")]
         public string VibeNetUserId { get; set; } = null!;
 
         [ForeignKey(nameof(VibeNetUserId))]
@@ -20,26 +22,34 @@ namespace VibeNetInfrastucture.Data.Models
 
         [MaxLength(FirstNameMaxLength)]
         [Required]
+        [Comment("User Firstname")]
         public string FirstName { get; set; } = null!;
 
         [MaxLength(LastNameMaxLength)]
         [Required]
+        [Comment("User Secondname")]
         public string LastName { get; set; } = null!;
 
         [Required]
+        [Comment("User Birthday")]
         public DateTime Birthday { get; set; }
 
         [Required]
+        [Comment("User Profile Creation Date")]
         public DateTime CreatedOn { get; set; }
 
         [MaxLength(HomeTownMaxLength)]
+        [Comment("User HomeTown")]
         public string? HomeTown { get; set; }
 
+        [Comment("User Gender")]
         public Gender? Gender { get; set; }
 
+        [Comment("User ProfilPicture Identifier")]
         public int ProfilePictureId { get; set; }
 
-        [Required]  
+        [Required]
+        [Comment("User Profil Activated Or Not")]
         public bool IsDeleted { get; set; }
     }
 }

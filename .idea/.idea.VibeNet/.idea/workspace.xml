@@ -10,21 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fc90041-c76c-4c1b-bd30-c225fc76d3f2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Mapping/AutoMapperConfig.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Mapping/IHaveCustomMappings.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Mapping/IMapFrom.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Mapping/IMapTo.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Mapping/QueryableMappingExtensions.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/ViewModels/VibeNetUserRegisterViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/ViewModels/VibeNetUserRegisterViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Views/User/RegisterUser.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/User/RegisterUser.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Migrations/20241106113306_initial.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Migrations/20241106113306_initial.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Migrations/ApplicationDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Migrations/ApplicationDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/VibeNetUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/VibeNetUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/wwwroot/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/wwwroot/favicon.ico" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,20 +45,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.VibeNet: IIS Express.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.VibeNet: IIS Express.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.VibeNet: IIS Express">
     <configuration name="VibeNet: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/VibeNet/VibeNet.csproj" />
@@ -135,6 +122,7 @@
       <workItem from="1730898458165" duration="162000" />
       <workItem from="1730899119693" duration="117000" />
       <workItem from="1730901029354" duration="356000" />
+      <workItem from="1731061099830" duration="66000" />
     </task>
     <servers />
   </component>
@@ -146,62 +134,6 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/VibeNet/Controllers/UserController.cs</url>
-          <line>33</line>
-          <properties documentPath="C:\Users\kristiyana.za\source\repos\VibeNet\VibeNet\Controllers\UserController.cs" containingFunctionPresentation="Method 'RegisterUser'">
-            <startOffsets>
-              <option value="993" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1023" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs</url>
-          <line>23</line>
-          <properties documentPath="C:\Users\kristiyana.za\source\repos\VibeNet\VibeNet.Core\Services\VibeNetService.cs" containingFunctionPresentation="Method 'AddUserAsync'">
-            <startOffsets>
-              <option value="715" />
-            </startOffsets>
-            <endOffsets>
-              <option value="765" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs</url>
-          <line>25</line>
-          <properties documentPath="C:\Users\kristiyana.za\source\repos\VibeNet\VibeNet.Core\Services\VibeNetService.cs" containingFunctionPresentation="Method 'AddUserAsync'">
-            <startOffsets>
-              <option value="782" />
-            </startOffsets>
-            <endOffsets>
-              <option value="818" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/VibeNet.Core/ViewModels/VibeNetUserRegisterViewModel.cs</url>
-          <line>11</line>
-          <properties documentPath="C:\Users\kristiyana.za\source\repos\VibeNet\VibeNet.Core\ViewModels\VibeNetUserRegisterViewModel.cs" containingFunctionPresentation="Property 'Id'">
-            <startOffsets>
-              <option value="379" />
-            </startOffsets>
-            <endOffsets>
-              <option value="383" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Type#VibeNet.Core.ViewModels.VibeNetUserRegisterViewModel" memberName="Lastname" />
