@@ -4,8 +4,6 @@
     {
         public int Id { get; set; }
 
-        public string OwnerIdentityId { get; set; } = null!;
-
         public string? Content { get; set; }
 
         public string? Picture { get; set; }

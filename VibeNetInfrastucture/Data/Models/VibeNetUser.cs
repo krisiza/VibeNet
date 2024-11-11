@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using VibeNet.Infrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models.Enums;
 using static VibeNetInfrastucture.Validations.ValidationConstants.User;
 
@@ -11,10 +12,11 @@ namespace VibeNetInfrastucture.Data.Models
     public class VibeNetUser
     {
         [Key]
+        [Comment("User Identifier")]
         public int Id { get; set; }
 
         [Required]
-        [Comment("User Identifier")]
+        [Comment("Identity User Identifier")]
         public string VibeNetUserId { get; set; } = null!;
 
         [ForeignKey(nameof(VibeNetUserId))]
@@ -47,6 +49,9 @@ namespace VibeNetInfrastucture.Data.Models
 
         [Comment("User ProfilPicture Identifier")]
         public int ProfilePictureId { get; set; }
+
+        [ForeignKey(nameof(ProfilePictureId))]
+        public virtual ProfilePicture? ProfilePicture { get; set; }
 
         [Required]
         [Comment("User Profil Activated Or Not")]

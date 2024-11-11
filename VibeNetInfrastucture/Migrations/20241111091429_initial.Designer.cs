@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VibeNet.Data;
+using VibeNet.Infrastucture.Data;
 
 #nullable disable
 
-namespace VibeNet.Data.Migrations
+namespace VibeNet.Infrastucture.Migrations
 {
     [DbContext(typeof(VibeNetDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241111091429_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,6 +119,9 @@ namespace VibeNet.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -135,6 +141,8 @@ namespace VibeNet.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -228,57 +236,62 @@ namespace VibeNet.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Picture Identifier");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ContentType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Picture Type");
 
                     b.Property<byte[]>("Data")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<bool?>("IsSelected")
-                        .HasColumnType("bit");
+                        .HasColumnType("varbinary(max)")
+                        .HasComment("Picture Data");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Picture Name");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("ProfilePictures");
+                    b.ToTable("ProfilePictures", t =>
+                        {
+                            t.HasComment("User Profil Picture");
+                        });
                 });
 
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Comment Identifier");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .HasColumnType("nvarchar(300)")
+                        .HasComment("Comment Content");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasComment("Comment Is Active Or Not");
 
                     b.Property<string>("OwnerId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("User Owner Identifier");
 
                     b.Property<int?>("PostId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Post Comment Identifier");
 
                     b.Property<DateTime>("PostedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("Comment Creation Date");
 
                     b.HasKey("Id");
 
@@ -286,75 +299,99 @@ namespace VibeNet.Data.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", t =>
+                        {
+                            t.HasComment("Post Comment From User");
+                        });
                 });
 
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.Friendship", b =>
                 {
                     b.Property<string>("FirstUserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("First User Identifier");
 
                     b.Property<string>("SecondUserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Second User Identifier");
 
                     b.Property<DateTime>("FriendsSince")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("Friendship Since Date");
 
                     b.HasKey("FirstUserId", "SecondUserId");
 
                     b.HasIndex("SecondUserId");
 
-                    b.ToTable("Friendships");
+                    b.ToTable("Friendships", t =>
+                        {
+                            t.HasComment("Friendship between Users");
+                        });
                 });
 
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.Friendshiprequest", b =>
                 {
                     b.Property<string>("UserRecipientId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Recipient Identifier");
 
                     b.Property<string>("UserTransmitterId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Transmitter Identifier");
 
                     b.Property<DateTime>("SendOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("Friendshiprequest send on Date");
 
                     b.HasKey("UserRecipientId", "UserTransmitterId");
 
                     b.HasIndex("UserTransmitterId");
 
-                    b.ToTable("Friendshiprequests");
+                    b.ToTable("Friendshiprequests", t =>
+                        {
+                            t.HasComment("Friendshuprequest");
+                        });
                 });
 
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("Post Identifier");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
                         .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
+                        .HasColumnType("nvarchar(400)")
+                        .HasComment("Post Content");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasComment("Post Is Active Or Not");
 
                     b.Property<string>("OwnerId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Post Owner Identifier");
 
                     b.Property<string>("Picture")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Post Picture");
 
                     b.Property<DateTime>("PostedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("Post Creation Date");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", t =>
+                        {
+                            t.HasComment("User Post");
+                        });
                 });
 
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.VibeNetUser", b =>
@@ -366,48 +403,57 @@ namespace VibeNet.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Birthday")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("User Birthday");
 
                     b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("User Profile Creation Date");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("User Firstname");
 
                     b.Property<int?>("Gender")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("User Gender");
 
                     b.Property<string>("HomeTown")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("User HomeTown");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasComment("User Profil Activated Or Not");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("PostId")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("User Secondname");
 
                     b.Property<int>("ProfilePictureId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("User ProfilPicture Identifier");
 
                     b.Property<string>("VibeNetUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("User Identifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("ProfilePictureId");
 
                     b.HasIndex("VibeNetUserId");
 
-                    b.ToTable("VibeNetUsers");
+                    b.ToTable("VibeNetUsers", t =>
+                        {
+                            t.HasComment("Application User");
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -417,6 +463,13 @@ namespace VibeNet.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.HasOne("VibeNetInfrastucture.Data.Models.Post", null)
+                        .WithMany("UserLiked")
+                        .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -459,17 +512,6 @@ namespace VibeNet.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("VibeNet.Infrastucture.Data.Models.ProfilePicture", b =>
-                {
-                    b.HasOne("VibeNetInfrastucture.Data.Models.VibeNetUser", "VibeNetUser")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("VibeNetUser");
                 });
 
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.Comment", b =>
@@ -540,15 +582,19 @@ namespace VibeNet.Data.Migrations
 
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.VibeNetUser", b =>
                 {
-                    b.HasOne("VibeNetInfrastucture.Data.Models.Post", null)
-                        .WithMany("UserLiked")
-                        .HasForeignKey("PostId");
+                    b.HasOne("VibeNet.Infrastucture.Data.Models.ProfilePicture", "ProfilePicture")
+                        .WithMany()
+                        .HasForeignKey("ProfilePictureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("VibeNetUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ProfilePicture");
 
                     b.Navigation("User");
                 });

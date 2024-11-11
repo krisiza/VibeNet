@@ -11,12 +11,6 @@ namespace VibeNet.Infrastucture.Data.Models
         [Comment("Picture Identifier")]
         public int Id { get; set; }
 
-        [Comment("Owner Identifier")]
-        public int OwnerId { get; set; }
-
-        [ForeignKey(nameof(OwnerId))]
-        public virtual VibeNetUser? VibeNetUser { get; set; }
-
         [Comment("Picture Name")]
         public string? Name { get; set; }
 

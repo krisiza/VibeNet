@@ -118,12 +118,12 @@
     }
 </style>
 
-@model IList<PostViewModel>
+@model IEnumerable<PostViewModel>
 
 <div class="main-container">
         <div class="user-main-container">
             <div class="img-container">
-                <img src="https://media.istockphoto.com/id/1326417862/de/foto/junge-frau-lacht-beim-entspannen-zu-hause.jpg?s=612x612&w=0&k=20&c=bplUdjPcJGUhaiWrWO9XBzREPvCCoNR1cF-n5LHZisg=" />
+            <img src="@ViewBag.Base64String" />
             </div>
             <div class="name-container">
                 <p>@User.Identity.Name</p>
@@ -136,7 +136,7 @@
         <div class="post-like-container">
             <div class="post-container">
                 <div class="img-container post-img">
-                    <img src="https://media.istockphoto.com/id/1326417862/de/foto/junge-frau-lacht-beim-entspannen-zu-hause.jpg?s=612x612&w=0&k=20&c=bplUdjPcJGUhaiWrWO9XBzREPvCCoNR1cF-n5LHZisg=" />
+                    <img src="@ViewBag.Base64String" />
                 </div>
                 <p>@post.Content</p>
             </div>
@@ -151,16 +151,18 @@
                 </div>
             </div>
         </div>
-        <div class="post-comment-container">
-            <div class="img-container comment-img">
-                <img src="https://imgcdn.stablediffusionweb.com/2024/4/21/dbc4f2c5-1ace-42b7-a474-5e93208a7b18.jpg" />
+        @foreach(var comment in post.Comments)
+        {
+            <div class="post-comment-container">
+                <div class="img-container comment-img">
+                    <img src="data:{@comment.Owner.ProfilePicture.ContentType};base64, @Convert.ToBase64String(comment.Owner.ProfilePicture.Data, 0, comment.Owner.ProfilePicture.Data.Length)" />
+                </div>
+                <div class="post-comment-container-content">
+                    <p>@comment.Owner.FirstName @comment.Owner.LastName</p>
+                    <p>@comment.Content</p>
+                </div>
             </div>
-            <div class="post-comment-container-content">
-                <p>Martin Werner</p>
-                <p>Yes! I´am here.</p>
-            </div>
-        </div>
-
+        }
         <hr/>
     }  
 </div>

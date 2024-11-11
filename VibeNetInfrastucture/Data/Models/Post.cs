@@ -29,7 +29,7 @@ namespace VibeNetInfrastucture.Data.Models
         [Comment("Post Creation Date")]
         public DateTime PostedOn { get; set; }
 
-        public IList<VibeNetUser> UserLiked { get; set; } = new List<VibeNetUser>();
+        public IList<IdentityUser> UserLiked { get; set; } = new List<IdentityUser>();
 
         public IList<Comment> Comments { get; set; } = new List<Comment>();
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VibeNet.Data;
+using VibeNet.Infrastucture.Data;
 using VibeNet.Infrastucture.Repository.Contracts;
 
 namespace VibeNet.Infrastucture.Repository

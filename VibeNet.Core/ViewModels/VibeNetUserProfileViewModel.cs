@@ -15,10 +15,12 @@ namespace VibeNet.Core.ViewModels
 
         public string HomeTown { get; set; } = null!;
 
-        public ProfilePictureViewModel ProfilePicture { get; set; } = null!;
+        public ProfilePictureViewModel? ProfilePicture { get; set; } = null!;
 
         public IFormFile? ProfilePictureFile { get; set; }
 
         public string? PostContent { get; set; }
+
+        public IEnumerable<PostViewModel>? Posts { get; set; }
     }
 }

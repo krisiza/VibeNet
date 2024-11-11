@@ -4,7 +4,7 @@ namespace VibeNet.Core.Contracts
 {
     public interface IPostService
     {
-        List<PostViewModel> GetAll(string userId);
+        Task<List<PostViewModel>> GetAllAsync(string userId);
 
         Task AddPostAsync(string postContent, string userId);
     }

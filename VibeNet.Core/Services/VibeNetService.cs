@@ -8,22 +8,30 @@ using System.Globalization;
 using Microsoft.AspNetCore.Http;
 using AutoMapper.Internal.Mappers;
 using Microsoft.EntityFrameworkCore;
+using static VibeNetInfrastucture.Validations.ValidationConstants;
+using VibeNet.Core.Contracts;
+using VibeNet.Core.Utilities;
 
 namespace VibeNet.Core.Services
 {
     public class VibeNetService : IVibeNetService
     {
         private readonly IRepository<VibeNetUser, int> userRepository;
+        private readonly IProfilePictureService profilePictureService;
         private readonly IMapper mapper;
 
-        public VibeNetService(IRepository<VibeNetUser, int> userRepository, IMapper mapper)
+        public VibeNetService(IRepository<VibeNetUser, int> userRepository, IProfilePictureService profilePictureService,
+            IMapper mapper)
         {
             this.userRepository = userRepository;
+            this.profilePictureService = profilePictureService;
             this.mapper = mapper;
         }
 
         public async Task AddUserAsync(VibeNetUserRegisterViewModel model)
         {
+            byte[] data = await VibeNetHepler.ConvertToBytesAsync(model.ProfilePictureFile);
+
             VibeNetUser user = new()
             {
                 FirstName = model.FirstName,
@@ -34,6 +42,7 @@ namespace VibeNet.Core.Services
                 Gender = model.Gender,
                 IsDeleted = model.IsDeleted,
                 VibeNetUserId = model.Id.ToString(),
+                ProfilePicture = await profilePictureService.SavePicture(model.ProfilePictureFile, data)
             };
 
             await userRepository.AddAsync(user);
@@ -58,6 +67,24 @@ namespace VibeNet.Core.Services
         }
 
         public async Task<bool> UpdateAsync(VibeNetUser item)
-            =>await userRepository.UpdateAsync(item);
+            => await userRepository.UpdateAsync(item);
+
+        public async Task<VibeNetUserProfileViewModel> CreateVibeNetUserProfileViewModel(string userId)
+        {
+            var user = await GetByIdentityIdAsync(userId);
+
+            var model = new VibeNetUserProfileViewModel
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                HomeTown = user.HomeTown,
+                Birthday = user.Birthday.ToString(),
+                ProfilePicture = await profilePictureService.GetProfilePictureAsync(user.Id)
+            };
+
+            return model;
+        }
     }
 }

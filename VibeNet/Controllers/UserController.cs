@@ -38,20 +38,6 @@ namespace VibeNet.Controllers
             if (ModelState.IsValid)
             {
                 await vibeNetService.AddUserAsync(model);
-
-                if (userId == null) return View(model);
-                var user = await vibeNetService.GetByIdentityIdAsync(userId);
-
-                byte[] data = await VibeNetHepler.ConvertToBytesAsync(model.ProfilePictureFile);
-                await profilePictureService.SavePicture(model.ProfilePictureFile, user.Id, data);
-                var profilePicture = await profilePictureService.GetProfilePictureAsync(user.Id);
-
-                if (profilePicture != null)
-                {
-                    user.ProfilePictureId = profilePicture.Id;
-                    await vibeNetService.UpdateAsync(user);
-                }
-
                 return RedirectToAction(nameof(ShowProfile));
             }
 
@@ -64,24 +50,12 @@ namespace VibeNet.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null) return RedirectToAction(nameof(ShowProfile));
-            var user =await vibeNetService.GetByIdentityIdAsync(userId);
 
-            VibeNetUserProfileViewModel model = new VibeNetUserProfileViewModel
+            VibeNetUserProfileViewModel model = await vibeNetService.CreateVibeNetUserProfileViewModel(userId);
+
+            if (model.ProfilePicture != null)
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Gender = user.Gender,
-                HomeTown = user.HomeTown,
-                Birthday = user.Birthday.ToString(),
-            };
-
-            var profilePicture = await profilePictureService.GetProfilePictureAsync(user.Id);
-
-            if (profilePicture != null)
-            {
-                ViewBag.Base64String = $"data:{profilePicture.ContentType};base64," + Convert.ToBase64String(profilePicture.Data, 0, profilePicture.Data.Length);
-                model.ProfilePicture = profilePicture;
+                ViewBag.Base64String = $"data:{model.ProfilePicture.ContentType};base64," + Convert.ToBase64String(model.ProfilePicture.Data, 0, model.ProfilePicture.Data.Length);
             }
 
             return View(model);

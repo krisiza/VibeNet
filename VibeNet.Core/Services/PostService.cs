@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using VibeNet.Core.Contracts;
+using VibeNet.Core.Interfaces;
 using VibeNet.Core.ViewModels;
 using VibeNet.Infrastucture.Repository.Contracts;
 using VibeNetInfrastucture.Data.Models;
@@ -11,41 +12,55 @@ namespace VibeNet.Core.Services
     {
         private readonly IRepository<Post, int> postRepository;
         private readonly IRepository<Comment, int> commentRepository;
-        private readonly IRepository<VibeNetUser, int> vibeNetUserRepository;
+        private readonly IVibeNetService vibeNetService;
 
         public PostService(IRepository<Post, int> postRepository, IRepository<Comment, int> commentRepository,
-            IRepository<VibeNetUser, int> vibeNetUserRepository)
+          IVibeNetService vibeNetService)
         {
             this.postRepository = postRepository;
             this.commentRepository = commentRepository;
-            this.vibeNetUserRepository = vibeNetUserRepository;
+            this.vibeNetService = vibeNetService;   
         }
-
-        public List<PostViewModel> GetAll(string userId)
-            => postRepository.GetAllAttached()
+        public async Task<List<PostViewModel>> GetAllAsync(string userId)
+        {
+            var posts = await postRepository.GetAllAttached()
                 .Include(p => p.Comments)
-                .Where(p => p.OwnerId == userId && p.IsDeleted == false)
-                .Select(p => new PostViewModel()
-                {
-                    Id = p.Id,
-                    OwnerIdentityId = p.OwnerId,
-                    Content = p.Content,
-                    PostedOn = p.PostedOn,
-                    IsDeleted = p.IsDeleted,
-                    Comments = commentRepository.GetAllAttached()
-                                .Where(c => c.PostId == p.Id && c.IsDeleted == false)
-                                .Select(c => new CommentViewModel()
-                                {
-                                    Id = c.Id,
-                                    Content = c.Content,
-                                    PostedOn = c.PostedOn,
-                                    IsDeleted = c.IsDeleted,
-                                    OwnerId = c.OwnerId
-                                })
-                                .ToList()
+                .Include(p => p.Owner)
+                .Where(p => p.OwnerId == userId && !p.IsDeleted)
+                .ToListAsync();
 
-                })
-                .ToList();
+            var postViewModels = new List<PostViewModel>();
+
+            foreach (var post in posts)
+            {
+                var comments = new List<CommentViewModel>();
+                foreach (var comment in post.Comments.Where(c => !c.IsDeleted))
+                {
+                    var ownerProfile = await vibeNetService.CreateVibeNetUserProfileViewModel(comment.OwnerId);
+                    comments.Add(new CommentViewModel
+                    {
+                        Id = comment.Id,
+                        Content = comment.Content,
+                        PostedOn = comment.PostedOn,
+                        IsDeleted = comment.IsDeleted,
+                        Owner = ownerProfile,
+                    });
+                }
+
+                var postViewModel = new PostViewModel
+                {
+                    Id = post.Id,
+                    Content = post.Content,
+                    PostedOn = post.PostedOn,
+                    IsDeleted = post.IsDeleted,
+                    Comments = comments
+                };
+
+                postViewModels.Add(postViewModel);
+            }
+
+            return postViewModels;
+        }
 
         public async Task AddPostAsync(string postContent, string userId)
         {

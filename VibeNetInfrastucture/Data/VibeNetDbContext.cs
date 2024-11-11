@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using VibeNet.Infrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models;
 
-namespace VibeNet.Data
+namespace VibeNet.Infrastucture.Data
 {
     public class VibeNetDbContext : IdentityDbContext
     {

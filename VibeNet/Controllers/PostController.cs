@@ -1,25 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Build.Execution;
 using System.Security.Claims;
 using VibeNet.Core.Contracts;
-using VibeNet.Core.ViewModels;
+using VibeNet.Core.Interfaces;
 
 namespace VibeNet.Controllers
 {
     public class PostController : Controller
     {
         private readonly IPostService postservice;
+        private readonly IVibeNetService vibeNetService;
 
-        public PostController(IPostService postservice)
+        public PostController(IPostService postservice, IVibeNetService vibeNetService)
         {
             this.postservice = postservice;
+            this.vibeNetService = vibeNetService;
         }
         public async Task<IActionResult> AllPosts()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var posts = postservice.GetAll(userId);
+            var model = await vibeNetService.CreateVibeNetUserProfileViewModel(userId);
+            model.Posts = await postservice.GetAllAsync(userId);
 
-            return View(posts);
+            if (model.ProfilePicture != null)
+            {
+                ViewBag.Base64String = $"data:{model.ProfilePicture.ContentType};base64," + Convert.ToBase64String(model.ProfilePicture.Data, 0, model.ProfilePicture.Data.Length);
+            }
+
+            return View(model.Posts);
         }
 
         [HttpPost]

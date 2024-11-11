@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
 using VibeNet.Core.Services;
-using VibeNet.Data;
 using VibeNet.Infrastucture.Data.Models;
 using VibeNet.Infrastucture.Repository.Contracts;
 using VibeNet.Infrastucture.Repository;
 using VibeNetInfrastucture.Data.Models;
+using VibeNet.Infrastucture.Data;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

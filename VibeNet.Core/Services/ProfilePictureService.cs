@@ -15,11 +15,10 @@ namespace VibeNet.Core.Services
         {
             this.profilePictureRepository = profilePictureRepository;
         }
-        public async Task<ProfilePictureViewModel?> GetProfilePictureAsync(int userid)
+        public async Task<ProfilePictureViewModel?> GetProfilePictureAsync(int pictureId)
         {
             var entity = await profilePictureRepository.GetAllAttached()
-                  .Include(p => p.VibeNetUser)
-                  .Where(p => p.VibeNetUser.Id == userid)
+                  .Where(p => p.Id == pictureId)
                   .FirstOrDefaultAsync();
 
             if (entity == null) return null;
@@ -30,23 +29,23 @@ namespace VibeNet.Core.Services
                 ContentType = entity.ContentType,
                 Data = entity.Data,
                 Name = entity.Name,
-                OwnerId = entity.VibeNetUser.Id,
             };
 
             return viewModel;
         }
 
-        public async Task SavePicture(IFormFile formFile, int userId, byte[] data)
+        public async Task<ProfilePicture> SavePicture(IFormFile formFile, byte[] data)
         {
             ProfilePicture entity = new()
             {
                 Name = formFile.Name,
-                OwnerId = userId,
                 ContentType = formFile.ContentType,
                 Data = data
             };
 
             await profilePictureRepository.AddAsync(entity);
+
+            return entity;
         }
     }
 }

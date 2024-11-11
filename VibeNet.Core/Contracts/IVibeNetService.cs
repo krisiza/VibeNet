@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using VibeNet.Core.ViewModels;
 using VibeNetInfrastucture.Data.Models;
+using static VibeNetInfrastucture.Validations.ValidationConstants;
 
 namespace VibeNet.Core.Interfaces
 {
@@ -13,5 +14,7 @@ namespace VibeNet.Core.Interfaces
         Task<VibeNetUser?> GetByIdAsync(int id);
 
         Task<bool> UpdateAsync(VibeNetUser item);
+
+        Task<VibeNetUserProfileViewModel> CreateVibeNetUserProfileViewModel(string userId);
     }
 }
