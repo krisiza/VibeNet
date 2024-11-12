@@ -59,5 +59,11 @@ namespace VibeNet.Controllers
 
             return View(model);
         }
+
+        public IActionResult SendFriendRequest(string userId)
+        {
+            ;
+            return View();
+        }
     }
 }

@@ -2,10 +2,15 @@
     text-decoration:none;
 }
 
-.main-container{
-    display:flex;
-    flex-direction:column;
-    gap:3em;
+svg{
+    width:20px;
+    height:auto;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
 }
 
 .profile-container {
@@ -18,17 +23,33 @@
     text-align: center;
 }
 
-    .profile-container img {
-        width: 150px;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 50%;
-        transition: transform 0.3s;
-    }
+.profile-photo-add-friend-container {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    width:100%;
+}
 
-        .profile-container img:hover {
-            transform: scale(1.05);
-        }
+
+.add-friend-button {
+    padding: 0.5em 1em;
+    background-color: transparent;
+    border-radius: 25px;
+    font-size:11px;
+    border:none
+}
+
+.profile-container img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.profile-container img:hover {
+    transform: scale(1.05);
+}
 
 .profile-info h2 {
     font-size: 24px;
@@ -50,10 +71,6 @@
     background-color: #1877f2;
     border: none;
 }
-
-    .btn-primary:hover {
-        background-color: #165eab;
-    }
 
 .post-container {
     overflow: scroll;
@@ -92,3 +109,9 @@
     color: #9794e0;
     text-shadow: 5px -3px 3px #d9bdf2;
 }
+
+.btn-primary:hover,
+.add-friend-button:hover {
+    background-color: #d9bdf2;
+}
+

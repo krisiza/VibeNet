@@ -1,0 +1,128 @@
+﻿
+main {
+    width: 100%;
+}
+
+hr {
+    color: #c056f5;
+}
+
+.main-container {
+    background-color: white;
+    border-radius: 2em;
+    padding: 3em;
+    width: 100%;
+}
+
+.user-main-container {
+    display: flex;
+    gap: 3em;
+}
+
+.img-container img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.post-comment-container {
+    display: flex;
+    gap: 1em;
+    margin-left: 2em;
+    margin-top: 1em;
+}
+
+.post-img img {
+    width: 50px;
+    height: 50px;
+}
+
+.comment-img img {
+    width: 30px;
+    height: 30px;
+}
+
+.name-container {
+    display: flex;
+    gap: 1em;
+}
+
+    .name-container > p {
+        font-weight: 600;
+        align-self: end;
+    }
+
+        .name-container > p:first-child {
+            color: #864ba3;
+        }
+
+.post-like-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-container {
+    display: flex;
+    gap: 1em;
+}
+
+    .post-container p {
+        align-self: end;
+    }
+
+.like-container {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+    .like-container svg {
+        width: 20px;
+        height: 20px;
+        object-fit: cover;
+        transition: transform 0.3s;
+        display: block;
+    }
+
+.p-count {
+    font-size: 11px;
+    text-align: center;
+}
+
+.post-comment-container-content > p {
+    margin: 0;
+}
+
+    .post-comment-container-content > p:first-child {
+        font-weight: 600;
+    }
+
+.img-container img:hover {
+    width: 80px;
+    height: 80px;
+}
+
+.post-img img:hover {
+    width: 60px;
+    height: 60px;
+}
+
+.like-container svg:hover {
+    width: 30px;
+    height: 30px;
+}
+
+.btn-primary {
+    margin-top: 1em;
+    padding: 0.3em 2em;
+    border-radius: 5em;
+    color: white;
+    background-color: rebeccapurple;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: purple;
+    }
