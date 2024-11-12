@@ -1,9 +1,15 @@
-﻿namespace VibeNet.Core.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+using VibeNetInfrastucture.Validations;
+
+namespace VibeNet.Core.ViewModels
 {
     public class PostViewModel
     {
         public int Id { get; set; }
 
+        public string OwnerId { get; set; } = null!;
+
+        [StringLength(ValidationConstants.Post.ContentMaxLength, MinimumLength = ValidationConstants.Post.ContentMinLength)]
         public string? Content { get; set; }
 
         public string? Picture { get; set; }

@@ -19,6 +19,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IIdentityUserService, IdentityUserService>();
             services.AddScoped<IProfilePictureService, ProfilePictureService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<ICommentService, CommentService>();
 
             return services;
         }

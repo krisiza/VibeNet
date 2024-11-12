@@ -76,6 +76,7 @@ namespace VibeNet.Core.Services
             var model = new VibeNetUserProfileViewModel
             {
                 Id = user.Id,
+                IdentityId = user.VibeNetUserId,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Gender = user.Gender,

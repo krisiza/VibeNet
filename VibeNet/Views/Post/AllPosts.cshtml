@@ -1,15 +1,14 @@
 ﻿@using VibeNet.Core.ViewModels
 <style>
-
-    main{
-        width:100%;
+    main {
+        width: 100%;
     }
 
-    hr{
+    hr {
         color: #c056f5;
     }
 
-    .main-container{
+    .main-container {
         background-color: white;
         border-radius: 2em;
         padding: 3em;
@@ -29,78 +28,77 @@
         transition: transform 0.3s;
     }
 
-    .post-comment-container{
+    .post-comment-container {
         display: flex;
         gap: 1em;
         margin-left: 2em;
         margin-top: 1em;
     }
 
-    .post-img img{
+    .post-img img {
         width: 50px;
         height: 50px;
     }
 
-    .comment-img img{
+    .comment-img img {
         width: 30px;
         height: 30px;
     }
 
-
-    .name-container{
+    .name-container {
         display: flex;
         gap: 1em;
     }
 
-    .name-container > p{
-        font-weight:600;
-        align-self: end;
-    }
-
-        .name-container > p:first-child {
-                color: #864ba3;
+        .name-container > p {
+            font-weight: 600;
+            align-self: end;
         }
 
-    .post-like-container{
+            .name-container > p:first-child {
+                color: #864ba3;
+            }
+
+    .post-like-container {
         display: flex;
         justify-content: space-between;
     }
 
-    .post-container{
+    .post-container {
         display: flex;
         gap: 1em;
     }
 
-    .post-container p {
-        align-self: end;
-    }
+        .post-container p {
+            align-self: end;
+        }
 
-    .like-container{
-        display:flex;
+    .like-container {
+        display: flex;
         gap: 1em;
-        align-items:center;
+        align-items: center;
     }
 
-    .like-container svg{
-        width: 20px;
-        height: 20px;
-        object-fit: cover;
-        transition: transform 0.3s;
-        display:block;
-    }
+        .like-container svg {
+            width: 20px;
+            height: 20px;
+            object-fit: cover;
+            transition: transform 0.3s;
+            display: block;
+        }
 
     .p-count {
         font-size: 11px;
         text-align: center;
     }
 
-    .post-comment-container-content > p{
-        margin:0;
+    .post-comment-container-content > p {
+        margin: 0;
     }
 
-    .post-comment-container-content > p:first-child {
-        font-weight:600;
-    }
+        .post-comment-container-content > p:first-child {
+            font-weight: 600;
+        }
 
     .img-container img:hover {
         width: 80px;
@@ -112,57 +110,78 @@
         height: 60px;
     }
 
-    .like-container svg:hover{
-       width: 30px;
-       height: 30px;
+    .like-container svg:hover {
+        width: 30px;
+        height: 30px;
     }
+
+    .btn-primary {
+        margin-top: 1em;
+        padding: 0.3em 2em;
+        border-radius: 5em;
+        color: white;
+        background-color: rebeccapurple;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: purple;
+        }
 </style>
 
 @model IEnumerable<PostViewModel>
 
 <div class="main-container">
-        <div class="user-main-container">
-            <div class="img-container">
+    <div class="user-main-container">
+        <div class="img-container">
             <img src="@ViewBag.Base64String" />
-            </div>
-            <div class="name-container">
-                <p>@User.Identity.Name</p>
-                <p>Posts</p>
-            </div>
         </div>
-        <hr />
+        <div class="name-container">
+            <p>@User.Identity.Name</p>
+            <p>Posts</p>
+        </div>
+    </div>
+    <hr />
     @foreach (var post in Model)
     {
-        <div class="post-like-container">
-            <div class="post-container">
-                <div class="img-container post-img">
-                    <img src="@ViewBag.Base64String" />
+        <form class="form-container" asp-action="AddComment" asp-controller="Post" method="post">
+            <div class="post-like-container">
+                <div class="post-container" onclick="openModal('@post.Id', '@post.Content')">
+                    <div class="img-container post-img">
+                        <img src="@ViewBag.Base64String" />
+                    </div>
+                    <p>@post.Content</p>
                 </div>
-                <p>@post.Content</p>
-            </div>
-            <div class="like-container">
-                <div>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" /></svg></a>
-                    <p class="p-count">@post.UserLiked.Count()</p>
-                </div>
-                <div>
-                    <a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M123.6 391.3c12.9-9.4 29.6-11.8 44.6-6.4c26.5 9.6 56.2 15.1 87.8 15.1c124.7 0 208-80.5 208-160s-83.3-160-208-160S48 160.5 48 240c0 32 12.4 62.8 35.7 89.2c8.6 9.7 12.8 22.5 11.8 35.5c-1.4 18.1-5.7 34.7-11.3 49.4c17-7.9 31.1-16.7 39.4-22.7zM21.2 431.9c1.8-2.7 3.5-5.4 5.1-8.1c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208s-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6c-15.1 6.6-32.3 12.6-50.1 16.1c-.8 .2-1.6 .3-2.4 .5c-4.4 .8-8.7 1.5-13.2 1.9c-.2 0-.5 .1-.7 .1c-5.1 .5-10.2 .8-15.3 .8c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4c4.1-4.2 7.8-8.7 11.3-13.5c1.7-2.3 3.3-4.6 4.8-6.9l.3-.5z" /></svg></a>
-                    <p class="p-count">@post.Comments.Count()</p>
-                </div>
-            </div>
-        </div>
-        @foreach(var comment in post.Comments)
-        {
-            <div class="post-comment-container">
-                <div class="img-container comment-img">
-                    <img src="data:{@comment.Owner.ProfilePicture.ContentType};base64, @Convert.ToBase64String(comment.Owner.ProfilePicture.Data, 0, comment.Owner.ProfilePicture.Data.Length)" />
-                </div>
-                <div class="post-comment-container-content">
-                    <p>@comment.Owner.FirstName @comment.Owner.LastName</p>
-                    <p>@comment.Content</p>
+                <div class="like-container">
+                    <div>
+                        <a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" /></svg></a>
+                        <p class="p-count">@post.UserLiked.Count()</p>
+                    </div>
+                    <div>
+                        <a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M123.6 391.3c12.9-9.4 29.6-11.8 44.6-6.4c26.5 9.6 56.2 15.1 87.8 15.1c124.7 0 208-80.5 208-160s-83.3-160-208-160S48 160.5 48 240c0 32 12.4 62.8 35.7 89.2c8.6 9.7 12.8 22.5 11.8 35.5c-1.4 18.1-5.7 34.7-11.3 49.4c17-7.9 31.1-16.7 39.4-22.7zM21.2 431.9c1.8-2.7 3.5-5.4 5.1-8.1c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208s-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6c-15.1 6.6-32.3 12.6-50.1 16.1c-.8 .2-1.6 .3-2.4 .5c-4.4 .8-8.7 1.5-13.2 1.9c-.2 0-.5 .1-.7 .1c-5.1 .5-10.2 .8-15.3 .8c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4c4.1-4.2 7.8-8.7 11.3-13.5c1.7-2.3 3.3-4.6 4.8-6.9l.3-.5z" /></svg></a>
+                        <p class="p-count">@post.Comments.Count()</p>
+                    </div>
                 </div>
             </div>
-        }
-        <hr/>
-    }  
+
+            @foreach (var comment in post.Comments)
+            {
+                <div class="post-comment-container">
+                    <div class="img-container comment-img">
+                        <img src="data:{@comment.Owner.ProfilePicture.ContentType};base64, @Convert.ToBase64String(comment.Owner.ProfilePicture.Data, 0, comment.Owner.ProfilePicture.Data.Length)" />
+                    </div>
+                    <div class="post-comment-container-content">
+                        <p>@comment.Owner.FirstName @comment.Owner.LastName</p>
+                        <p>@comment.Content</p>
+                    </div>
+                </div>
+            }
+
+            <input type="hidden" name="postId" value="@post.Id" />
+            <input type="hidden" name="ownerId" value="@post.OwnerId" />
+            <textarea name="commentContent" class="form-control" rows="2" cols="50"></textarea>
+            <button type="submit" class="btn-primary">Post</button>
+        </form>
+        <hr />
+    }
 </div>

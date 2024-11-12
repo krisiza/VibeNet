@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
+using VibeNet.Core.Interfaces;
+using VibeNet.Core.Services;
 using VibeNet.Models;
 
 namespace VibeNet.Controllers
@@ -9,17 +12,26 @@ namespace VibeNet.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IVibeNetService vibeNetService)
         {
             _logger = logger;
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public  IActionResult Index(string userId)
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("ShowProfile", "User");
+                if (userId != null)
+                {
+                    // Redirect to the ShowProfile action with the username in the URL
+                    return RedirectToAction("ShowProfile", "User", new { userId = userId });
+                }
+                else
+                {
+                    var identityId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    return RedirectToAction("ShowProfile", "User", new { userId = identityId });
+                }
             }
             return View();
         }

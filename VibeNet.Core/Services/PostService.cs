@@ -19,7 +19,7 @@ namespace VibeNet.Core.Services
         {
             this.postRepository = postRepository;
             this.commentRepository = commentRepository;
-            this.vibeNetService = vibeNetService;   
+            this.vibeNetService = vibeNetService;
         }
         public async Task<List<PostViewModel>> GetAllAsync(string userId)
         {
@@ -50,6 +50,7 @@ namespace VibeNet.Core.Services
                 var postViewModel = new PostViewModel
                 {
                     Id = post.Id,
+                    OwnerId = post.OwnerId,
                     Content = post.Content,
                     PostedOn = post.PostedOn,
                     IsDeleted = post.IsDeleted,
@@ -61,6 +62,38 @@ namespace VibeNet.Core.Services
 
             return postViewModels;
         }
+
+        public async Task<PostViewModel> GetByIdAsync(int postId)
+        {
+           var post =  await postRepository.GetByIdAsync(postId);
+
+            var comments = new List<CommentViewModel>();
+            foreach (var comment in post.Comments.Where(c => !c.IsDeleted))
+            {
+                var ownerProfile = await vibeNetService.CreateVibeNetUserProfileViewModel(comment.OwnerId);
+                comments.Add(new CommentViewModel
+                {
+                    Id = comment.Id,
+                    Content = comment.Content,
+                    PostedOn = comment.PostedOn,
+                    IsDeleted = comment.IsDeleted,
+                    Owner = ownerProfile,
+                });
+            }
+
+            var postViewModel = new PostViewModel
+            {
+                Id = post.Id,
+                Content = post.Content,
+                PostedOn = post.PostedOn,
+                IsDeleted = post.IsDeleted,
+                Comments = comments,
+                OwnerId = post.OwnerId,
+            };
+
+            return postViewModel;
+        }
+
 
         public async Task AddPostAsync(string postContent, string userId)
         {

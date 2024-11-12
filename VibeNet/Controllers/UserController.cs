@@ -32,7 +32,7 @@ namespace VibeNet.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromForm] VibeNetUserRegisterViewModel model)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);        
             model.Id = Guid.Parse(userId);
 
             if (ModelState.IsValid)
@@ -46,9 +46,8 @@ namespace VibeNet.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ShowProfile()
+        public async Task<IActionResult> ShowProfile(string userId)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null) return RedirectToAction(nameof(ShowProfile));
 
             VibeNetUserProfileViewModel model = await vibeNetService.CreateVibeNetUserProfileViewModel(userId);

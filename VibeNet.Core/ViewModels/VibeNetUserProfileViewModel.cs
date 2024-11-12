@@ -6,6 +6,8 @@ namespace VibeNet.Core.ViewModels
     public class VibeNetUserProfileViewModel
     {
         public int Id { get; set; }
+
+        public string IdentityId { get; set; } = null!;
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
 

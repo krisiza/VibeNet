@@ -20,11 +20,13 @@
         public static class Comment
         {
             public const int ContentMaxLength = 300;
+            public const int ContentMinLength = 2;
         }
 
         public static class Post
         {
             public const int ContentMaxLength = 400;
+            public const int ContentMinLength = 1;
         }
     }
 }

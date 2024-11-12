@@ -35,10 +35,31 @@ namespace VibeNet
 
             app.UseAuthorization();
 
-            app.MapDefaultControllerRoute();
+            app.MapControllerRoute(
+              name: "default",
+              pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            // Custom route for ShowProfile with username
+            app.MapControllerRoute(
+                name: "profile",
+                pattern: "User/ShowProfile/{userId}",
+                defaults: new { controller = "User", action = "ShowProfile" });
+
+            app.MapControllerRoute(
+                name: "profile",
+                pattern: "Post/AllPosts/{userId}",
+                defaults: new { controller = "Post", action = "AllPosts" });
+
+            app.MapRazorPages();
+
+            app.Run();
+
+            //app.MapDefaultControllerRoute();
             app.MapRazorPages();
 
             app.Run();
         }
+
+    
     }
 }

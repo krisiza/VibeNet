@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    <a asp-controller="Post" asp-action="AllPosts" id="registerSubmit" class="btn-primary my-posts-button">Show Posts</a>
+    <a asp-controller="Post" asp-action="AllPosts" asp-route-userId="@Model.IdentityId" id="registerSubmit" class="btn-primary my-posts-button">Show Posts</a>
 </div>
 
 
