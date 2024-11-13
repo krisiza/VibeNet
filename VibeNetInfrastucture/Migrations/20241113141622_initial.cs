@@ -231,9 +231,9 @@ namespace VibeNet.Infrastucture.Migrations
                 name: "VibeNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false, comment: "User Identifier")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    VibeNetUserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "User Identifier"),
+                    VibeNetUserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Identity User Identifier"),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "User Firstname"),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "User Secondname"),
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "User Birthday"),

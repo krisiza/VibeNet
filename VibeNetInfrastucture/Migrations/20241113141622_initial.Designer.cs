@@ -12,7 +12,7 @@ using VibeNet.Infrastucture.Data;
 namespace VibeNet.Infrastucture.Migrations
 {
     [DbContext(typeof(VibeNetDbContext))]
-    [Migration("20241111091429_initial")]
+    [Migration("20241113141622_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -398,7 +398,8 @@ namespace VibeNet.Infrastucture.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasComment("User Identifier");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -442,7 +443,7 @@ namespace VibeNet.Infrastucture.Migrations
                     b.Property<string>("VibeNetUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
-                        .HasComment("User Identifier");
+                        .HasComment("Identity User Identifier");
 
                     b.HasKey("Id");
 

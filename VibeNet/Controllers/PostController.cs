@@ -45,14 +45,12 @@ namespace VibeNet.Controllers
         {
             var userId = User.Id();
 
-            PostViewModel post = postservice.CreatePost(userId, postContent);
-
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("ShowProfile", "User", new { userId = userId });
             }
 
-            await postservice.AddPostAsync(post);
+            await postservice.AddPostAsync(postContent, userId);
             return RedirectToAction("AllPosts", "Post", new { userId = userId });
         }
 
