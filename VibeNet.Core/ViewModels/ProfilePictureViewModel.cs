@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using VibeNetInfrastucture.Data.Models;
-
-namespace VibeNet.Core.ViewModels
+﻿namespace VibeNet.Core.ViewModels
 {
     public class ProfilePictureViewModel
     {

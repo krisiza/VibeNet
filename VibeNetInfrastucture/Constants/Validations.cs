@@ -1,6 +1,6 @@
-﻿namespace VibeNetInfrastucture.Validations
+﻿namespace VibeNetInfrastucture.Constants
 {
-    public static class ValidationConstants
+    public static class Validations
     {
         public static class User
         {

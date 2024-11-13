@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using VibeNetInfrastucture.Validations;
+using static VibeNetInfrastucture.Constants.Validations.Comment;
 
 namespace VibeNetInfrastucture.Data.Models
 {
@@ -25,7 +25,7 @@ namespace VibeNetInfrastucture.Data.Models
         [ForeignKey(nameof(OwnerId))]
         public virtual IdentityUser Owner { get; set; } = null!;
 
-        [MaxLength(ValidationConstants.Comment.ContentMaxLength)]
+        [MaxLength(ContentMaxLength)]
         [Required]
         [Comment("Comment Content")]
         public string Content { get; set; } = null!;

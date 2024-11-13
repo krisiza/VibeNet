@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using VibeNet.Attributes;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
 using VibeNet.Core.ViewModels;
+using VibeNet.Extensions;
+using VibeNet.Infrastucture.Constants;
+using static VibeNetInfrastucture.Constants.Validations.Post;
 
 namespace VibeNet.Controllers
 {
@@ -19,6 +23,7 @@ namespace VibeNet.Controllers
             this.commentservice = commentservice;
         }
 
+        [NotExistingUser]
         public async Task<IActionResult> AllPosts(string userId)
         {
             var vibenetEntity = await vibeNetService.GetByIdentityIdAsync(userId);
@@ -38,33 +43,36 @@ namespace VibeNet.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(string postContent)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (userId == null) return RedirectToAction("ShowProfile", "User");
+            var userId = User.Id();
 
-            //Add Validation
-            await postservice.AddPostAsync(postContent, userId);
+            PostViewModel post = postservice.CreatePost(userId, postContent);
 
-            return RedirectToAction(nameof(AllPosts));
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("ShowProfile", "User", new { userId = userId });
+            }
+
+            await postservice.AddPostAsync(post);
+            return RedirectToAction("AllPosts", "Post", new { userId = userId });
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddComment(string ownerId,int postId, string commentContent)
+        [NotExistingUser]
+        public async Task<IActionResult> AddComment(string ownerId, int postId, string commentContent)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.Id();
             var userViewModel = await vibeNetService.CreateVibeNetUserProfileViewModel(userId);
 
-            CommentViewModel commentViewModel = new CommentViewModel() 
+            CommentViewModel commentViewModel = new CommentViewModel()
             {
                 Content = commentContent,
                 Owner = userViewModel,
                 IsDeleted = false,
                 PostedOn = DateTime.Now,
-            }; 
+            };
 
             await commentservice.AddCommentAsync(postId, commentViewModel, userId);
-
             return RedirectToAction("AllPosts", "Post", new { userId = ownerId });
-            
         }
     }
 }

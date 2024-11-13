@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using VibeNet.Infrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models.Enums;
-using static VibeNetInfrastucture.Validations.ValidationConstants.User;
+using static VibeNetInfrastucture.Constants.Validations.User;
 
 namespace VibeNetInfrastucture.Data.Models
 {

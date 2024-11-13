@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using VibeNetInfrastucture.Validations;
+using static VibeNetInfrastucture.Constants.Validations.Comment;
 
 namespace VibeNet.Core.ViewModels
 {
@@ -9,7 +9,7 @@ namespace VibeNet.Core.ViewModels
 
         public virtual VibeNetUserProfileViewModel Owner { get; set; } = null!;
 
-        [StringLength(ValidationConstants.Comment.ContentMaxLength, MinimumLength = ValidationConstants.Comment.ContentMinLength)]
+        [StringLength(ContentMaxLength, MinimumLength = ContentMinLength)]
         public string Content { get; set; } = null!;
 
         public DateTime PostedOn { get; set; }

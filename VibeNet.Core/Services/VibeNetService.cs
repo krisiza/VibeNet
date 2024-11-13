@@ -2,13 +2,9 @@
 using VibeNet.Infrastucture.Repository.Contracts;
 using VibeNet.Core.ViewModels;
 using VibeNetInfrastucture.Data.Models;
-using VibeNet.Core.Mapping;
 using AutoMapper;
 using System.Globalization;
-using Microsoft.AspNetCore.Http;
-using AutoMapper.Internal.Mappers;
 using Microsoft.EntityFrameworkCore;
-using static VibeNetInfrastucture.Validations.ValidationConstants;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Utilities;
 
@@ -30,6 +26,7 @@ namespace VibeNet.Core.Services
 
         public async Task AddUserAsync(VibeNetUserRegisterViewModel model)
         {
+
             byte[] data = await VibeNetHepler.ConvertToBytesAsync(model.ProfilePictureFile);
 
             VibeNetUser user = new()

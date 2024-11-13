@@ -6,7 +6,9 @@ namespace VibeNet.Core.Contracts
     {
         Task<List<PostViewModel>> GetAllAsync(string userId);
 
-        Task AddPostAsync(string postContent, string userId);
+        public PostViewModel CreatePost(string? postContent, string userId);
+
+        Task AddPostAsync(PostViewModel post);
 
         Task<PostViewModel> GetByIdAsync(int postId);
     }

@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using VibeNet.Attributes;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
-using VibeNet.Core.Utilities;
 using VibeNet.Core.ViewModels;
-using static VibeNetInfrastucture.Validations.ValidationConstants;
+using VibeNet.Extensions;
 
 namespace VibeNet.Controllers
 {
@@ -32,13 +31,13 @@ namespace VibeNet.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromForm] VibeNetUserRegisterViewModel model)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);        
+            var userId = User.Id();        
             model.Id = Guid.Parse(userId);
 
             if (ModelState.IsValid)
             {
                 await vibeNetService.AddUserAsync(model);
-                return RedirectToAction(nameof(ShowProfile));
+                return RedirectToAction("ShowProfile", "User", new { userId = userId });
             }
 
             await identityUserService.DeleteIdentityUserAsync(model.Id);
@@ -46,10 +45,9 @@ namespace VibeNet.Controllers
         }
 
         [HttpGet]
+        [NotExistingUser]
         public async Task<IActionResult> ShowProfile(string userId)
         {
-            if (userId == null) return RedirectToAction(nameof(ShowProfile));
-
             VibeNetUserProfileViewModel model = await vibeNetService.CreateVibeNetUserProfileViewModel(userId);
 
             if (model.ProfilePicture != null)
@@ -60,6 +58,7 @@ namespace VibeNet.Controllers
             return View(model);
         }
 
+        [NotExistingUser]
         public IActionResult SendFriendRequest(string userId)
         {
             ;

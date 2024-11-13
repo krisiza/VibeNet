@@ -2,6 +2,7 @@
 @using VibeNet.Core.Utilities
 @using VibeNet.Core.ViewModels
 @using VibeNetInfrastucture.Data.Models.Enums
+@using static VibeNetInfrastucture.Constants.Validations.DateTimeFormat
 
 @model VibeNetUserRegisterViewModel
 @{
@@ -16,7 +17,7 @@
         <form style="width:55%; justify-self:center;" id="registerForm" class="form-container" enctype="multipart/form-data" asp-route-returnUrl="/Home/Index" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div style="visibility:hidden" class="form-floating mb-3">
-                <input asp-for="@Model.CreatedOn" class="form-control" value="@DateTime.Now.ToString()" aria-required="true" />
+                <input asp-for="@Model.CreatedOn" class="form-control" value="@DateTime.Now.ToString(Format)" aria-required="true" />
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="@Model.FirstName" class="form-control" aria-required="true"/>
@@ -29,7 +30,7 @@
                 <span asp-validation-for="@Model.LastName" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="@Model.Birthday" id="startDate" value="@DateTime.Now.ToString()" class="form-control" type="date"/>
+                <input asp-for="@Model.Birthday" id="startDate" value="@DateTime.Now.ToString(Format)" class="form-control" type="date"/>
                 <label asp-for="@Model.Birthday">Birthday</label>
                 <span asp-validation-for="@Model.Birthday" class="text-danger"></span>
             </div>
@@ -55,19 +56,7 @@
     </div>
 </div>
 
-<script>
-    function displaySelectedImage(event, elementId) {
-        const selectedImage = document.getElementById(elementId);
-        const fileInput = event.target;
 
-        if (fileInput.files && fileInput.files[0]) {
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                selectedImage.src = e.target.result;
-            };
-
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    }
-</script>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

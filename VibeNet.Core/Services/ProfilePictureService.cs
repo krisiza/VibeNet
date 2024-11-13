@@ -34,13 +34,21 @@ namespace VibeNet.Core.Services
             return viewModel;
         }
 
-        public async Task<ProfilePicture> SavePicture(IFormFile formFile, byte[] data)
+        public async Task<ProfilePicture> SavePicture(IFormFile? formFile, byte[] data)
         {
-            ProfilePicture entity = new()
+            ProfilePicture entity = new();
+
+            if (formFile == null)
             {
-                Name = formFile.Name,
-                ContentType = formFile.ContentType,
-                Data = data
+                entity.Name = "profile-avatar";
+                entity.ContentType = ".jpg";
+                entity.Data = data;
+            }
+            else
+            {
+                entity.Name = formFile.Name;
+                entity.ContentType = formFile.ContentType;
+                entity.Data = data;
             };
 
             await profilePictureRepository.AddAsync(entity);

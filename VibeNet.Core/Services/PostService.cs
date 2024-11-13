@@ -65,7 +65,7 @@ namespace VibeNet.Core.Services
 
         public async Task<PostViewModel> GetByIdAsync(int postId)
         {
-           var post =  await postRepository.GetByIdAsync(postId);
+            var post = await postRepository.GetByIdAsync(postId);
 
             var comments = new List<CommentViewModel>();
             foreach (var comment in post.Comments.Where(c => !c.IsDeleted))
@@ -94,15 +94,26 @@ namespace VibeNet.Core.Services
             return postViewModel;
         }
 
-
-        public async Task AddPostAsync(string postContent, string userId)
+        public PostViewModel CreatePost(string? postContent, string userId)
         {
-            Post post = new Post()
+            return new PostViewModel()
             {
                 OwnerId = userId,
                 Content = postContent,
                 PostedOn = DateTime.Now,
                 IsDeleted = false,
+            };
+        }
+
+
+        public async Task AddPostAsync(PostViewModel model)
+        {
+            Post post = new()
+            {
+                OwnerId = model.OwnerId,
+                Content = model.Content,
+                PostedOn = model.PostedOn,
+                IsDeleted = model.IsDeleted,
             };
 
             await postRepository.AddAsync(post);

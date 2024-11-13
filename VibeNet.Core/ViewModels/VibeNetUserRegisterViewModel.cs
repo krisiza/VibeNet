@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using VibeNetInfrastucture.Data.Models.Enums;
-using static VibeNetInfrastucture.Validations.ValidationConstants.User;
+using static VibeNetInfrastucture.Constants.Validations.User;
 
 namespace VibeNet.Core.ViewModels
 {
