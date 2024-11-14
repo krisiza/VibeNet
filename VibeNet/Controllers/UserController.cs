@@ -92,7 +92,6 @@ namespace VibeNet.Controllers
                 TempData["AlertMessage"] = "Friend request sent successfully!";
             }
 
-
             return RedirectToAction("ShowProfile", "User", new { userId = userId });
         }
     }

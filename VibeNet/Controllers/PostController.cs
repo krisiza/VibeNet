@@ -13,14 +13,16 @@ namespace VibeNet.Controllers
         private readonly ICommentService commentservice;
         private readonly ILikeService likeService;
         private readonly IVibeNetService vibeNetService;
+        private readonly IFriendshipService friendshipService;
 
         public PostController(IPostService postservice, IVibeNetService vibeNetService,
-            ICommentService commentservice, ILikeService likeService)
+            ICommentService commentservice, ILikeService likeService, IFriendshipService friendshipService)
         {
             this.postservice = postservice;
             this.vibeNetService = vibeNetService;
             this.commentservice = commentservice;
             this.likeService = likeService;
+            this.friendshipService = friendshipService;
         }
 
         [NotExistingUser]
@@ -28,18 +30,26 @@ namespace VibeNet.Controllers
         {
             var vibenetEntity = await vibeNetService.GetByIdentityIdAsync(userId);
             var model = await vibeNetService.CreateVibeNetUserProfileViewModel(userId);
-            model.Posts = await postservice.GetAllAsync(userId);
 
-            TempData["UserName"] = vibenetEntity.FirstName + " " + vibenetEntity.LastName;
-
-            if (model.ProfilePicture != null)
+            if (!await friendshipService.FindByIdAsync(User.Id(), userId) && !await friendshipService.FindByIdAsync(User.Id(), userId) && userId != User.Id())
             {
-                ViewBag.Base64String = $"data:{model.ProfilePicture.ContentType};base64," +
-                                       Convert.ToBase64String(model.ProfilePicture.Data, 0,
-                                           model.ProfilePicture.Data.Length);
+                TempData["AlertMessage"] = $"{model.FirstName} {model.LastName} is not your friend!";
+                return RedirectToAction("ShowProfile", "User", new { userId = userId });
+            }
+            else
+            {
+                model.Posts = await postservice.GetAllAsync(userId);
+                TempData["UserName"] = vibenetEntity.FirstName + " " + vibenetEntity.LastName;
+
+                if (model.ProfilePicture != null)
+                {
+                    ViewBag.Base64String = $"data:{model.ProfilePicture.ContentType};base64," +
+                                           Convert.ToBase64String(model.ProfilePicture.Data, 0,
+                                               model.ProfilePicture.Data.Length);
+                }
+                return View(model.Posts);
             }
 
-            return View(model.Posts);
         }
 
         [HttpPost]
@@ -86,7 +96,7 @@ namespace VibeNet.Controllers
                 Owner = userViewModel,
             };
 
-            if(await likeService.AddLikeAsync(postId, likeViewModel, userId))
+            if (await likeService.AddLikeAsync(postId, likeViewModel, userId))
                 TempData["AlertMessage"] = "You liked this post";
             else
                 TempData["AlertMessage"] = "Post is already liked";
