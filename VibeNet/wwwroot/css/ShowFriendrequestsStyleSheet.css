@@ -1,0 +1,52 @@
+﻿.img-container img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.user-container {
+    background-color: white;
+    border-radius: 3em;
+    padding: 3em 5em;
+    display: flex;
+    display: flex;
+    gap: 3em;
+}
+
+.name-buttons-container {
+    display: flex;
+    gap: 3em;
+    width: 100%;
+    justify-content: space-between;
+}
+
+    .name-buttons-container p {
+        color: rebeccapurple;
+        font-weight: bold;
+        align-self: end;
+    }
+
+.buttons-container {
+    display: flex;
+    gap: 2em;
+    align-items: end;
+}
+
+    .buttons-container a {
+        text-decoration: none;
+        border: 3px solid #8e6f96;
+        padding: 0.5em 2em;
+        border-radius: 3em;
+        font-weight: bold;
+    }
+
+        .buttons-container a:hover {
+            background-color: #8e6f96;
+        }
+
+img:hover {
+    width: 80px;
+    height: 80px;
+}

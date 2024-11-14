@@ -1,1 +1,28 @@
-﻿<p>Hallo</p>
+﻿@using VibeNet.Core.ViewModels
+@using VibeNet.Extensions
+@model IEnumerable<VibeNetUserProfileViewModel>?
+
+<link rel="stylesheet" href="~/css/ShowFriendrequestsStyleSheet.css" asp-append-version="true" />
+
+@if (Model != null)
+{
+    foreach (var user in Model)
+    {
+        <div class="user-container">
+            <div class="img-container comment-img">
+                <img src="data:{@user.ProfilePicture.ContentType};base64, @Convert.ToBase64String(user.ProfilePicture.Data, 0, user.ProfilePicture.Data.Length)" />
+            </div>
+            <div class="name-buttons-container">
+                <p>@user.FirstName @user.LastName</p>
+                <div class="buttons-container">
+                    <a>Confirm</a>
+                    <a>Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>No Requests!</p>
+}
