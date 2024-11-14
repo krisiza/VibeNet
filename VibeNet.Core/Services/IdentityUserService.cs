@@ -15,5 +15,6 @@ namespace VibeNet.Core.Services
 
         public async Task<bool> DeleteIdentityUserAsync(Guid id)
             => await identityUserRepository.DeleteAsync(id);
+
     }
 }

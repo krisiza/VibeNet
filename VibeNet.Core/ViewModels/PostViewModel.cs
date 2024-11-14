@@ -18,7 +18,7 @@ namespace VibeNet.Core.ViewModels
 
         public DateTime PostedOn { get; set; }
 
-        public IEnumerable<VibeNetUserProfileViewModel> UserLiked { get; set; } = new List<VibeNetUserProfileViewModel>();
+        public IList<LikeViewModel> UserLiked { get; set; } = new List<LikeViewModel>();
 
         public IEnumerable<CommentViewModel> Comments { get; set; } = new List<CommentViewModel>();
 

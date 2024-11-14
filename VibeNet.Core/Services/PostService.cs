@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
 using VibeNet.Core.ViewModels;
+using VibeNet.Infrastucture.Data.Models;
 using VibeNet.Infrastucture.Repository.Contracts;
 using VibeNetInfrastucture.Data.Models;
 
@@ -13,19 +14,22 @@ namespace VibeNet.Core.Services
         private readonly IRepository<Post, int> postRepository;
         private readonly IRepository<Comment, int> commentRepository;
         private readonly IVibeNetService vibeNetService;
+        private readonly UserManager<IdentityUser> userManager;
 
         public PostService(IRepository<Post, int> postRepository, IRepository<Comment, int> commentRepository,
-          IVibeNetService vibeNetService)
+          IVibeNetService vibeNetService, UserManager<IdentityUser> userManager)
         {
             this.postRepository = postRepository;
             this.commentRepository = commentRepository;
             this.vibeNetService = vibeNetService;
+            this.userManager = userManager;
         }
         public async Task<List<PostViewModel>> GetAllAsync(string userId)
         {
             var posts = await postRepository.GetAllAttached()
                 .Include(p => p.Comments)
                 .Include(p => p.Owner)
+                .Include(p => p.UserLiked)
                 .Where(p => p.OwnerId == userId && !p.IsDeleted)
                 .ToListAsync();
 
@@ -47,6 +51,17 @@ namespace VibeNet.Core.Services
                     });
                 }
 
+                var likes = new List<LikeViewModel>();
+                foreach (var like in post.UserLiked)
+                {
+                    var ownerProfile = await vibeNetService.CreateVibeNetUserProfileViewModel(like.OwnerId);
+                    likes.Add(new LikeViewModel
+                    {
+                        Id = like.Id,
+                        Owner = ownerProfile,
+                    });
+                }
+
                 var postViewModel = new PostViewModel
                 {
                     Id = post.Id,
@@ -54,6 +69,7 @@ namespace VibeNet.Core.Services
                     Content = post.Content,
                     PostedOn = post.PostedOn,
                     IsDeleted = post.IsDeleted,
+                    UserLiked = likes,
                     Comments = comments
                 };
 
@@ -65,7 +81,7 @@ namespace VibeNet.Core.Services
 
         public async Task<PostViewModel> GetByIdAsync(int postId)
         {
-           var post =  await postRepository.GetByIdAsync(postId);
+            var post = await postRepository.GetByIdAsync(postId);
 
             var comments = new List<CommentViewModel>();
             foreach (var comment in post.Comments.Where(c => !c.IsDeleted))

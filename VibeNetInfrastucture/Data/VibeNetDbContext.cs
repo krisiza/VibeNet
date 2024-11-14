@@ -17,6 +17,7 @@ namespace VibeNet.Infrastucture.Data
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Friendshiprequest> Friendshiprequests { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<Like> Likes { get; set; }
 
         public virtual DbSet<ProfilePicture> ProfilePictures { get; set; }
 

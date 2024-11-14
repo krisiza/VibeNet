@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VibeNet.Infrastucture.Data;
 
@@ -11,9 +12,11 @@ using VibeNet.Infrastucture.Data;
 namespace VibeNet.Infrastucture.Migrations
 {
     [DbContext(typeof(VibeNetDbContext))]
-    partial class VibeNetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241114074155_like")]
+    partial class like
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

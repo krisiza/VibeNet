@@ -3,6 +3,12 @@
 
 <link rel="stylesheet" href="~/css/AllPostcss.css" asp-append-version="true" />
 
+@if (TempData["AlertMessage"] != null)
+{
+    <div id="friend-request-alert" class="alert alert-info">
+        @TempData["AlertMessage"]
+    </div>
+}
 
 <div class="main-container">
     <div class="user-main-container">
@@ -27,7 +33,7 @@
                 </div>
                 <div class="like-container">
                     <div>
-                        <a><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" /></svg></a>
+                        <a asp-action="LikePost" asp-controller="Post" asp-route-postId="@post.Id" asp-route-userId="@post.OwnerId"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" /></svg></a>
                         <p class="p-count">@post.UserLiked.Count()</p>
                     </div>
                     <div>
@@ -58,3 +64,21 @@
         <hr />
     }
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const alertBox = document.getElementById("friend-request-alert");
+
+            if (alertBox) {
+                setTimeout(function () {
+                    alertBox.style.transition = "opacity 1s";
+                    alertBox.style.opacity = "0";
+                    setTimeout(() => alertBox.style.display = "none", 500);
+                }, 5000);
+            }
+        });
+    </script>
+}

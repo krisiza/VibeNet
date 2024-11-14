@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using VibeNet.Attributes;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
@@ -11,13 +13,16 @@ namespace VibeNet.Controllers
     {
         private readonly IPostService postservice;
         private readonly ICommentService commentservice;
+        private readonly ILikeService likeService;
         private readonly IVibeNetService vibeNetService;
 
-        public PostController(IPostService postservice, ICommentService commentservice, IVibeNetService vibeNetService)
+        public PostController(IPostService postservice, IVibeNetService vibeNetService,
+            ICommentService commentservice, ILikeService likeService)
         {
             this.postservice = postservice;
             this.vibeNetService = vibeNetService;
             this.commentservice = commentservice;
+            this.likeService = likeService;
         }
 
         [NotExistingUser]
@@ -68,6 +73,25 @@ namespace VibeNet.Controllers
 
             await commentservice.AddCommentAsync(postId, commentViewModel, userId);
             return RedirectToAction("AllPosts", "Post", new { userId = ownerId });
+        }
+
+        [NotExistingUser]
+        public async Task<IActionResult> LikePost(string userId, int postId)
+        {
+            var likeOwner = User.Id();
+            var userViewModel = await vibeNetService.CreateVibeNetUserProfileViewModel(likeOwner);
+
+            LikeViewModel likeViewModel = new LikeViewModel()
+            {
+                Owner = userViewModel,
+            };
+
+            if(await likeService.AddLikeAsync(postId, likeViewModel, userId))
+                TempData["AlertMessage"] = "You liked this post";
+            else
+                TempData["AlertMessage"] = "Post is already liked";
+
+            return RedirectToAction("AllPosts", "Post", new { userId = userId });
         }
     }
 }

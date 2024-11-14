@@ -20,6 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IProfilePictureService, ProfilePictureService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<ILikeService, LikeService>();
             services.AddScoped<IFriendshiprequestService, FriendshiprequestService>();
 
             return services;
@@ -36,6 +37,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IRepository<ProfilePicture, int>, BaseRepository<ProfilePicture, int>>();
             services.AddScoped<IRepository<Post, int>, BaseRepository<Post, int>>();
             services.AddScoped<IRepository<Comment, int>, BaseRepository<Comment, int>>();
+            services.AddScoped<IRepository<Like, int>, BaseRepository<Like, int>>();
 
             return services;
         }

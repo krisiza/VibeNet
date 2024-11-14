@@ -10,30 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fc90041-c76c-4c1b-bd30-c225fc76d3f2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/VibeNet/Attributes/NotExistingUserAttribute.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/VibeNet/Extensions/ClaimsPrincipalExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Contracts/IVibeNetService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Contracts/IVibeNetService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Mapping/VibeNetProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Mapping/VibeNetProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/ViewModels/CommentViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/ViewModels/CommentViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Contracts/IPostService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Contracts/IPostService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/IdentityUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/IdentityUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/PostService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/PostService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet.Core/ViewModels/PostViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/ViewModels/PostViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/ViewModels/ProfilePictureViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/ViewModels/ProfilePictureViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/ViewModels/VibeNetUserRegisterViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/ViewModels/VibeNetUserRegisterViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Areas/Identity/Pages/Account/Login.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Areas/Identity/Pages/Account/Login.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Areas/Identity/Pages/Account/Register.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Areas/Identity/Pages/Account/Register.cshtml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/BaseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/BaseController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/HomeController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/PostController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/PostController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/Comment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/Comment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/Extensions/ServiceCollectionExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Extensions/ServiceCollectionExtension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/Views/Post/AllPosts.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/Post/AllPosts.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/Post.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/Post.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/VibeNetUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/VibeNetUser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/SeedDb/FriendshipConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/SeedDb/FriendshipConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/SeedDb/UserConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/SeedDb/UserConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Errors/ErrorMessages.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/VibeNetDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/VibeNetDbContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Migrations/VibeNetDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Migrations/VibeNetDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Validations/ValidationConstants.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,6 +134,7 @@
       <workItem from="1731401141556" duration="754000" />
       <workItem from="1731404704796" duration="41000" />
       <workItem from="1731496953043" duration="385000" />
+      <workItem from="1731572062185" duration="38000" />
     </task>
     <servers />
   </component>

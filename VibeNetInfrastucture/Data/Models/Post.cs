@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using VibeNet.Infrastucture.Data.Models;
 using static VibeNetInfrastucture.Constants.Validations.Post;
 
 namespace VibeNetInfrastucture.Data.Models
@@ -29,7 +30,7 @@ namespace VibeNetInfrastucture.Data.Models
         [Comment("Post Creation Date")]
         public DateTime PostedOn { get; set; }
 
-        public IList<IdentityUser> UserLiked { get; set; } = new List<IdentityUser>();
+        public IList<Like> UserLiked { get; set; } = new List<Like>();
 
         public IList<Comment> Comments { get; set; } = new List<Comment>();
 
