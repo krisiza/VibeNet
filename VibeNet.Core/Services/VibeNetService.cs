@@ -62,9 +62,11 @@ namespace VibeNet.Core.Services
         public async Task<bool> UpdateAsync(VibeNetUser item)
             => await userRepository.UpdateAsync(item);
 
-        public async Task<VibeNetUserProfileViewModel> CreateVibeNetUserProfileViewModel(string userId)
+        public async Task<VibeNetUserProfileViewModel?> CreateVibeNetUserProfileViewModel(string userId)
         {
             var user = await GetByIdentityIdAsync(userId);
+
+            if(user == null) return null;
 
             var model = new VibeNetUserProfileViewModel
             {

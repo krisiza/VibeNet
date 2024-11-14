@@ -22,6 +22,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<ILikeService, LikeService>();
             services.AddScoped<IFriendshiprequestService, FriendshiprequestService>();
+            services.AddScoped<IFriendshipService, FriendshipService>();
 
             return services;
         }

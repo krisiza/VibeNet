@@ -9,5 +9,9 @@ namespace VibeNet.Core.Contracts
         Task SendRequestAsync(string userRecipient, string userTransmitter);
 
         Task<bool> FindByIdAsync(string userRecipient, string userTransmitter);
+
+        Task DeleteRequest(string transitterId, string recipientId);
+
+        Task AcceptRequest(string transitterId, string recipientId);
     }
 }

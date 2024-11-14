@@ -65,6 +65,24 @@ namespace VibeNet.Infrastucture.Repository
             return true;
         }
 
+        public bool DeleteEntity(TType entity)
+        {
+            if (entity == null) return false;
+
+            dbSet.Remove(entity);
+            context.SaveChanges();
+            return true;
+        }
+
+        public async Task<bool> DeleteEntityAsync(TType entity)
+        {         
+            if (entity == null) return false;
+
+            dbSet.Remove(entity);
+            await context.SaveChangesAsync();
+            return true;
+        }
+
         public bool Update(TType item)
         {
             try

@@ -14,6 +14,6 @@ namespace VibeNet.Core.Interfaces
 
         Task<bool> UpdateAsync(VibeNetUser item);
 
-        Task<VibeNetUserProfileViewModel> CreateVibeNetUserProfileViewModel(string userId);
+        Task<VibeNetUserProfileViewModel?> CreateVibeNetUserProfileViewModel(string userId);
     }
 }

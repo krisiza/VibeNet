@@ -12,8 +12,8 @@ using VibeNet.Infrastucture.Data;
 namespace VibeNet.Infrastucture.Migrations
 {
     [DbContext(typeof(VibeNetDbContext))]
-    [Migration("20241114074155_like")]
-    partial class like
+    [Migration("20241114092249_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -361,17 +361,13 @@ namespace VibeNet.Infrastucture.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasComment("Transmitter Identifier");
 
-                    b.Property<DateTime>("SendOn")
-                        .HasColumnType("datetime2")
-                        .HasComment("Friendshiprequest send on Date");
-
                     b.HasKey("UserRecipientId", "UserTransmitterId");
 
                     b.HasIndex("UserTransmitterId");
 
                     b.ToTable("Friendshiprequests", t =>
                         {
-                            t.HasComment("Friendshuprequest");
+                            t.HasComment("Friendshiprequest");
                         });
                 });
 

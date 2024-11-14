@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using Microsoft.AspNetCore.Mvc;
 using VibeNet.Attributes;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
@@ -31,6 +29,8 @@ namespace VibeNet.Controllers
             var vibenetEntity = await vibeNetService.GetByIdentityIdAsync(userId);
             var model = await vibeNetService.CreateVibeNetUserProfileViewModel(userId);
             model.Posts = await postservice.GetAllAsync(userId);
+
+            TempData["UserName"] = vibenetEntity.FirstName + " " + vibenetEntity.LastName;
 
             if (model.ProfilePicture != null)
             {

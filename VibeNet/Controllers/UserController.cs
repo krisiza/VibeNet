@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VibeNet.Attributes;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
+using VibeNet.Core.Services;
 using VibeNet.Core.ViewModels;
 using VibeNet.Extensions;
 
@@ -13,14 +15,17 @@ namespace VibeNet.Controllers
         private readonly IIdentityUserService identityUserService;
         private readonly IProfilePictureService profilePictureService;
         private readonly IFriendshiprequestService friendshiprequestService;
+        private readonly IFriendshipService friendshipService;
 
         public UserController(IVibeNetService vibeNetService, IIdentityUserService identityUserService,
-            IProfilePictureService profilePictureService, IFriendshiprequestService friendshiprequestService)
+            IProfilePictureService profilePictureService, IFriendshiprequestService friendshiprequestService,
+            IFriendshipService friendshipService)
         {
             this.vibeNetService = vibeNetService;
             this.identityUserService = identityUserService;
             this.profilePictureService = profilePictureService;
             this.friendshiprequestService = friendshiprequestService;
+            this.friendshipService = friendshipService;
         }
 
         [HttpGet]
@@ -33,7 +38,7 @@ namespace VibeNet.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromForm] VibeNetUserRegisterViewModel model)
         {
-            var userId = User.Id();        
+            var userId = User.Id();
             model.Id = Guid.Parse(userId);
 
             if (ModelState.IsValid)
@@ -52,6 +57,8 @@ namespace VibeNet.Controllers
         {
             VibeNetUserProfileViewModel model = await vibeNetService.CreateVibeNetUserProfileViewModel(userId);
 
+            if (model == null) return BadRequest();
+
             if (model.ProfilePicture != null)
             {
                 ViewBag.Base64String = $"data:{model.ProfilePicture.ContentType};base64," + Convert.ToBase64String(model.ProfilePicture.Data, 0, model.ProfilePicture.Data.Length);
@@ -65,13 +72,26 @@ namespace VibeNet.Controllers
         {
             if (User.Id() == null) return BadRequest();
 
-            if(await friendshiprequestService.FindByIdAsync(userId, User.Id()))
+            string recipient = User.Id();
+
+            if (await friendshipService.FindByIdAsync(userId, recipient))
             {
-                await  friendshiprequestService.SendRequestAsync(userId, User.Id());
-                TempData["AlertMessage"] = "Friend request sent successfully!";
+                TempData["AlertMessage"] = "The user is already your friend!";
+            }
+            else if (await friendshiprequestService.FindByIdAsync(recipient, userId))
+            {
+                TempData["AlertMessage"] = "This user has already sent you a friend request!";
+            }
+            else if (await friendshiprequestService.FindByIdAsync(userId, recipient))
+            {
+                TempData["AlertMessage"] = "Friendrequest already sent!";
             }
             else
-                TempData["AlertMessage"] = "Friend request already sent!";
+            {
+                await friendshiprequestService.SendRequestAsync(userId, recipient);
+                TempData["AlertMessage"] = "Friend request sent successfully!";
+            }
+
 
             return RedirectToAction("ShowProfile", "User", new { userId = userId });
         }

@@ -358,17 +358,13 @@ namespace VibeNet.Infrastucture.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasComment("Transmitter Identifier");
 
-                    b.Property<DateTime>("SendOn")
-                        .HasColumnType("datetime2")
-                        .HasComment("Friendshiprequest send on Date");
-
                     b.HasKey("UserRecipientId", "UserTransmitterId");
 
                     b.HasIndex("UserTransmitterId");
 
                     b.ToTable("Friendshiprequests", t =>
                         {
-                            t.HasComment("Friendshuprequest");
+                            t.HasComment("Friendshiprequest");
                         });
                 });
 

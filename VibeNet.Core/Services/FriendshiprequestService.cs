@@ -11,12 +11,14 @@ namespace VibeNet.Core.Services
     {
         private readonly IRepository<Friendshiprequest, object> friendshiprequestRepository;
         private readonly IVibeNetService vibeNetService;
+        private readonly IFriendshipService friendshipService;
 
         public FriendshiprequestService(IRepository<Friendshiprequest, object> friendshiprequestRepositora,
-            IVibeNetService vibeNetService)
+            IVibeNetService vibeNetService,IFriendshipService friendshipService)
         {
             this.friendshiprequestRepository = friendshiprequestRepositora;
             this.vibeNetService = vibeNetService;
+            this.friendshipService = friendshipService;
         }
 
         public async Task<IEnumerable<VibeNetUserProfileViewModel>?> GetFriendrequets(string userId)
@@ -46,20 +48,43 @@ namespace VibeNet.Core.Services
                 .ToListAsync();
 
             if (entityList.Count > 0)
-                return false;
+                return true;
 
-            return true;
+            return false;
         }
 
         public async Task SendRequestAsync(string userRecipient, string userTransmitter)
         {
-            Friendshiprequest entity = new Friendshiprequest() 
+            Friendshiprequest entity = new Friendshiprequest()
             {
                 UserRecipientId = userRecipient,
                 UserTransmitterId = userTransmitter
             };
 
             await friendshiprequestRepository.AddAsync(entity);
+        }
+
+        public async Task DeleteRequest(string transitterId, string recipientId)
+        {
+            var entity = await friendshiprequestRepository.GetAllAttached()
+                .Where(fr => fr.UserTransmitterId == transitterId && fr.UserRecipientId == recipientId)
+                .FirstOrDefaultAsync();
+
+            if (entity == null) return;
+            await friendshiprequestRepository.DeleteEntityAsync(entity);
+
+        }
+
+        public async Task AcceptRequest(string transitterId, string recipientId)
+        {
+            var entity = await friendshiprequestRepository.GetAllAttached()
+                .Where(fr => fr.UserTransmitterId == transitterId && fr.UserRecipientId == recipientId)
+                .FirstOrDefaultAsync();
+
+            if (entity == null) return;
+            await friendshiprequestRepository.DeleteEntityAsync(entity);
+
+            await friendshipService.AddFriendShipAsync(entity);
         }
     }
 }

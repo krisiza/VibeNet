@@ -1,5 +1,4 @@
 ﻿@using VibeNet.Core.ViewModels
-@using VibeNet.Extensions
 @model IEnumerable<VibeNetUserProfileViewModel>?
 
 <link rel="stylesheet" href="~/css/ShowFriendrequestsStyleSheet.css" asp-append-version="true" />
@@ -17,7 +16,6 @@
             <div class="name-buttons-container">
                 <p>@user.FirstName @user.LastName</p>
                 <div class="buttons-container">
-                    <a asp-action="Confirm" asp-controller="Friendrequest" asp-route-userId="@user.IdentityId">Confirm</a>
                     <a asp-action="Delete" asp-controller="Friendrequest" asp-route-userId="@user.IdentityId">Delete</a>
                 </div>
             </div>
@@ -26,5 +24,5 @@
 }
 else
 {
-    <p>No Requests!</p>
+    <p>No Friends!</p>
 }

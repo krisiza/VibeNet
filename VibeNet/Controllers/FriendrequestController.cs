@@ -20,5 +20,18 @@ namespace VibeNet.Controllers
 
             return BadRequest();
         }
+
+        public async Task<IActionResult> Confirm(string userId)
+        {
+            await friendshiprequestService.AcceptRequest(userId, User.Id());
+            return RedirectToAction("ShowFriendrequests", "Friendrequest", new { userId = User.Id() });
+        }
+
+        public async Task<IActionResult> Delete(string userId)
+        {
+
+            await friendshiprequestService.DeleteRequest(userId, User.Id());
+            return RedirectToAction("ShowFriendrequests", "Friendrequest", new { userId = User.Id() });
+        }
     }
 }
