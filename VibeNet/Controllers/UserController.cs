@@ -12,13 +12,15 @@ namespace VibeNet.Controllers
         private readonly IVibeNetService vibeNetService;
         private readonly IIdentityUserService identityUserService;
         private readonly IProfilePictureService profilePictureService;
+        private readonly IFriendshiprequestService friendshiprequestService;
 
         public UserController(IVibeNetService vibeNetService, IIdentityUserService identityUserService,
-            IProfilePictureService profilePictureService)
+            IProfilePictureService profilePictureService, IFriendshiprequestService friendshiprequestService)
         {
             this.vibeNetService = vibeNetService;
             this.identityUserService = identityUserService;
             this.profilePictureService = profilePictureService;
+            this.friendshiprequestService = friendshiprequestService;
         }
 
         [HttpGet]
@@ -59,10 +61,19 @@ namespace VibeNet.Controllers
         }
 
         [NotExistingUser]
-        public IActionResult SendFriendRequest(string userId)
+        public async Task<IActionResult> SendFriendRequest(string userId)
         {
-            ;
-            return View();
+            if (User.Id() == null) return BadRequest();
+
+            if(await friendshiprequestService.FindByIdAsync(userId, User.Id()))
+            {
+                await  friendshiprequestService.SendRequestAsync(userId, User.Id());
+                TempData["AlertMessage"] = "Friend request sent successfully!";
+            }
+            else
+                TempData["AlertMessage"] = "Friend request already sent!";
+
+            return RedirectToAction("ShowProfile", "User", new { userId = userId });
         }
     }
 }

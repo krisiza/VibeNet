@@ -2,7 +2,6 @@
 using VibeNet.Infrastucture.Repository.Contracts;
 using VibeNet.Core.ViewModels;
 using VibeNetInfrastucture.Data.Models;
-using AutoMapper;
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using VibeNet.Core.Contracts;
@@ -14,14 +13,11 @@ namespace VibeNet.Core.Services
     {
         private readonly IRepository<VibeNetUser, int> userRepository;
         private readonly IProfilePictureService profilePictureService;
-        private readonly IMapper mapper;
+        public VibeNetService(IRepository<VibeNetUser, int> userRepository, IProfilePictureService profilePictureService)
 
-        public VibeNetService(IRepository<VibeNetUser, int> userRepository, IProfilePictureService profilePictureService,
-            IMapper mapper)
         {
             this.userRepository = userRepository;
             this.profilePictureService = profilePictureService;
-            this.mapper = mapper;
         }
 
         public async Task AddUserAsync(VibeNetUserRegisterViewModel model)

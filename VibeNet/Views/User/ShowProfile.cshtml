@@ -1,16 +1,25 @@
 ﻿@using System.Security.Claims
 @using VibeNet.Core.ViewModels
+@using VibeNet.Extensions
 @model VibeNetUserProfileViewModel
 
 <link rel="stylesheet" href="~/css/ShowProfileStyleSheet.css" asp-append-version="true" />
 
+@if (TempData["AlertMessage"] != null)
+{
+    <div id="friend-request-alert" class="alert alert-info">
+        @TempData["AlertMessage"]
+    </div>
+}
+
 <div class="main-container">
+
     <div class="profile-container">
         <div class="profile-photo-add-friend-container">
             <div class="d-flex justify-content-center mb-4 img-container">
                 <img id="selected-avatar" src="@ViewBag.Base64String" class="rounded-circle" alt="Profile Avatar" />
             </div>
-            @if (Model.IdentityId != User.FindFirstValue(ClaimTypes.NameIdentifier))
+            @if (Model.IdentityId != User.Id())
             {
                 <div class="add-friend-container">
                     <a asp-controller="User" asp-action="SendFriendRequest" asp-route-userId="@Model.IdentityId"
@@ -28,7 +37,7 @@
             <p><strong>Birthday:</strong> @Model.Birthday</p>
             <p><strong>Gender:</strong> @Model.Gender</p>
 
-            @if (Model.IdentityId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+            @if (Model.IdentityId == User.Id())
             {
                 <div class="textarea-container">
                     <label class="status-label">How you feel today?</label>
@@ -48,5 +57,18 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-}
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const alertBox = document.getElementById("friend-request-alert");
+
+            if (alertBox) {
+                setTimeout(function () {
+                    alertBox.style.transition = "opacity 1s"; 
+                    alertBox.style.opacity = "0";               
+                    setTimeout(() => alertBox.style.display = "none", 500); 
+                }, 5000);
+            }
+        });
+    </script>
+}
