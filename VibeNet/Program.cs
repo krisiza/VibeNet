@@ -1,8 +1,12 @@
+using Microsoft.AspNetCore.Identity;
+using VibeNet.Infrastucture.Data;
+using VibeNet.Infrastucture.SeedDb;
+
 namespace VibeNet
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +19,15 @@ namespace VibeNet
             builder.Services.AddApplicationServices();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<VibeNetDbContext>();
+                var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+                await Seeder.SeedIdentityAsync(context, userManager);
+                await Seeder.SeedProfilePicturesAsync(context);
+            }
 
             if (app.Environment.IsDevelopment())
             {

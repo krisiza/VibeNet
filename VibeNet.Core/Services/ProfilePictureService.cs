@@ -45,7 +45,7 @@ namespace VibeNet.Core.Services
             }
             else
             {
-                entity.Name = formFile.Name;
+                entity.Name = formFile.FileName;
                 entity.ContentType = formFile.ContentType;
                 entity.Data = data;
             };

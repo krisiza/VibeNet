@@ -77,7 +77,7 @@ namespace VibeNet.Core.Services
                 Gender = user.Gender,
                 HomeTown = user.HomeTown,
                 Birthday = user.Birthday.ToString(),
-                ProfilePicture = await profilePictureService.GetProfilePictureAsync(user.Id)
+                ProfilePicture = await profilePictureService.GetProfilePictureAsync(user.ProfilePictureId)
             };
 
             return model;
