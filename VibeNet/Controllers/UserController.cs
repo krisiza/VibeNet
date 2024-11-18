@@ -63,6 +63,7 @@ namespace VibeNet.Controllers
             {
                 ViewBag.Base64String = $"data:{model.ProfilePicture.ContentType};base64," + Convert.ToBase64String(model.ProfilePicture.Data, 0, model.ProfilePicture.Data.Length);
             }
+            ;
 
             return View(model);
         }

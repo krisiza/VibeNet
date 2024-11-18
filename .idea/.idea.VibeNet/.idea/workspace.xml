@@ -10,16 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fc90041-c76c-4c1b-bd30-c225fc76d3f2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Contracts/IPostService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Contracts/IPostService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/IdentityUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/IdentityUserService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/PostService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/PostService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/ViewModels/PostViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/ViewModels/PostViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/PostController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/PostController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Extensions/ServiceCollectionExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Extensions/ServiceCollectionExtension.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Views/Post/AllPosts.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/Post/AllPosts.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/Post.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/Models/Post.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Data/VibeNetDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Data/VibeNetDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Migrations/VibeNetDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Migrations/VibeNetDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +126,7 @@
       <workItem from="1731404704796" duration="41000" />
       <workItem from="1731496953043" duration="385000" />
       <workItem from="1731572062185" duration="38000" />
+      <workItem from="1731939867640" duration="87000" />
     </task>
     <servers />
   </component>
