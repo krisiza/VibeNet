@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VibeNet.Attributes;
 using VibeNet.Core.Contracts;
@@ -6,6 +7,7 @@ using VibeNet.Core.Interfaces;
 using VibeNet.Core.Services;
 using VibeNet.Core.ViewModels;
 using VibeNet.Extensions;
+using static VibeNet.Infrastucture.Constants.CustomClaims;
 
 namespace VibeNet.Controllers
 {
@@ -16,16 +18,18 @@ namespace VibeNet.Controllers
         private readonly IProfilePictureService profilePictureService;
         private readonly IFriendshiprequestService friendshiprequestService;
         private readonly IFriendshipService friendshipService;
+        private readonly UserManager<IdentityUser> userManager;
 
         public UserController(IVibeNetService vibeNetService, IIdentityUserService identityUserService,
             IProfilePictureService profilePictureService, IFriendshiprequestService friendshiprequestService,
-            IFriendshipService friendshipService)
+            IFriendshipService friendshipService, UserManager<IdentityUser> userManager)
         {
             this.vibeNetService = vibeNetService;
             this.identityUserService = identityUserService;
             this.profilePictureService = profilePictureService;
             this.friendshiprequestService = friendshiprequestService;
             this.friendshipService = friendshipService;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -44,6 +48,20 @@ namespace VibeNet.Controllers
             if (ModelState.IsValid)
             {
                 await vibeNetService.AddUserAsync(model);
+
+                IdentityUserClaim<string> userClaim = new()
+                {
+                    ClaimType = UserFullNameClaim,
+                    ClaimValue = $"{model.FirstName} {model.LastName}",
+                    UserId = userId
+                };
+
+                var user = await userManager.FindByIdAsync(userClaim.UserId);
+                if (user != null)
+                {
+                    await userManager.AddClaimAsync(user, new System.Security.Claims.Claim(userClaim.ClaimType, userClaim.ClaimValue));
+                }
+
                 return RedirectToAction("ShowProfile", "User", new { userId = userId });
             }
 

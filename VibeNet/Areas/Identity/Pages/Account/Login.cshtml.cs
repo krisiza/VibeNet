@@ -108,8 +108,7 @@ namespace VibeNet.Areas.Identity.Pages.Account
 
                     if (userId != null)
                     {
-                        // Redirect to the ShowProfile action with the username in the URL
-                        return RedirectToAction("ShowProfile", "User", new { userId = userId });
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 if (result.RequiresTwoFactor)

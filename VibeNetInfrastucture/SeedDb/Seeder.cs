@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using VibeNet.Infrastucture.Data;
 using VibeNet.Infrastucture.Data.Models;
 using VibeNet.Infrastucture.Utilities;
 using VibeNetInfrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models.Enums;
+using static VibeNet.Infrastucture.Constants.CustomClaims;
 
 namespace VibeNet.Infrastucture.SeedDb
 {
@@ -12,6 +14,7 @@ namespace VibeNet.Infrastucture.SeedDb
         public static IdentityUser[] IdentityUsers = new IdentityUser[10];
         public static ProfilePicture[] ProfilePictures = new ProfilePicture[10];
         public static VibeNetUser[] VibeNetUsers = new VibeNetUser[10];
+        public static IdentityUserClaim<string>[] UserClaims = new IdentityUserClaim<string>[10];
         public static Post[] Posts = new Post[50];
         public static Comment[] Comments = new Comment[100];
         public static Like[] Likes = new Like[500];
@@ -28,6 +31,7 @@ namespace VibeNet.Infrastucture.SeedDb
                 EmailConfirmed = true
             };
             await userManager.CreateAsync(IdentityUsers[0], "Password123!");
+
 
             IdentityUsers[1] = new IdentityUser
             {
@@ -525,8 +529,8 @@ namespace VibeNet.Infrastucture.SeedDb
             {
                 Likes[i] = new Like()
                 {
-                    PostId = Posts[i % Posts.Length].Id, 
-                    OwnerId = IdentityUsers[i % IdentityUsers.Length].Id, 
+                    PostId = Posts[i % Posts.Length].Id,
+                    OwnerId = IdentityUsers[i % IdentityUsers.Length].Id,
                 };
             }
 
@@ -631,6 +635,115 @@ namespace VibeNet.Infrastucture.SeedDb
 
                 await context.AddRangeAsync(Friendships);
                 await context.SaveChangesAsync();
+            }
+        }
+
+        public static async Task SeedManagerRole(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        {
+            const string managerRole = "Admin";
+            if (!await roleManager.RoleExistsAsync(managerRole))
+                await roleManager.CreateAsync(new IdentityRole(managerRole));
+
+            const string adminEmail = "admin@abv.com";
+            const string adminPassword = "Admin123!";
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+            if (adminUser == null)
+            {
+                adminUser = new IdentityUser
+                {
+                    UserName = adminEmail,
+                    Email = adminEmail,
+                    EmailConfirmed = true
+                };
+
+                var createResult = await userManager.CreateAsync(adminUser, adminPassword);
+                if (createResult.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(adminUser, managerRole);
+                }
+            }
+        }
+
+        public static async Task SeedUserClaims(UserManager<IdentityUser> userManager)
+        {
+            UserClaims[0] = new IdentityUserClaim<string>()
+            {
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Jane Smith",
+                UserId = IdentityUsers[0].Id
+            };
+
+            UserClaims[1] = new IdentityUserClaim<string>()
+            {
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Tom Garcia",
+                UserId = IdentityUsers[1].Id
+            };
+
+            UserClaims[2] = new IdentityUserClaim<string>()
+            {
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Nikolai Werner",
+                UserId = IdentityUsers[2].Id
+            };
+
+            UserClaims[3] = new IdentityUserClaim<string>()
+            {
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Alexandra Schmidt",
+                UserId = IdentityUsers[3].Id
+            };
+
+            UserClaims[4] = new IdentityUserClaim<string>()
+            {
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Daniel Murphy",
+                UserId = IdentityUsers[4].Id
+            };
+
+            UserClaims[5] = new IdentityUserClaim<string>()
+            {
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Emily Nguyen",
+                UserId = IdentityUsers[5].Id
+            };
+
+            UserClaims[6] = new IdentityUserClaim<string>()
+            {
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "John Ivanov",
+                UserId = IdentityUsers[6].Id
+            };
+
+            UserClaims[7] = new IdentityUserClaim<string>()
+            {
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Michael Hernández",
+                UserId = IdentityUsers[7].Id
+            };
+
+            UserClaims[8] = new IdentityUserClaim<string>()
+            {
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Jane Smith",
+                UserId = IdentityUsers[8].Id
+            };
+
+            UserClaims[9] = new IdentityUserClaim<string>()
+            {
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Jane Smith",
+                UserId = IdentityUsers[9].Id
+            };
+
+            foreach (var userClaim in UserClaims)
+            {
+                var user = await userManager.FindByIdAsync(userClaim.UserId); 
+                if (user != null)
+                {
+                    await userManager.AddClaimAsync(user, new System.Security.Claims.Claim(userClaim.ClaimType, userClaim.ClaimValue));
+                }
             }
         }
     }

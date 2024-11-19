@@ -11,8 +11,9 @@ namespace VibeNet.Extensions
             using (var scope = serviceProvider.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<VibeNetDbContext>();
+                VibeNetDbContext context = services.GetRequiredService<VibeNetDbContext>();
                 var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
                 if (!context.Users.Any())
                 {
@@ -24,7 +25,9 @@ namespace VibeNet.Extensions
                     await Seeder.SeedLikes(context);
                     await Seeder.SeedFriendshiprequest(context);
                     await Seeder.SeedFriendships(context);
+                    await Seeder.SeedUserClaims(userManager);
                 }
+                    await Seeder.SeedManagerRole(roleManager, userManager);
             }
 
             return serviceProvider;

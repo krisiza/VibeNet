@@ -23,7 +23,6 @@ namespace VibeNet.Core.Services
 
         public async Task AddUserAsync(VibeNetUserRegisterViewModel model)
         {
-
             byte[] data = await VibeNetHepler.ConvertToBytesAsync(model.ProfilePictureFile);
 
             VibeNetUser user = new()

@@ -11,6 +11,7 @@ namespace VibeNet.Controllers
         [AllowAnonymous]
         public  IActionResult Index(string userId)
         {
+
             if (User?.Identity?.IsAuthenticated ?? false)
             {
                 if (userId != null)
@@ -24,6 +25,7 @@ namespace VibeNet.Controllers
                     return RedirectToAction("ShowProfile", "User", new { userId = identityId });
                 }
             }
+
             return View();
         }
 

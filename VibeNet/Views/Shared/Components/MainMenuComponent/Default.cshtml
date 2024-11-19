@@ -8,5 +8,12 @@
             <a class="nav-link text-dark" asp-area="" asp-route-userId="@User.Id()" asp-controller="Friendship" asp-action="ShowFriends">Friends</a>
             <a class="nav-link text-dark" asp-area="" asp-route-userId="@User.Id()" asp-controller="Post" asp-action="ShowFeeds">Feeds</a>
         }
+
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" href="/Admin/UserManagement">Admin Panel</a>
+            </li>
+        }
     </li>
 </ul>

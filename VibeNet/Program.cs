@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using VibeNet.Extensions;
 using VibeNet.Infrastucture.Data;
 using VibeNet.Infrastucture.SeedDb;
+using Microsoft.EntityFrameworkCore;
 
 namespace VibeNet
 {
@@ -10,12 +11,12 @@ namespace VibeNet
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var connectionString = builder.Configuration.GetConnectionString("VibeNetDbContextConnection") ?? throw new InvalidOperationException("Connection string 'VibeNetDbContextConnection' not found.");
 
             builder.Services.AddApplicationDbContext(builder.Configuration);
             builder.Services.AddApplicationIdentity(builder.Configuration);
-
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddRazorPages(); 
             builder.Services.AddApplicationRepository();
             builder.Services.AddApplicationServices();
 
