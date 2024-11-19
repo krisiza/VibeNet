@@ -455,7 +455,7 @@ namespace VibeNet.Infrastucture.Migrations
                         .HasColumnType("int")
                         .HasComment("User ProfilPicture Identifier");
 
-                    b.Property<string>("VibeNetUserId")
+                    b.Property<string>("IdentityUserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
                         .HasComment("Identity User Identifier");
@@ -464,7 +464,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("ProfilePictureId");
 
-                    b.HasIndex("VibeNetUserId");
+                    b.HasIndex("IdentityUserId");
 
                     b.ToTable("VibeNetUsers", t =>
                         {
@@ -616,7 +616,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("VibeNetUserId")
+                        .HasForeignKey("IdentityUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

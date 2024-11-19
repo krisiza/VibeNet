@@ -24,7 +24,7 @@ namespace VibeNetInfrastucture.Data.Models
         public string? Content { get; set; }
 
         [Comment("Post Picture")]
-        public string? Picture { get; set; }
+        public int? Picture { get; set; }
 
         [Required]
         [Comment("Post Creation Date")]

@@ -34,7 +34,7 @@ namespace VibeNet.Core.Services
                 CreatedOn = Convert.ToDateTime(model.CreatedOn, CultureInfo.InvariantCulture),
                 Gender = model.Gender,
                 IsDeleted = model.IsDeleted,
-                VibeNetUserId = model.Id.ToString(),
+                IdentityUserId = model.Id.ToString(),
                 ProfilePicture = await profilePictureService.SavePicture(model.ProfilePictureFile, data)
             };
 
@@ -44,7 +44,7 @@ namespace VibeNet.Core.Services
         public Task<VibeNetUser?> GetByIdentityIdAsync(string userIdentityId)
         {
             var user = userRepository.GetAllAttached()
-                .Where(u => u.VibeNetUserId == userIdentityId)
+                .Where(u => u.IdentityUserId == userIdentityId)
                 .FirstOrDefaultAsync();
 
             return user;
@@ -71,7 +71,7 @@ namespace VibeNet.Core.Services
             var model = new VibeNetUserProfileViewModel
             {
                 Id = user.Id,
-                IdentityId = user.VibeNetUserId,
+                IdentityId = user.IdentityUserId,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Gender = user.Gender,

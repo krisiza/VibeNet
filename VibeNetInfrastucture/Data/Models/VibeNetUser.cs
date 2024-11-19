@@ -17,9 +17,9 @@ namespace VibeNetInfrastucture.Data.Models
 
         [Required]
         [Comment("Identity User Identifier")]
-        public string VibeNetUserId { get; set; } = null!;
+        public string IdentityUserId { get; set; } = null!;
 
-        [ForeignKey(nameof(VibeNetUserId))]
+        [ForeignKey(nameof(IdentityUserId))]
         public virtual IdentityUser? User { get; set; }
 
         [MaxLength(FirstNameMaxLength)]

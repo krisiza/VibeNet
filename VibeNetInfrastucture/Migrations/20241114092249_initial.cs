@@ -413,7 +413,7 @@ namespace VibeNet.Infrastucture.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_VibeNetUsers_VibeNetUserId",
                 table: "VibeNetUsers",
-                column: "VibeNetUserId");
+                column: "IdentityUserId");
         }
 
         /// <inheritdoc />

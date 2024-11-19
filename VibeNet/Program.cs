@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using VibeNet.Extensions;
 using VibeNet.Infrastucture.Data;
 using VibeNet.Infrastucture.SeedDb;
 
@@ -22,11 +23,7 @@ namespace VibeNet
 
             using (var scope = app.Services.CreateScope())
             {
-                var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<VibeNetDbContext>();
-                var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-                await Seeder.SeedIdentityAsync(context, userManager);
-                await Seeder.SeedProfilePicturesAsync(context);
+                await app.Services.CreateScope().ServiceProvider.SeedDataAsync();
             }
 
             if (app.Environment.IsDevelopment())
