@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using VibeNet.Infrastucture.Constants;
+using VibeNetInfrastucture.Data.Models;
 using static VibeNetInfrastucture.Constants.Validations.Post;
 
 namespace VibeNet.Core.ViewModels
@@ -10,11 +11,13 @@ namespace VibeNet.Core.ViewModels
 
         public string OwnerId { get; set; } = null!;
 
+        public VibeNetUserProfileViewModel Owner { get; set; } = null!;
+
         [StringLength(ContentMaxLength, MinimumLength = ContentMinLength, ErrorMessage = ErrorMessages.NeededLength)]
         [Required(ErrorMessage = ErrorMessages.Required)]
         public string Content { get; set; } = null!;
 
-        public string? Picture { get; set; }
+        public int? Picture { get; set; }
 
         public DateTime PostedOn { get; set; }
 

@@ -52,6 +52,23 @@ namespace VibeNet.Controllers
 
         }
 
+        public async Task<IActionResult> ShowFeeds(string userId)
+        {
+            if(userId != User.Id()) return BadRequest();
+
+            var vibenetEntity = await vibeNetService.GetByIdentityIdAsync(userId);
+            var model = await vibeNetService.CreateVibeNetUserProfileViewModel(userId);
+
+            ViewBag.Base64String = $"data:{model.ProfilePicture.ContentType};base64," +
+                                          Convert.ToBase64String(model.ProfilePicture.Data, 0,
+                                              model.ProfilePicture.Data.Length);
+
+            TempData["UserName"] = vibenetEntity.FirstName + " " + vibenetEntity.LastName;
+
+            var posts = await postservice.GetFriendsPostsAsync(userId);
+            return View(posts);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add(string postContent)
         {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VibeNet.Infrastucture.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class addmigrationinitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -227,7 +227,7 @@ namespace VibeNet.Infrastucture.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Post Owner Identifier"),
                     Content = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: true, comment: "Post Content"),
-                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "Post Picture"),
+                    Picture = table.Column<int>(type: "int", nullable: true, comment: "Post Picture"),
                     PostedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Post Creation Date"),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Post Is Active Or Not")
                 },
@@ -249,7 +249,7 @@ namespace VibeNet.Infrastucture.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false, comment: "User Identifier")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    VibeNetUserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Identity User Identifier"),
+                    IdentityUserId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Identity User Identifier"),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "User Firstname"),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "User Secondname"),
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "User Birthday"),
@@ -263,8 +263,8 @@ namespace VibeNet.Infrastucture.Migrations
                 {
                     table.PrimaryKey("PK_VibeNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_VibeNetUsers_AspNetUsers_VibeNetUserId",
-                        column: x => x.VibeNetUserId,
+                        name: "FK_VibeNetUsers_AspNetUsers_IdentityUserId",
+                        column: x => x.IdentityUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -406,14 +406,14 @@ namespace VibeNet.Infrastucture.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_VibeNetUsers_IdentityUserId",
+                table: "VibeNetUsers",
+                column: "IdentityUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VibeNetUsers_ProfilePictureId",
                 table: "VibeNetUsers",
                 column: "ProfilePictureId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VibeNetUsers_VibeNetUserId",
-                table: "VibeNetUsers",
-                column: "IdentityUserId");
         }
 
         /// <inheritdoc />

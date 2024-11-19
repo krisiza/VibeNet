@@ -6,6 +6,7 @@ using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Utilities;
+using VibeNetInfrastucture.Constants;
 
 namespace VibeNet.Core.Services
 {
@@ -76,7 +77,7 @@ namespace VibeNet.Core.Services
                 LastName = user.LastName,
                 Gender = user.Gender,
                 HomeTown = user.HomeTown,
-                Birthday = user.Birthday.ToString(),
+                Birthday = user.Birthday.ToString(Validations.DateTimeFormat.Format),
                 ProfilePicture = await profilePictureService.GetProfilePictureAsync(user.ProfilePictureId)
             };
 

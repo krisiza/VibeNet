@@ -391,8 +391,8 @@ namespace VibeNet.Infrastucture.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasComment("Post Owner Identifier");
 
-                    b.Property<string>("Picture")
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<int?>("Picture")
+                        .HasColumnType("int")
                         .HasComment("Post Picture");
 
                     b.Property<DateTime>("PostedOn")
@@ -441,6 +441,11 @@ namespace VibeNet.Infrastucture.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasComment("User HomeTown");
 
+                    b.Property<string>("IdentityUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasComment("Identity User Identifier");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasComment("User Profil Activated Or Not");
@@ -455,16 +460,11 @@ namespace VibeNet.Infrastucture.Migrations
                         .HasColumnType("int")
                         .HasComment("User ProfilPicture Identifier");
 
-                    b.Property<string>("IdentityUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)")
-                        .HasComment("Identity User Identifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ProfilePictureId");
-
                     b.HasIndex("IdentityUserId");
+
+                    b.HasIndex("ProfilePictureId");
 
                     b.ToTable("VibeNetUsers", t =>
                         {
@@ -608,15 +608,15 @@ namespace VibeNet.Infrastucture.Migrations
 
             modelBuilder.Entity("VibeNetInfrastucture.Data.Models.VibeNetUser", b =>
                 {
-                    b.HasOne("VibeNet.Infrastucture.Data.Models.ProfilePicture", "ProfilePicture")
-                        .WithMany()
-                        .HasForeignKey("ProfilePictureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("IdentityUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VibeNet.Infrastucture.Data.Models.ProfilePicture", "ProfilePicture")
+                        .WithMany()
+                        .HasForeignKey("ProfilePictureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -2,7 +2,11 @@
 <ul class="navbar-nav flex-grow-1" >
     <li class="nav-item" style="display:flex">
         <a class="nav-link text-dark" asp-area="" asp-route-userId="@User.Id()" asp-controller="Home" asp-action="Index">Home</a>
-        <a class="nav-link text-dark" asp-area="" asp-route-userId="@User.Id()" asp-controller="Friendrequest" asp-action="ShowFriendrequests">Friendsrequest</a>
-        <a class="nav-link text-dark" asp-area="" asp-route-userId="@User.Id()" asp-controller="Friendship" asp-action="ShowFriends">Friends</a>
+        @if (User?.Identity?.IsAuthenticated ?? true)
+        {
+            <a class="nav-link text-dark" asp-area="" asp-route-userId="@User.Id()" asp-controller="Friendrequest" asp-action="ShowFriendrequests">Friendsrequest</a>
+            <a class="nav-link text-dark" asp-area="" asp-route-userId="@User.Id()" asp-controller="Friendship" asp-action="ShowFriends">Friends</a>
+            <a class="nav-link text-dark" asp-area="" asp-route-userId="@User.Id()" asp-controller="Post" asp-action="ShowFeeds">Feeds</a>
+        }
     </li>
 </ul>
