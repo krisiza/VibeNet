@@ -27,7 +27,7 @@ namespace VibeNet.Extensions
                     await Seeder.SeedFriendships(context);
                     await Seeder.SeedUserClaims(userManager);
                 }
-                    await Seeder.SeedManagerRole(roleManager, userManager);
+                    await Seeder.SeedManagerRole(roleManager, userManager, context);
             }
 
             return serviceProvider;

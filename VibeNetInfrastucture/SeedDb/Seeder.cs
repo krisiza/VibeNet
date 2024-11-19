@@ -6,6 +6,8 @@ using VibeNet.Infrastucture.Utilities;
 using VibeNetInfrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models.Enums;
 using static VibeNet.Infrastucture.Constants.CustomClaims;
+using static VibeNet.Infrastucture.Constants.AdminConstant;
+using VibeNet.Infrastucture.Constants;
 
 namespace VibeNet.Infrastucture.SeedDb
 {
@@ -638,9 +640,9 @@ namespace VibeNet.Infrastucture.SeedDb
             }
         }
 
-        public static async Task SeedManagerRole(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public static async Task SeedManagerRole(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, VibeNetDbContext context)
         {
-            const string managerRole = "Admin";
+            const string managerRole = AminRole;
             if (!await roleManager.RoleExistsAsync(managerRole))
                 await roleManager.CreateAsync(new IdentityRole(managerRole));
 
@@ -662,6 +664,32 @@ namespace VibeNet.Infrastucture.SeedDb
                 {
                     await userManager.AddToRoleAsync(adminUser, managerRole);
                 }
+
+                var profilePicture = new ProfilePicture
+                {
+                    Name = "admin",
+                    ContentType = "jpg",
+                    Data = await PictureHelper.ConvertToBytesAsync("admin.jpg")
+                };
+
+                await context.ProfilePictures.AddAsync(profilePicture);
+                await context.SaveChangesAsync();
+
+                var vibenetUser = new VibeNetUser()
+                {
+                    User = adminUser,
+                    FirstName = "Admin",
+                    LastName = "Adminov",
+                    Birthday = DateTime.Parse("1996-04-15"),
+                    CreatedOn = DateTime.Parse("2000-01-01"),
+                    HomeTown = "Montana",
+                    Gender = Gender.Male,
+                    ProfilePictureId = profilePicture.Id,
+                    IsDeleted = false,
+                };
+
+                await context.VibeNetUsers.AddAsync(vibenetUser);
+                await context.SaveChangesAsync();
             }
         }
 
@@ -739,7 +767,7 @@ namespace VibeNet.Infrastucture.SeedDb
 
             foreach (var userClaim in UserClaims)
             {
-                var user = await userManager.FindByIdAsync(userClaim.UserId); 
+                var user = await userManager.FindByIdAsync(userClaim.UserId);
                 if (user != null)
                 {
                     await userManager.AddClaimAsync(user, new System.Security.Claims.Claim(userClaim.ClaimType, userClaim.ClaimValue));

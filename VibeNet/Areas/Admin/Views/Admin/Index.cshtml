@@ -1,0 +1,28 @@
+﻿@using VibeNet.Core.ViewModels
+@model IEnumerable<VibeNetUserProfileViewModel>?
+
+<link rel="stylesheet" href="~/css/ShowFriendrequestsStyleSheet.css" asp-append-version="true" />
+
+@if (Model != null)
+{
+    foreach (var user in Model)
+    {
+        <div class="user-container">
+            <div class="img-container comment-img">
+                <a asp-action="ShowProfile" asp-controller="User" asp-route-userId="@user.IdentityId">
+                    <img src="data:{@user.ProfilePicture.ContentType};base64, @Convert.ToBase64String(user.ProfilePicture.Data, 0, user.ProfilePicture.Data.Length)" />
+                </a>
+            </div>
+            <div class="name-buttons-container">
+                <p>@user.FirstName @user.LastName</p>
+                <div class="buttons-container">
+                    <a asp-action="Delete" asp-controller="Admin" asp-route-userId="@user.IdentityId">Delete User</a>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>No Users!</p>
+}

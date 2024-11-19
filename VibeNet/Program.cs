@@ -48,6 +48,10 @@ namespace VibeNet
               name: "default",
               pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            app.MapControllerRoute(
+                name: "admin",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
             // Custom route for ShowProfile with username
             app.MapControllerRoute(
                 name: "profile",
@@ -58,6 +62,14 @@ namespace VibeNet
                 name: "profile",
                 pattern: "Post/AllPosts/{userId}",
                 defaults: new { controller = "Post", action = "AllPosts" });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
 
             app.MapRazorPages();
 

@@ -8,7 +8,6 @@ namespace VibeNet.Controllers
 {
     public class HomeController : BaseController
     {
-        [AllowAnonymous]
         public  IActionResult Index(string userId)
         {
 

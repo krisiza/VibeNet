@@ -10,16 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fc90041-c76c-4c1b-bd30-c225fc76d3f2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Areas/Identity/Pages/Account/Login.cshtml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Areas/Identity/Pages/Account/Login.cshtml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/HomeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Extensions/ServiceCollectionExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Extensions/ServiceCollectionExtension.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/Extensions/ServiceProviderExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Extensions/ServiceProviderExtension.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/VibeNet.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/VibeNet.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/Views/Shared/Components/MainMenuComponent/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/Shared/Components/MainMenuComponent/Default.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Views/Shared/_LoginPartial.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/Shared/_LoginPartial.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/appsettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/SeedDb/Seeder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/SeedDb/Seeder.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -139,6 +134,7 @@
       <workItem from="1731939867640" duration="87000" />
       <workItem from="1732005008597" duration="93000" />
       <workItem from="1732010910175" duration="80000" />
+      <workItem from="1732018671544" duration="504000" />
     </task>
     <servers />
   </component>

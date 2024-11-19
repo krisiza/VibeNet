@@ -4,6 +4,7 @@ using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
 using VibeNet.Core.ViewModels;
 using VibeNet.Extensions;
+using static VibeNet.Infrastucture.Constants.AdminConstant;
 
 namespace VibeNet.Controllers
 {
@@ -31,7 +32,9 @@ namespace VibeNet.Controllers
             var vibenetEntity = await vibeNetService.GetByIdentityIdAsync(userId);
             var model = await vibeNetService.CreateVibeNetUserProfileViewModel(userId);
 
-            if (!await friendshipService.FindByIdAsync(User.Id(), userId) && !await friendshipService.FindByIdAsync(User.Id(), userId) && userId != User.Id())
+
+
+            if (!User.IsInRole(AminRole) && !await friendshipService.FindByIdAsync(User.Id(), userId) && !await friendshipService.FindByIdAsync(User.Id(), userId) && userId != User.Id())
             {
                 TempData["AlertMessage"] = $"{model.FirstName} {model.LastName} is not your friend!";
                 return RedirectToAction("ShowProfile", "User", new { userId = userId });
