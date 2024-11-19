@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VibeNet.Attributes;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
-using VibeNet.Core.Services;
 using VibeNet.Core.ViewModels;
 using VibeNet.Extensions;
 using static VibeNet.Infrastucture.Constants.CustomClaims;
@@ -14,18 +12,16 @@ namespace VibeNet.Controllers
     public class UserController : BaseController
     {
         private readonly IVibeNetService vibeNetService;
-        private readonly IIdentityUserService identityUserService;
         private readonly IProfilePictureService profilePictureService;
         private readonly IFriendshiprequestService friendshiprequestService;
         private readonly IFriendshipService friendshipService;
         private readonly UserManager<IdentityUser> userManager;
 
-        public UserController(IVibeNetService vibeNetService, IIdentityUserService identityUserService,
-            IProfilePictureService profilePictureService, IFriendshiprequestService friendshiprequestService,
-            IFriendshipService friendshipService, UserManager<IdentityUser> userManager)
+        public UserController(IProfilePictureService profilePictureService, IFriendshiprequestService friendshiprequestService,
+            IFriendshipService friendshipService, UserManager<IdentityUser> userManager,
+            IVibeNetService vibeNetService)
         {
             this.vibeNetService = vibeNetService;
-            this.identityUserService = identityUserService;
             this.profilePictureService = profilePictureService;
             this.friendshiprequestService = friendshiprequestService;
             this.friendshipService = friendshipService;
@@ -65,7 +61,8 @@ namespace VibeNet.Controllers
                 return RedirectToAction("ShowProfile", "User", new { userId = userId });
             }
 
-            await identityUserService.DeleteIdentityUserAsync(model.Id);
+            var userIdentity = await userManager.FindByIdAsync(userId);
+            await userManager.DeleteAsync(userIdentity);
             return View(model);
         }
 
@@ -81,7 +78,6 @@ namespace VibeNet.Controllers
             {
                 ViewBag.Base64String = $"data:{model.ProfilePicture.ContentType};base64," + Convert.ToBase64String(model.ProfilePicture.Data, 0, model.ProfilePicture.Data.Length);
             }
-            ;
 
             return View(model);
         }

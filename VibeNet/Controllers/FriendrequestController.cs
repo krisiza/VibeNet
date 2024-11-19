@@ -30,7 +30,7 @@ namespace VibeNet.Controllers
         public async Task<IActionResult> Delete(string userId)
         {
 
-            await friendshiprequestService.DeleteRequest(userId, User.Id());
+            await friendshiprequestService.DeleteRequestAsync(userId, User.Id());
             return RedirectToAction("ShowFriendrequests", "Friendrequest", new { userId = User.Id() });
         }
     }

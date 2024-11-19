@@ -68,5 +68,18 @@ namespace VibeNet.Core.Services
 
            await friendshipRepository.AddAsync(friendship);
         }
+
+        public void Delete(string userId)
+        {
+            var friendShips = friendshipRepository.GetAllAttached()
+                .Where(fs => fs.FirstUserId == userId || fs.SecondUserId == userId);
+
+            if (friendShips == null) return;
+
+            foreach (var friendship in friendShips)
+            {
+                 friendshipRepository.DeleteEntity(friendship);
+            }
+        }
     }
 }

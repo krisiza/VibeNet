@@ -30,5 +30,18 @@ namespace VibeNet.Core.Services
 
             commentRepository.Add(comment);
         }
+
+        public void Delete(string userId)
+        {
+            var comments = commentRepository.GetAllAttached()
+                .Where(c => c.OwnerId == userId);
+
+            if (comments == null) return;
+
+            foreach (var comment in comments)
+            {
+                 commentRepository.DeleteEntity(comment);
+            }
+        }
     }
 }

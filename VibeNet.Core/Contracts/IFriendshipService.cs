@@ -8,5 +8,6 @@ namespace VibeNet.Core.Contracts
         Task<IEnumerable<VibeNetUserProfileViewModel>?> GetFriendsAsync(string userId);
         Task<bool> FindByIdAsync(string firstUserId, string secondUserId);
         Task AddFriendShipAsync(Friendshiprequest entity);
+        void Delete(string userId);
     }
 }

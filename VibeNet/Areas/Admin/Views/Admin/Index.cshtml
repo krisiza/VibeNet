@@ -16,7 +16,7 @@
             <div class="name-buttons-container">
                 <p>@user.FirstName @user.LastName</p>
                 <div class="buttons-container">
-                    <a asp-action="Delete" asp-controller="Admin" asp-route-userId="@user.IdentityId">Delete User</a>
+                    <a  asp-area="Admin" asp-action="DeleteUser" asp-controller="Admin" asp-route-userId="@user.IdentityId">Delete User</a>
                 </div>
             </div>
         </div>

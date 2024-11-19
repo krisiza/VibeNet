@@ -10,12 +10,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fc90041-c76c-4c1b-bd30-c225fc76d3f2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/HomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/HomeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Extensions/ServiceProviderExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Extensions/ServiceProviderExtension.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/VibeNet.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/VibeNet.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Views/Shared/Components/MainMenuComponent/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/Shared/Components/MainMenuComponent/Default.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/SeedDb/Seeder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/SeedDb/Seeder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Contracts/ICommentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Contracts/ICommentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Contracts/IFriendshipService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Contracts/IFriendshipService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Contracts/IFriendshiprequestService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Contracts/IFriendshiprequestService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Contracts/ILikeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Contracts/ILikeService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Contracts/IPostService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Contracts/IPostService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Contracts/IProfilePictureService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Contracts/IProfilePictureService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Contracts/IVibeNetService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Contracts/IVibeNetService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/CommentService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/CommentService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/FriendshipService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/FriendshipService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/FriendshiprequestService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/FriendshiprequestService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/LikeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/LikeService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/PostService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/PostService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/ProfilePictureService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/ProfilePictureService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/Areas/Admin/Controllers/AdminController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Areas/Admin/Controllers/AdminController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/FriendrequestController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/FriendrequestController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +146,7 @@
       <workItem from="1732005008597" duration="93000" />
       <workItem from="1732010910175" duration="80000" />
       <workItem from="1732018671544" duration="504000" />
+      <workItem from="1732022588887" duration="56000" />
     </task>
     <servers />
   </component>

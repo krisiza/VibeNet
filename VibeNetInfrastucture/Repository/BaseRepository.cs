@@ -83,6 +83,15 @@ namespace VibeNet.Infrastucture.Repository
             return true;
         }
 
+        public async Task<bool> DeleteEntityAsyncNotSaving(TType entity)
+        {
+            if (entity == null) return false;
+
+            dbSet.Remove(entity);
+            await context.SaveChangesAsync();
+            return true;
+        }
+
         public bool Update(TType item)
         {
             try

@@ -9,5 +9,7 @@ namespace VibeNet.Core.Contracts
         Task<ProfilePictureViewModel?> GetProfilePictureAsync(int id);
         Task<ProfilePicture> SavePicture(IFormFile formFile, byte[] data);
 
+        void Delete(int pictureId);
+
     }
 }

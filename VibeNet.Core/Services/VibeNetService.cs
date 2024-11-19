@@ -66,7 +66,7 @@ namespace VibeNet.Core.Services
         {
             var user = await GetByIdentityIdAsync(userId);
 
-            if(user == null) return null;
+            if (user == null) return null;
 
             var model = new VibeNetUserProfileViewModel
             {
@@ -81,6 +81,13 @@ namespace VibeNet.Core.Services
             };
 
             return model;
+        }
+
+        public async Task DeleteAsync(string userId)
+        {
+            var user = await GetByIdentityIdAsync(userId);
+            profilePictureService.Delete(user.ProfilePictureId);
+            userRepository.Delete(user.Id);
         }
     }
 }

@@ -16,7 +16,6 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IVibeNetService, VibeNetService>();
-            services.AddScoped<IIdentityUserService, IdentityUserService>();
             services.AddScoped<IProfilePictureService, ProfilePictureService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<ICommentService, CommentService>();
@@ -34,7 +33,6 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IRepository<Post, int>, BaseRepository<Post, int>>();
             services.AddScoped<IRepository<Friendship, object>, BaseRepository<Friendship, object>>();
             services.AddScoped<IRepository<Friendshiprequest, object>, BaseRepository<Friendshiprequest, object>>();
-            services.AddScoped<IRepository<IdentityUser, Guid>, BaseRepository<IdentityUser, Guid>>();
             services.AddScoped<IRepository<ProfilePicture, int>, BaseRepository<ProfilePicture, int>>();
             services.AddScoped<IRepository<Post, int>, BaseRepository<Post, int>>();
             services.AddScoped<IRepository<Comment, int>, BaseRepository<Comment, int>>();

@@ -64,7 +64,7 @@ namespace VibeNet.Core.Services
             await friendshiprequestRepository.AddAsync(entity);
         }
 
-        public async Task DeleteRequest(string transitterId, string recipientId)
+        public async Task DeleteRequestAsync(string transitterId, string recipientId)
         {
             var entity = await friendshiprequestRepository.GetAllAttached()
                 .Where(fr => fr.UserTransmitterId == transitterId && fr.UserRecipientId == recipientId)
@@ -73,6 +73,19 @@ namespace VibeNet.Core.Services
             if (entity == null) return;
             await friendshiprequestRepository.DeleteEntityAsync(entity);
 
+        }
+
+        public void Delete(string userId)
+        {
+            var frendRequests = friendshiprequestRepository.GetAllAttached()
+                .Where(fr => fr.UserTransmitterId == userId || fr.UserRecipientId == userId);
+
+            if (frendRequests == null) return;
+
+            foreach (var friendRequest in frendRequests)
+            {
+                friendshiprequestRepository.DeleteEntity(friendRequest);
+            }
         }
 
         public async Task AcceptRequest(string transitterId, string recipientId)

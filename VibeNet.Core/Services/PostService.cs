@@ -191,5 +191,18 @@ namespace VibeNet.Core.Services
 
             await postRepository.AddAsync(post);
         }
+
+        public void Delete(string userId)
+        {
+            var posts = postRepository.GetAllAttached()
+                .Where(p => p.OwnerId == userId);
+
+            if (posts == null) return;
+
+            foreach (var post in posts)
+            {
+                 postRepository.DeleteEntity(post);
+            }
+        }
     }
 }

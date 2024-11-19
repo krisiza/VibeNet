@@ -12,5 +12,7 @@ namespace VibeNet.Core.Contracts
         Task<PostViewModel> GetByIdAsync(int postId);
 
         Task<IList<PostViewModel>?> GetFriendsPostsAsync(string userId);
+
+        void Delete(string userId);
     }
 }

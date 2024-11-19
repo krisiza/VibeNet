@@ -54,5 +54,10 @@ namespace VibeNet.Core.Services
 
             return entity;
         }
+
+        public void Delete(int pictureId)
+        {          
+            profilePictureRepository.Delete(pictureId);        
+        }
     }
 }
