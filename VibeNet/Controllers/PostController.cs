@@ -2,6 +2,7 @@
 using VibeNet.Attributes;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
+using VibeNet.Core.Services;
 using VibeNet.Core.ViewModels;
 using VibeNet.Extensions;
 using static VibeNet.Infrastucture.Constants.AdminConstant;
@@ -122,6 +123,14 @@ namespace VibeNet.Controllers
                 TempData["AlertMessage"] = "Post is already liked";
 
             return RedirectToAction("AllPosts", "Post", new { userId = userId });
+        }
+
+        public async Task<IActionResult> DeletePost(int postId)
+        {
+            var post = await postservice.GetByIdAsync(postId);
+            await postservice.DeleteAsync(post);
+
+            return RedirectToAction("AllPosts", "Post", new { userId = post.OwnerId });
         }
     }
 }

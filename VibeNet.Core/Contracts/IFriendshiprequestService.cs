@@ -12,7 +12,7 @@ namespace VibeNet.Core.Contracts
 
         Task DeleteRequestAsync(string transitterId, string recipientId);
 
-        void Delete(string userId);
+        Task DeleteAsync(string userId);
 
         Task AcceptRequest(string transitterId, string recipientId);
     }

@@ -7,19 +7,22 @@
 {
     foreach (var user in Model)
     {
-        <div class="user-container">
-            <div class="img-container comment-img">
-                <a asp-action="ShowProfile" asp-controller="User" asp-route-userId="@user.IdentityId">
-                    <img src="data:{@user.ProfilePicture.ContentType};base64, @Convert.ToBase64String(user.ProfilePicture.Data, 0, user.ProfilePicture.Data.Length)" />
-                </a>
-            </div>
-            <div class="name-buttons-container">
-                <p>@user.FirstName @user.LastName</p>
-                <div class="buttons-container">
-                    <a  asp-area="Admin" asp-action="DeleteUser" asp-controller="Admin" asp-route-userId="@user.IdentityId">Delete User</a>
+        if (user != null)
+        {
+            <div class="user-container">
+                <div class="img-container comment-img">
+                    <a asp-action="ShowProfile" asp-controller="User" asp-route-userId="@user.IdentityId">
+                        <img src="data:{@user.ProfilePicture.ContentType};base64, @Convert.ToBase64String(user.ProfilePicture.Data, 0, user.ProfilePicture.Data.Length)" />
+                    </a>
+                </div>
+                <div class="name-buttons-container">
+                    <p>@user.FirstName @user.LastName</p>
+                    <div class="buttons-container">
+                        <a asp-area="Admin" asp-action="DeleteUser" asp-controller="Admin" asp-route-userId="@user.IdentityId">Delete User</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     }
 }
 else

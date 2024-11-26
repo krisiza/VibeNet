@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
 using VibeNet.Core.ViewModels;
+using VibeNet.Infrastucture.Data.Models;
 using VibeNet.Infrastucture.Repository.Contracts;
 using VibeNetInfrastucture.Data.Models;
 
@@ -12,18 +13,21 @@ namespace VibeNet.Core.Services
     {
         private readonly IRepository<Post, int> postRepository;
         private readonly IRepository<Comment, int> commentRepository;
+        private readonly IRepository<Like, int> likeRepositoty;
         private readonly IVibeNetService vibeNetService;
         private readonly IFriendshipService friendshipService;
         private readonly UserManager<IdentityUser> userManager;
 
         public PostService(IRepository<Post, int> postRepository, IRepository<Comment, int> commentRepository,
-          IVibeNetService vibeNetService, UserManager<IdentityUser> userManager, IFriendshipService friendshipService)
+          IVibeNetService vibeNetService, UserManager<IdentityUser> userManager, IFriendshipService friendshipService,
+         IRepository<Like, int> likeRepositoty)
         {
             this.postRepository = postRepository;
             this.commentRepository = commentRepository;
             this.vibeNetService = vibeNetService;
             this.userManager = userManager;
             this.friendshipService = friendshipService;
+            this.likeRepositoty = likeRepositoty;
         }
         public async Task<List<PostViewModel>> GetAllAsync(string userId)
         {
@@ -95,10 +99,10 @@ namespace VibeNet.Core.Services
                .Where(p => !p.IsDeleted)
                .ToListAsync();
 
-            if(posts == null) return null;
+            if (posts == null) return null;
 
             posts = posts
-                .Where(p => friends.Any(f  => f.IdentityId == p.OwnerId))
+                .Where(p => friends.Any(f => f.IdentityId == p.OwnerId))
                 .ToList();
 
             foreach (var post in posts)
@@ -192,17 +196,42 @@ namespace VibeNet.Core.Services
             await postRepository.AddAsync(post);
         }
 
-        public void Delete(string userId)
+        public async Task DeleteAllAsync(string userId)
         {
-            var posts = postRepository.GetAllAttached()
-                .Where(p => p.OwnerId == userId);
-
-            if (posts == null) return;
+            var posts = await postRepository.GetAllAttached()
+                .Include(p => p.Comments)
+                .Include(p => p.Owner)
+                .Include(p => p.UserLiked)
+                .Where(p => p.OwnerId == userId && !p.IsDeleted)
+                .ToListAsync();
 
             foreach (var post in posts)
             {
-                 postRepository.DeleteEntity(post);
+                await likeRepositoty.DeleteEntityRangeAsync(post.UserLiked);
             }
+
+            foreach (var post in posts)
+            {
+                await commentRepository.DeleteEntityRangeAsync(post.Comments);
+            }
+
+            if (posts == null) return;
+            await postRepository.DeleteEntityRangeAsync(posts);
+        }
+
+        public async Task DeleteAsync(PostViewModel model)
+        {
+            var post = await postRepository.GetAllAttached()
+                .Include(p => p.Comments)
+                .Include(p => p.UserLiked)
+                .Where(p => p.Id == model.Id && !p.IsDeleted)
+                .FirstOrDefaultAsync();
+
+            if (post == null) return;
+
+            await likeRepositoty.DeleteEntityRangeAsync(post.UserLiked);
+            await commentRepository.DeleteEntityRangeAsync(post.Comments);
+            await postRepository.DeleteEntityAsync(post);
         }
     }
 }

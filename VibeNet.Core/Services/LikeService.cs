@@ -38,17 +38,14 @@ namespace VibeNet.Core.Services
             return false;
         }
 
-        public void Delete(string userId)
+        public async Task DeleteAsync(string userId)
         {
             var likes = likeRepository.GetAllAttached()
                 .Where(l => l.OwnerId == userId);
 
             if (likes == null) return;
 
-            foreach(var like in likes)
-            {
-               likeRepository.DeleteEntity(like);
-            }
+            await likeRepository.DeleteEntityRangeAsync(likes);
         }
     }
 }

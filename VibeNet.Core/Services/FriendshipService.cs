@@ -29,14 +29,14 @@ namespace VibeNet.Core.Services
             {
                 var friendId = string.Empty;
 
-                if(friend.FirstUserId != userId)
-                    friendId = friend.FirstUserId;  
+                if (friend.FirstUserId != userId)
+                    friendId = friend.FirstUserId;
                 else
                     friendId = friend.SecondUserId;
 
                 VibeNetUserProfileViewModel? model = await vibeNetService.CreateVibeNetUserProfileViewModel(friendId);
 
-                if(model != null)
+                if (model != null)
                     friends.Add(model);
             }
 
@@ -66,20 +66,16 @@ namespace VibeNet.Core.Services
                 FriendsSince = DateTime.Now,
             };
 
-           await friendshipRepository.AddAsync(friendship);
+            await friendshipRepository.AddAsync(friendship);
         }
 
-        public void Delete(string userId)
+        public async Task DeleteAsync(string userId)
         {
             var friendShips = friendshipRepository.GetAllAttached()
                 .Where(fs => fs.FirstUserId == userId || fs.SecondUserId == userId);
 
             if (friendShips == null) return;
-
-            foreach (var friendship in friendShips)
-            {
-                 friendshipRepository.DeleteEntity(friendship);
-            }
+            await friendshipRepository.DeleteEntityRangeAsync(friendShips);
         }
     }
 }

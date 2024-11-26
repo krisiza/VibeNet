@@ -5,6 +5,6 @@ namespace VibeNet.Core.Contracts
     public interface ILikeService
     {
         Task<bool> AddLikeAsync(int postId, LikeViewModel model, string userId);
-        void Delete(string userId);
+        Task DeleteAsync(string userId);
     }
 }

@@ -14,7 +14,7 @@ namespace VibeNet.Core.Services
         private readonly IFriendshipService friendshipService;
 
         public FriendshiprequestService(IRepository<Friendshiprequest, object> friendshiprequestRepositora,
-            IVibeNetService vibeNetService,IFriendshipService friendshipService)
+            IVibeNetService vibeNetService, IFriendshipService friendshipService)
         {
             this.friendshiprequestRepository = friendshiprequestRepositora;
             this.vibeNetService = vibeNetService;
@@ -75,17 +75,14 @@ namespace VibeNet.Core.Services
 
         }
 
-        public void Delete(string userId)
+        public async Task DeleteAsync(string userId)
         {
             var frendRequests = friendshiprequestRepository.GetAllAttached()
                 .Where(fr => fr.UserTransmitterId == userId || fr.UserRecipientId == userId);
 
             if (frendRequests == null) return;
 
-            foreach (var friendRequest in frendRequests)
-            {
-                friendshiprequestRepository.DeleteEntity(friendRequest);
-            }
+            await friendshiprequestRepository.DeleteEntityRangeAsync(frendRequests);
         }
 
         public async Task AcceptRequest(string transitterId, string recipientId)

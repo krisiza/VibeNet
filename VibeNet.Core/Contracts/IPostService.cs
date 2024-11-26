@@ -13,6 +13,8 @@ namespace VibeNet.Core.Contracts
 
         Task<IList<PostViewModel>?> GetFriendsPostsAsync(string userId);
 
-        void Delete(string userId);
+        Task DeleteAllAsync(string userId);
+
+        Task DeleteAsync(PostViewModel model);
     }
 }

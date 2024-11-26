@@ -83,11 +83,11 @@ namespace VibeNet.Infrastucture.Repository
             return true;
         }
 
-        public async Task<bool> DeleteEntityAsyncNotSaving(TType entity)
+        public async Task<bool> DeleteEntityRangeAsync(IEnumerable<TType> entities)
         {
-            if (entity == null) return false;
+            if (entities == null) return false;
 
-            dbSet.Remove(entity);
+            dbSet.RemoveRange(entities);
             await context.SaveChangesAsync();
             return true;
         }

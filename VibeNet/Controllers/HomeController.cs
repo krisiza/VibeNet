@@ -10,7 +10,6 @@ namespace VibeNet.Controllers
     {
         public  IActionResult Index(string userId)
         {
-
             if (User?.Identity?.IsAuthenticated ?? false)
             {
                 if (userId != null)

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VibeNet.Infrastucture.Data;
 
@@ -11,9 +12,11 @@ using VibeNet.Infrastucture.Data;
 namespace VibeNet.Infrastucture.Migrations
 {
     [DbContext(typeof(VibeNetDbContext))]
-    partial class VibeNetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241126061812_postid")]
+    partial class postid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,7 +247,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Likes", (string)null);
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("VibeNet.Infrastucture.Data.Models.ProfilePicture", b =>
@@ -270,7 +273,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProfilePictures", null, t =>
+                    b.ToTable("ProfilePictures", t =>
                         {
                             t.HasComment("User Profil Picture");
                         });
@@ -314,7 +317,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments", null, t =>
+                    b.ToTable("Comments", t =>
                         {
                             t.HasComment("Post Comment From User");
                         });
@@ -338,7 +341,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("SecondUserId");
 
-                    b.ToTable("Friendships", null, t =>
+                    b.ToTable("Friendships", t =>
                         {
                             t.HasComment("Friendship between Users");
                         });
@@ -358,7 +361,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("UserTransmitterId");
 
-                    b.ToTable("Friendshiprequests", null, t =>
+                    b.ToTable("Friendshiprequests", t =>
                         {
                             t.HasComment("Friendshiprequest");
                         });
@@ -399,7 +402,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Posts", null, t =>
+                    b.ToTable("Posts", t =>
                         {
                             t.HasComment("User Post");
                         });
@@ -462,7 +465,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("ProfilePictureId");
 
-                    b.ToTable("VibeNetUsers", null, t =>
+                    b.ToTable("VibeNetUsers", t =>
                         {
                             t.HasComment("Application User");
                         });

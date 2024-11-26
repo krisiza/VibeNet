@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
-using VibeNet.Core.Services;
 using VibeNet.Core.ViewModels;
 using VibeNet.Extensions;
 using static VibeNet.Infrastucture.Constants.AdminConstant;
-using static VibeNetInfrastucture.Constants.Validations;
 
 namespace VibeNet.Areas.Admin.Controllers
 {
@@ -60,11 +58,11 @@ namespace VibeNet.Areas.Admin.Controllers
         [Route("Admin/Admin/Delete/{userId}")]
         public async Task<IActionResult> DeleteUser(string userId)
         {
-            likeService.Delete(userId);
-            commentService.Delete(userId);
-            postService.Delete(userId);
-            friendshiprequestService.Delete(userId);
-            friendshipService.Delete(userId);
+            await likeService.DeleteAsync(userId);
+            await commentService.DeleteAsync(userId);
+            await postService.DeleteAllAsync(userId);
+            await friendshiprequestService.DeleteAsync(userId);
+            await friendshipService.DeleteAsync(userId);
             await vibeNetService.DeleteAsync(userId);
             var user = (await userManager.FindByIdAsync(userId));
             await userManager.DeleteAsync(user);
@@ -72,10 +70,13 @@ namespace VibeNet.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Route("Admin/Admin/Delete/{postId}")]
+        [Route("Admin/Admin/DeletePost/{postId}")]
         public async Task<IActionResult> DeletePost(int postId)
         {
-            return RedirectToAction(nameof(Index));
+            var post = await postService.GetByIdAsync(postId);
+            await postService.DeleteAsync(post);
+
+            return RedirectToAction("AllPosts", "Post", new { userId = post.OwnerId });
         }
     }
 }

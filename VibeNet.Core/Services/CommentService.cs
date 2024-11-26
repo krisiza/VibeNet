@@ -12,10 +12,10 @@ namespace VibeNet.Core.Services
         public CommentService(IRepository<Comment, int> commentRepository, IPostService postService)
         {
             this.commentRepository = commentRepository;
-            this.postService = postService; 
+            this.postService = postService;
         }
 
-        public async Task AddCommentAsync(int postId,CommentViewModel model, string userId)
+        public async Task AddCommentAsync(int postId, CommentViewModel model, string userId)
         {
             var postEntity = await postService.GetByIdAsync(postId);
 
@@ -31,17 +31,13 @@ namespace VibeNet.Core.Services
             commentRepository.Add(comment);
         }
 
-        public void Delete(string userId)
+        public async Task DeleteAsync(string userId)
         {
             var comments = commentRepository.GetAllAttached()
                 .Where(c => c.OwnerId == userId);
 
             if (comments == null) return;
-
-            foreach (var comment in comments)
-            {
-                 commentRepository.DeleteEntity(comment);
-            }
+            await commentRepository.DeleteEntityRangeAsync(comments);
         }
     }
 }

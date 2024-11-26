@@ -24,6 +24,8 @@
 
         Task<bool> DeleteEntityAsync(TType entity);
 
+        Task<bool> DeleteEntityRangeAsync(IEnumerable<TType> entities);
+
         bool Update(TType item);
 
         Task<bool> UpdateAsync(TType item);
