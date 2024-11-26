@@ -8,11 +8,12 @@ namespace VibeNet.Controllers
 {
     public class HomeController : BaseController
     {
+        [AllowAnonymous]
         public  IActionResult Index(string userId)
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                if (userId != null)
+                if (!string.IsNullOrEmpty(userId))
                 {
                     // Redirect to the ShowProfile action with the username in the URL
                     return RedirectToAction("ShowProfile", "User", new { userId = userId });
