@@ -33,9 +33,5 @@ namespace VibeNetInfrastucture.Data.Models
         public IList<Like> UserLiked { get; set; } = new List<Like>();
 
         public IList<Comment> Comments { get; set; } = new List<Comment>();
-
-        [Required]
-        [Comment("Post Is Active Or Not")]
-        public bool IsDeleted { get; set; }
     }
 }

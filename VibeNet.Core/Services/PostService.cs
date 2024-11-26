@@ -35,7 +35,7 @@ namespace VibeNet.Core.Services
                 .Include(p => p.Comments)
                 .Include(p => p.Owner)
                 .Include(p => p.UserLiked)
-                .Where(p => p.OwnerId == userId && !p.IsDeleted)
+                .Where(p => p.OwnerId == userId)
                 .ToListAsync();
 
             var postViewModels = new List<PostViewModel>();
@@ -43,7 +43,7 @@ namespace VibeNet.Core.Services
             foreach (var post in posts)
             {
                 var comments = new List<CommentViewModel>();
-                foreach (var comment in post.Comments.Where(c => !c.IsDeleted))
+                foreach (var comment in post.Comments)
                 {
                     var ownerProfile = await vibeNetService.CreateVibeNetUserProfileViewModel(comment.OwnerId);
                     comments.Add(new CommentViewModel
@@ -51,7 +51,6 @@ namespace VibeNet.Core.Services
                         Id = comment.Id,
                         Content = comment.Content,
                         PostedOn = comment.PostedOn,
-                        IsDeleted = comment.IsDeleted,
                         Owner = ownerProfile,
                     });
                 }
@@ -74,7 +73,6 @@ namespace VibeNet.Core.Services
                     Owner = await vibeNetService.CreateVibeNetUserProfileViewModel(post.OwnerId),
                     Content = post.Content,
                     PostedOn = post.PostedOn,
-                    IsDeleted = post.IsDeleted,
                     UserLiked = likes,
                     Comments = comments
                 };
@@ -96,7 +94,6 @@ namespace VibeNet.Core.Services
                .Include(p => p.Comments)
                .Include(p => p.Owner)
                .Include(p => p.UserLiked)
-               .Where(p => !p.IsDeleted)
                .ToListAsync();
 
             if (posts == null) return null;
@@ -108,7 +105,7 @@ namespace VibeNet.Core.Services
             foreach (var post in posts)
             {
                 var comments = new List<CommentViewModel>();
-                foreach (var comment in post.Comments.Where(c => !c.IsDeleted))
+                foreach (var comment in post.Comments)
                 {
                     var ownerProfile = await vibeNetService.CreateVibeNetUserProfileViewModel(comment.OwnerId);
                     comments.Add(new CommentViewModel
@@ -116,7 +113,6 @@ namespace VibeNet.Core.Services
                         Id = comment.Id,
                         Content = comment.Content,
                         PostedOn = comment.PostedOn,
-                        IsDeleted = comment.IsDeleted,
                         Owner = ownerProfile,
                     });
                 }
@@ -139,7 +135,6 @@ namespace VibeNet.Core.Services
                     Owner = await vibeNetService.CreateVibeNetUserProfileViewModel(post.OwnerId),
                     Content = post.Content,
                     PostedOn = post.PostedOn,
-                    IsDeleted = post.IsDeleted,
                     UserLiked = likes,
                     Comments = comments
                 };
@@ -155,7 +150,7 @@ namespace VibeNet.Core.Services
             var post = await postRepository.GetByIdAsync(postId);
 
             var comments = new List<CommentViewModel>();
-            foreach (var comment in post.Comments.Where(c => !c.IsDeleted))
+            foreach (var comment in post.Comments)
             {
                 var ownerProfile = await vibeNetService.CreateVibeNetUserProfileViewModel(comment.OwnerId);
                 comments.Add(new CommentViewModel
@@ -163,7 +158,6 @@ namespace VibeNet.Core.Services
                     Id = comment.Id,
                     Content = comment.Content,
                     PostedOn = comment.PostedOn,
-                    IsDeleted = comment.IsDeleted,
                     Owner = ownerProfile,
                 });
             }
@@ -173,7 +167,6 @@ namespace VibeNet.Core.Services
                 Id = post.Id,
                 Content = post.Content,
                 PostedOn = post.PostedOn,
-                IsDeleted = post.IsDeleted,
                 Comments = comments,
                 OwnerId = post.OwnerId,
                 Owner = await vibeNetService.CreateVibeNetUserProfileViewModel(post.OwnerId),
@@ -190,7 +183,6 @@ namespace VibeNet.Core.Services
                 OwnerId = userId,
                 Content = postContent,
                 PostedOn = DateTime.Now,
-                IsDeleted = false,
             };
 
             await postRepository.AddAsync(post);
@@ -202,7 +194,7 @@ namespace VibeNet.Core.Services
                 .Include(p => p.Comments)
                 .Include(p => p.Owner)
                 .Include(p => p.UserLiked)
-                .Where(p => p.OwnerId == userId && !p.IsDeleted)
+                .Where(p => p.OwnerId == userId)
                 .ToListAsync();
 
             foreach (var post in posts)
@@ -224,7 +216,7 @@ namespace VibeNet.Core.Services
             var post = await postRepository.GetAllAttached()
                 .Include(p => p.Comments)
                 .Include(p => p.UserLiked)
-                .Where(p => p.Id == model.Id && !p.IsDeleted)
+                .Where(p => p.Id == model.Id)
                 .FirstOrDefaultAsync();
 
             if (post == null) return;

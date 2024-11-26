@@ -52,9 +52,5 @@ namespace VibeNetInfrastucture.Data.Models
 
         [ForeignKey(nameof(ProfilePictureId))]
         public virtual ProfilePicture? ProfilePicture { get; set; }
-
-        [Required]
-        [Comment("User Profil Activated Or Not")]
-        public bool IsDeleted { get; set; }
     }
 }

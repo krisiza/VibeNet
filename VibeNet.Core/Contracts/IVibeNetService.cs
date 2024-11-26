@@ -6,7 +6,7 @@ namespace VibeNet.Core.Interfaces
 {
     public interface IVibeNetService
     {
-        Task AddUserAsync(VibeNetUserRegisterViewModel model);
+        Task AddUserAsync(VibeNetUserFormViewModel model);
 
         Task<VibeNetUser?> GetByIdentityIdAsync(string userIdentityId);
 
@@ -17,5 +17,7 @@ namespace VibeNet.Core.Interfaces
         Task<VibeNetUserProfileViewModel?> CreateVibeNetUserProfileViewModel(string userId);
 
         Task DeleteAsync(string userId);
+
+        Task<VibeNetUserFormViewModel?> CreateRegisterUserViewModel(string userId);
     }
 }

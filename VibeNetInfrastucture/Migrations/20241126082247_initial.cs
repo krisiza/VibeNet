@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VibeNet.Infrastucture.Migrations
 {
     /// <inheritdoc />
-    public partial class addmigrationinitial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -112,8 +112,8 @@ namespace VibeNet.Infrastucture.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -157,8 +157,8 @@ namespace VibeNet.Infrastucture.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -228,8 +228,7 @@ namespace VibeNet.Infrastucture.Migrations
                     OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "Post Owner Identifier"),
                     Content = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: true, comment: "Post Content"),
                     Picture = table.Column<int>(type: "int", nullable: true, comment: "Post Picture"),
-                    PostedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Post Creation Date"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Post Is Active Or Not")
+                    PostedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Post Creation Date")
                 },
                 constraints: table =>
                 {
@@ -256,8 +255,7 @@ namespace VibeNet.Infrastucture.Migrations
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "User Profile Creation Date"),
                     HomeTown = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true, comment: "User HomeTown"),
                     Gender = table.Column<int>(type: "int", nullable: true, comment: "User Gender"),
-                    ProfilePictureId = table.Column<int>(type: "int", nullable: false, comment: "User ProfilPicture Identifier"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "User Profil Activated Or Not")
+                    ProfilePictureId = table.Column<int>(type: "int", nullable: false, comment: "User ProfilPicture Identifier")
                 },
                 constraints: table =>
                 {
@@ -286,8 +284,7 @@ namespace VibeNet.Infrastucture.Migrations
                     PostId = table.Column<int>(type: "int", nullable: true, comment: "Post Comment Identifier"),
                     OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false, comment: "User Owner Identifier"),
                     Content = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false, comment: "Comment Content"),
-                    PostedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Comment Creation Date"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Comment Is Active Or Not")
+                    PostedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Comment Creation Date")
                 },
                 constraints: table =>
                 {

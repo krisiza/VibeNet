@@ -12,8 +12,8 @@ using VibeNet.Infrastucture.Data;
 namespace VibeNet.Infrastucture.Migrations
 {
     [DbContext(typeof(VibeNetDbContext))]
-    [Migration("20241126061812_postid")]
-    partial class postid
+    [Migration("20241126082247_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -294,10 +294,6 @@ namespace VibeNet.Infrastucture.Migrations
                         .HasColumnType("nvarchar(300)")
                         .HasComment("Comment Content");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasComment("Comment Is Active Or Not");
-
                     b.Property<string>("OwnerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
@@ -381,10 +377,6 @@ namespace VibeNet.Infrastucture.Migrations
                         .HasColumnType("nvarchar(400)")
                         .HasComment("Post Content");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasComment("Post Is Active Or Not");
-
                     b.Property<string>("OwnerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
@@ -444,10 +436,6 @@ namespace VibeNet.Infrastucture.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
                         .HasComment("Identity User Identifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasComment("User Profil Activated Or Not");
 
                     b.Property<string>("LastName")
                         .IsRequired()

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Utilities;
 using VibeNetInfrastucture.Constants;
+using static VibeNetInfrastucture.Constants.Validations;
 
 namespace VibeNet.Core.Services
 {
@@ -21,19 +22,19 @@ namespace VibeNet.Core.Services
             this.profilePictureService = profilePictureService;
         }
 
-        public async Task AddUserAsync(VibeNetUserRegisterViewModel model)
+        public async Task AddUserAsync(VibeNetUserFormViewModel model)
         {
             byte[] data = await VibeNetHepler.ConvertToBytesAsync(model.ProfilePictureFile);
+            model.Birthday = Convert.ToDateTime(model.Birthday).ToString(DateTimeFormat.Format);
 
             VibeNetUser user = new()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 HomeTown = model.HomeTown,
-                Birthday = Convert.ToDateTime(model.Birthday, CultureInfo.InvariantCulture),
-                CreatedOn = Convert.ToDateTime(model.CreatedOn, CultureInfo.InvariantCulture),
+                Birthday = DateTime.ParseExact(model.Birthday, DateTimeFormat.Format, CultureInfo.InvariantCulture),
+                CreatedOn = DateTime.ParseExact(model.CreatedOn, DateTimeFormat.Format, CultureInfo.InvariantCulture),
                 Gender = model.Gender,
-                IsDeleted = model.IsDeleted,
                 IdentityUserId = model.Id.ToString(),
                 ProfilePicture = await profilePictureService.SavePicture(model.ProfilePictureFile, data)
             };
@@ -78,6 +79,27 @@ namespace VibeNet.Core.Services
                 HomeTown = user.HomeTown,
                 Birthday = user.Birthday.ToString(Validations.DateTimeFormat.Format),
                 ProfilePicture = await profilePictureService.GetProfilePictureAsync(user.ProfilePictureId)
+            };
+
+            return model;
+        }
+
+        public async Task<VibeNetUserFormViewModel?> CreateRegisterUserViewModel(string userId)
+        {
+            var user = await GetByIdentityIdAsync(userId);
+
+            if (user == null) return null;
+
+            var profilePicture = await profilePictureService.GetProfilePictureAsync(user.ProfilePictureId);
+
+            var model = new VibeNetUserFormViewModel
+            {
+                Id = Guid.Parse(user.IdentityUserId),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                HomeTown = user.HomeTown,
+                Birthday = user.Birthday.ToString(Validations.DateTimeFormat.Format)
             };
 
             return model;

@@ -1,11 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 using VibeNet.Attributes;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
+using VibeNet.Core.Utilities;
 using VibeNet.Core.ViewModels;
 using VibeNet.Extensions;
+using VibeNet.Infrastucture.Data.Models;
+using VibeNetInfrastucture.Data.Models;
 using static VibeNet.Infrastucture.Constants.CustomClaims;
+using static VibeNetInfrastucture.Constants.Validations;
+using static VibeNetInfrastucture.Constants.Validations.DateTimeFormat;
 
 namespace VibeNet.Controllers
 {
@@ -31,33 +37,41 @@ namespace VibeNet.Controllers
         [HttpGet]
         public IActionResult RegisterUser()
         {
-            VibeNetUserRegisterViewModel model = new();
+            VibeNetUserFormViewModel model = new();
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterUser([FromForm] VibeNetUserRegisterViewModel model)
+        public async Task<IActionResult> RegisterUser([FromForm] VibeNetUserFormViewModel model)
         {
             var userId = User.Id();
             model.Id = Guid.Parse(userId);
 
             if (ModelState.IsValid)
             {
-                await vibeNetService.AddUserAsync(model);
-
-                IdentityUserClaim<string> userClaim = new()
+                try
                 {
-                    ClaimType = UserFullNameClaim,
-                    ClaimValue = $"{model.FirstName} {model.LastName}",
-                    UserId = userId
-                };
+                    await vibeNetService.AddUserAsync(model);
 
-                var user = await userManager.FindByIdAsync(userClaim.UserId);
-                if (user != null)
-                {
-                    await userManager.AddClaimAsync(user, new System.Security.Claims.Claim(userClaim.ClaimType, userClaim.ClaimValue));
+                    IdentityUserClaim<string> userClaim = new()
+                    {
+                        ClaimType = UserFullNameClaim,
+                        ClaimValue = $"{model.FirstName} {model.LastName}",
+                        UserId = userId
+                    };
+
+                    var user = await userManager.FindByIdAsync(userClaim.UserId);
+                    if (user != null)
+                    {
+                        await userManager.AddClaimAsync(user, new System.Security.Claims.Claim(userClaim.ClaimType, userClaim.ClaimValue));
+                    }
                 }
-
+                catch (Exception ex) 
+                {
+                    var userIden = await userManager.FindByIdAsync(userId);
+                    await userManager.DeleteAsync(userIden);
+                    return View(model);
+                }
                 return RedirectToAction("ShowProfile", "User", new { userId = userId });
             }
 
@@ -108,6 +122,38 @@ namespace VibeNet.Controllers
             }
 
             return RedirectToAction("ShowProfile", "User", new { userId = userId });
+        }
+
+        [NotExistingUser]
+        [HttpGet]
+        public async Task<IActionResult> EditProfile(string userId)
+        {
+            var model = await vibeNetService.CreateRegisterUserViewModel(userId);
+            return View(model);
+        }
+
+        [NotExistingUser]
+        [HttpPost]
+        public async Task<IActionResult> EditProfile([FromForm] VibeNetUserFormViewModel model)
+        {
+            VibeNetUser? vibeNetUser = await vibeNetService.GetByIdentityIdAsync(model.Id.ToString());
+
+            if (vibeNetUser == null) return View(model);
+
+            vibeNetUser.FirstName = model.FirstName;
+            vibeNetUser.LastName = model.LastName;
+            vibeNetUser.HomeTown = model.HomeTown;
+            vibeNetUser.Birthday = DateTime.ParseExact(model.Birthday, DateTimeFormat.Format, CultureInfo.InvariantCulture);
+            vibeNetUser.Gender = model.Gender;
+
+            if (model.ProfilePictureFile != null)
+            {
+                byte[] data = await VibeNetHepler.ConvertToBytesAsync(model.ProfilePictureFile);
+                vibeNetUser.ProfilePicture = await profilePictureService.SavePicture(model.ProfilePictureFile, data);
+            }
+            await vibeNetService.UpdateAsync(vibeNetUser);
+
+            return RedirectToAction("ShowProfile", "User", new { userId = vibeNetUser.IdentityUserId });
         }
     }
 }

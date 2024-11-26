@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using VibeNet.Infrastucture.Data;
 using VibeNet.Infrastucture.Data.Models;
 using VibeNet.Infrastucture.Utilities;
@@ -7,7 +6,6 @@ using VibeNetInfrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models.Enums;
 using static VibeNet.Infrastucture.Constants.CustomClaims;
 using static VibeNet.Infrastucture.Constants.AdminConstant;
-using VibeNet.Infrastucture.Constants;
 
 namespace VibeNet.Infrastucture.SeedDb
 {
@@ -201,7 +199,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 HomeTown = "Springfield",
                 Gender = Gender.Female,
                 ProfilePictureId = ProfilePictures[0].Id,
-                IsDeleted = false,
             };
 
             VibeNetUsers[1] = new VibeNetUser()
@@ -214,7 +211,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 HomeTown = "Sydney",
                 Gender = Gender.Male,
                 ProfilePictureId = ProfilePictures[1].Id,
-                IsDeleted = false
             };
 
             VibeNetUsers[2] = new VibeNetUser()
@@ -227,7 +223,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 HomeTown = "Emhof",
                 Gender = Gender.Male,
                 ProfilePictureId = ProfilePictures[2].Id,
-                IsDeleted = false,
             };
 
             VibeNetUsers[3] = new VibeNetUser()
@@ -240,7 +235,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 HomeTown = "Cape Town",
                 Gender = Gender.Diverse,
                 ProfilePictureId = ProfilePictures[3].Id,
-                IsDeleted = false,
             };
 
             VibeNetUsers[4] = new VibeNetUser()
@@ -253,7 +247,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 HomeTown = "Patel",
                 Gender = Gender.Male,
                 ProfilePictureId = ProfilePictures[3].Id,
-                IsDeleted = false,
             };
 
             VibeNetUsers[5] = new VibeNetUser()
@@ -266,7 +259,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 HomeTown = "Tokyo",
                 Gender = Gender.Female,
                 ProfilePictureId = ProfilePictures[3].Id,
-                IsDeleted = false,
             };
 
             VibeNetUsers[6] = new VibeNetUser()
@@ -279,7 +271,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 HomeTown = "Sofia",
                 Gender = Gender.Male,
                 ProfilePictureId = ProfilePictures[6].Id,
-                IsDeleted = false,
             };
 
             VibeNetUsers[7] = new VibeNetUser()
@@ -292,7 +283,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 HomeTown = "Toronto",
                 Gender = Gender.Male,
                 ProfilePictureId = ProfilePictures[7].Id,
-                IsDeleted = false,
             };
 
             VibeNetUsers[8] = new VibeNetUser()
@@ -305,7 +295,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 HomeTown = "São Paulo",
                 Gender = Gender.Female,
                 ProfilePictureId = ProfilePictures[7].Id,
-                IsDeleted = false,
             };
 
             VibeNetUsers[9] = new VibeNetUser()
@@ -318,7 +307,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 HomeTown = "Moscow",
                 Gender = Gender.Female,
                 ProfilePictureId = ProfilePictures[7].Id,
-                IsDeleted = false,
             };
 
             await context.VibeNetUsers.AddRangeAsync(VibeNetUsers);
@@ -332,42 +320,36 @@ namespace VibeNet.Infrastucture.SeedDb
                 OwnerId = IdentityUsers[0].Id,
                 Content = "Excited to share my journey in Springfield!",
                 PostedOn = DateTime.Now.AddDays(-10),
-                IsDeleted = false
             };
             Posts[1] = new Post
             {
                 OwnerId = IdentityUsers[2].Id,
                 Content = "Life in Emhof is peaceful and inspiring.",
                 PostedOn = DateTime.Now.AddDays(-15),
-                IsDeleted = false
             };
             Posts[2] = new Post
             {
                 OwnerId = IdentityUsers[3].Id,
                 Content = "Cape Town sunsets are breathtaking!",
                 PostedOn = DateTime.Now.AddDays(-20),
-                IsDeleted = false
             };
             Posts[3] = new Post
             {
                 OwnerId = IdentityUsers[4].Id,
                 Content = "Sharing thoughts on life in Patel.",
                 PostedOn = DateTime.Now.AddDays(-5),
-                IsDeleted = false
             };
             Posts[4] = new Post
             {
                 OwnerId = IdentityUsers[5].Id,
                 Content = "Tokyo's energy is unbeatable!",
                 PostedOn = DateTime.Now.AddDays(-30),
-                IsDeleted = false
             };
             Posts[5] = new Post
             {
                 OwnerId = IdentityUsers[5].Id,
                 Content = "Tokyo's energy is unbeatable!",
                 PostedOn = DateTime.Now.AddDays(-30),
-                IsDeleted = false
             };
 
             Posts[6] = new Post
@@ -375,7 +357,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 OwnerId = IdentityUsers[6].Id,
                 Content = "Sofia feels like home.",
                 PostedOn = DateTime.Now.AddDays(-25),
-                IsDeleted = false
             };
 
             Posts[7] = new Post
@@ -383,7 +364,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 OwnerId = IdentityUsers[7].Id,
                 Content = "Toronto's winter is magical.",
                 PostedOn = DateTime.Now.AddDays(-8),
-                IsDeleted = false
             };
 
             Posts[8] = new Post
@@ -391,7 +371,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 OwnerId = IdentityUsers[8].Id,
                 Content = "São Paulo's nightlife is amazing!",
                 PostedOn = DateTime.Now.AddDays(-18),
-                IsDeleted = false
             };
 
             Posts[9] = new Post
@@ -399,7 +378,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 OwnerId = IdentityUsers[9].Id,
                 Content = "Exploring Moscow's architecture.",
                 PostedOn = DateTime.Now.AddDays(-22),
-                IsDeleted = false
             };
 
             for (int i = 10; i < 50; i++)
@@ -409,7 +387,6 @@ namespace VibeNet.Infrastucture.SeedDb
                     OwnerId = IdentityUsers[i % IdentityUsers.Length].Id,
                     Content = $"Random thoughts post #{i} from user {i % IdentityUsers.Length}.",
                     PostedOn = DateTime.Now.AddDays(-i),
-                    IsDeleted = false
                 };
             }
 
@@ -425,7 +402,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 PostId = Posts[0].Id,
                 Content = "I wish you a lot of great moments on your journey!",
                 PostedOn = DateTime.Now.AddDays(-10),
-                IsDeleted = false
             };
 
             Comments[1] = new Comment()
@@ -434,7 +410,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 PostId = Posts[1].Id,
                 Content = "This is amazing news, congrats!",
                 PostedOn = DateTime.Now.AddDays(-9),
-                IsDeleted = false
             };
 
             Comments[2] = new Comment()
@@ -443,7 +418,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 PostId = Posts[2].Id,
                 Content = "Looking forward to seeing more updates!",
                 PostedOn = DateTime.Now.AddDays(-8),
-                IsDeleted = false
             };
 
             Comments[3] = new Comment()
@@ -452,7 +426,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 PostId = Posts[3].Id,
                 Content = "Such a fantastic achievement, keep it up!",
                 PostedOn = DateTime.Now.AddDays(-7),
-                IsDeleted = false
             };
 
             Comments[4] = new Comment()
@@ -461,7 +434,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 PostId = Posts[4].Id,
                 Content = "So proud of you for this accomplishment!",
                 PostedOn = DateTime.Now.AddDays(-6),
-                IsDeleted = false
             };
 
             Comments[5] = new Comment()
@@ -470,7 +442,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 PostId = Posts[5].Id,
                 Content = "What a wonderful experience to share!",
                 PostedOn = DateTime.Now.AddDays(-5),
-                IsDeleted = false
             };
 
             Comments[6] = new Comment()
@@ -479,7 +450,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 PostId = Posts[6].Id,
                 Content = "This looks incredible, thanks for sharing!",
                 PostedOn = DateTime.Now.AddDays(-4),
-                IsDeleted = false
             };
 
             Comments[7] = new Comment()
@@ -488,7 +458,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 PostId = Posts[7].Id,
                 Content = "You’re doing an amazing job!",
                 PostedOn = DateTime.Now.AddDays(-3),
-                IsDeleted = false
             };
 
             Comments[8] = new Comment()
@@ -497,7 +466,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 PostId = Posts[8].Id,
                 Content = "Thanks for the inspiration, keep shining!",
                 PostedOn = DateTime.Now.AddDays(-2),
-                IsDeleted = false
             };
 
             Comments[9] = new Comment()
@@ -506,7 +474,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 PostId = Posts[9].Id,
                 Content = "A true testament to your dedication!",
                 PostedOn = DateTime.Now.AddDays(-1),
-                IsDeleted = false
             };
 
             for (int i = 10; i < 100; i++)
@@ -517,7 +484,6 @@ namespace VibeNet.Infrastucture.SeedDb
                     PostId = Posts[i % Posts.Length].Id,
                     Content = $"This is a comment #{i} on post #{i % Posts.Length}.",
                     PostedOn = DateTime.Now.AddDays(-i),
-                    IsDeleted = false
                 };
             }
 
@@ -602,7 +568,6 @@ namespace VibeNet.Infrastucture.SeedDb
                 UserTransmitterId = IdentityUsers[0].Id,
             };
 
-            // Save changes to the database
             await context.Friendshiprequests.AddRangeAsync(FriendshipRequests);
             await context.SaveChangesAsync();
         }
@@ -685,7 +650,6 @@ namespace VibeNet.Infrastucture.SeedDb
                     HomeTown = "Montana",
                     Gender = Gender.Male,
                     ProfilePictureId = profilePicture.Id,
-                    IsDeleted = false,
                 };
 
                 await context.VibeNetUsers.AddAsync(vibenetUser);

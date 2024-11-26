@@ -25,7 +25,6 @@ namespace VibeNet.Core.Services
                 OwnerId = userId,
                 Content = model.Content,
                 PostedOn = model.PostedOn,
-                IsDeleted = model.IsDeleted,
             };
 
             commentRepository.Add(comment);

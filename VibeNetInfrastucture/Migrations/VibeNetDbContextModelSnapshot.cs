@@ -244,7 +244,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Likes", (string)null);
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("VibeNet.Infrastucture.Data.Models.ProfilePicture", b =>
@@ -270,7 +270,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProfilePictures", null, t =>
+                    b.ToTable("ProfilePictures", t =>
                         {
                             t.HasComment("User Profil Picture");
                         });
@@ -291,10 +291,6 @@ namespace VibeNet.Infrastucture.Migrations
                         .HasColumnType("nvarchar(300)")
                         .HasComment("Comment Content");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasComment("Comment Is Active Or Not");
-
                     b.Property<string>("OwnerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
@@ -314,7 +310,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments", null, t =>
+                    b.ToTable("Comments", t =>
                         {
                             t.HasComment("Post Comment From User");
                         });
@@ -338,7 +334,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("SecondUserId");
 
-                    b.ToTable("Friendships", null, t =>
+                    b.ToTable("Friendships", t =>
                         {
                             t.HasComment("Friendship between Users");
                         });
@@ -358,7 +354,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("UserTransmitterId");
 
-                    b.ToTable("Friendshiprequests", null, t =>
+                    b.ToTable("Friendshiprequests", t =>
                         {
                             t.HasComment("Friendshiprequest");
                         });
@@ -378,10 +374,6 @@ namespace VibeNet.Infrastucture.Migrations
                         .HasColumnType("nvarchar(400)")
                         .HasComment("Post Content");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasComment("Post Is Active Or Not");
-
                     b.Property<string>("OwnerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)")
@@ -399,7 +391,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Posts", null, t =>
+                    b.ToTable("Posts", t =>
                         {
                             t.HasComment("User Post");
                         });
@@ -442,10 +434,6 @@ namespace VibeNet.Infrastucture.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasComment("Identity User Identifier");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasComment("User Profil Activated Or Not");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -462,7 +450,7 @@ namespace VibeNet.Infrastucture.Migrations
 
                     b.HasIndex("ProfilePictureId");
 
-                    b.ToTable("VibeNetUsers", null, t =>
+                    b.ToTable("VibeNetUsers", t =>
                         {
                             t.HasComment("Application User");
                         });

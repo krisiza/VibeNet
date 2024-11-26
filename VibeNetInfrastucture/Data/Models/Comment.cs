@@ -32,8 +32,5 @@ namespace VibeNetInfrastucture.Data.Models
 
         [Comment("Comment Creation Date")]
         public DateTime PostedOn { get; set; }
-
-        [Comment("Comment Is Active Or Not")]
-        public bool IsDeleted { get; set; }
     }
 }

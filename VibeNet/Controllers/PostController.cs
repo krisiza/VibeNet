@@ -98,7 +98,6 @@ namespace VibeNet.Controllers
             {
                 Content = commentContent,
                 Owner = userViewModel,
-                IsDeleted = false,
                 PostedOn = DateTime.Now,
             };
 

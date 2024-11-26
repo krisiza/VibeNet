@@ -24,7 +24,5 @@ namespace VibeNet.Core.ViewModels
         public IList<LikeViewModel> UserLiked { get; set; } = new List<LikeViewModel>();
 
         public IEnumerable<CommentViewModel> Comments { get; set; } = new List<CommentViewModel>();
-
-        public bool IsDeleted { get; set; }
     }
 }

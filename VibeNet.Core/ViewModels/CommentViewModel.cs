@@ -13,7 +13,5 @@ namespace VibeNet.Core.ViewModels
         public string Content { get; set; } = null!;
 
         public DateTime PostedOn { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }

@@ -1,10 +1,17 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@using VibeNet.Core.Utilities
-@using VibeNet.Core.ViewModels
+﻿@using VibeNet.Core.ViewModels
 @using VibeNetInfrastucture.Data.Models.Enums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using VibeNet.Core.Utilities
 @using static VibeNetInfrastucture.Constants.Validations.DateTimeFormat
 
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
 @model VibeNetUserFormViewModel
+
 @{
     ViewData["Title"] = "Register";
 }
@@ -13,24 +20,25 @@
 
 <div class="row register-container justify-content-center">
     <div class="flex-lg-shrink-0">
-        <h1>Enter your data</h1>
+        <h1>Edit Profile</h1>
         <form style="width:55%; justify-self:center;" id="registerForm" class="form-container" enctype="multipart/form-data" asp-route-returnUrl="/Home/Index" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div style="visibility:hidden" class="form-floating mb-3">
                 <input asp-for="@Model.CreatedOn" class="form-control" value="@DateTime.Now.ToString(Format)" aria-required="true" />
+                <input asp-for="@Model.Id" class="form-control" aria-required="true" />
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="@Model.FirstName" class="form-control" aria-required="true"/>
+                <input asp-for="@Model.FirstName" class="form-control" aria-required="true" />
                 <label asp-for="@Model.FirstName">FirstName</label>
                 <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="@Model.LastName" class="form-control" aria-required="true"/>
+                <input asp-for="@Model.LastName" class="form-control" aria-required="true" />
                 <label asp-for="@Model.LastName">LastName</label>
                 <span asp-validation-for="@Model.LastName" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="@Model.Birthday" id="startDate" value="@DateTime.Now.ToString(Format)" class="form-control" type="date"/>
+                <input asp-for="@Model.Birthday" id="startDate" data-provide="datepicker" class="form-control"  data-date-format="@Format" value="@Model.Birthday">
                 <label asp-for="@Model.Birthday">Birthday</label>
                 <span asp-validation-for="@Model.Birthday" class="text-danger"></span>
             </div>
@@ -44,14 +52,14 @@
                 <label asp-for="@Model.Gender">Gender</label>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="@Model.HomeTown" class="form-control" aria-required="true"/>
+                <input asp-for="@Model.HomeTown" class="form-control" aria-required="true" />
                 <label asp-for="@Model.HomeTown">HomeTown</label>
                 <span asp-validation-for="@Model.HomeTown" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="@Model.ProfilePictureFile" class="form-control-lg" id="formFileLg" type="file" />
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button id="editSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Save Changes</button>
         </form>
     </div>
 </div>
@@ -59,4 +67,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
 }
