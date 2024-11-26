@@ -1,0 +1,77 @@
+﻿@using VibeNet.Core.ViewModels
+@using VibeNet.Extensions
+@model IEnumerable<VibeNetUserProfileViewModel>?
+<link rel="stylesheet" href="~/css/ShowFriendrequestsStyleSheet.css" asp-append-version="true" />
+
+<style>
+    .pagination-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .pagination {
+        list-style: none;
+        padding: 0;
+        display: flex;
+    }
+
+        .pagination .page-item {
+            margin: 0 5px;
+        }
+
+        .pagination .page-link {
+            display: block;
+            padding: 8px 16px;
+            text-decoration: none;
+            color: #007bff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+</style>
+
+@if (Model != null && Model.Any())
+{
+    foreach (var user in Model)
+    {
+        <div class="user-container">
+            <div class="img-container comment-img">
+                <a asp-action="ShowProfile" asp-controller="User" asp-route-userId="@user.IdentityId">
+                    <img src="data:@user.ProfilePicture.ContentType;base64,@Convert.ToBase64String(user.ProfilePicture.Data, 0, user.ProfilePicture.Data.Length)" />
+                </a>
+            </div>
+            <div class="name-buttons-container">
+                <p>@user.FirstName @user.LastName</p>
+                <p>@user.HomeTown</p>
+                <p>@user.Gender</p>
+            </div>
+        </div>
+    }
+
+    <nav class="pagination-container">
+        <ul class="pagination">
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                    <form asp-controller="User" asp-action="Searched" method="post" style="display:inline;">
+                        <input type="hidden" name="searchTerm" value="@ViewBag.SearchTerm" />
+                        <input type="hidden" name="pageNumber" value="@i" />
+                        <input type="hidden" name="pageSize" value="@ViewBag.PageSize" />
+                        <button type="submit" class="page-link">@i</button>
+                    </form>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+else
+{
+    <p>No Users found!</p>
+}

@@ -7,11 +7,10 @@ using VibeNet.Core.Interfaces;
 using VibeNet.Core.Utilities;
 using VibeNet.Core.ViewModels;
 using VibeNet.Extensions;
-using VibeNet.Infrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static VibeNet.Infrastucture.Constants.CustomClaims;
 using static VibeNetInfrastucture.Constants.Validations;
-using static VibeNetInfrastucture.Constants.Validations.DateTimeFormat;
 
 namespace VibeNet.Controllers
 {
@@ -154,6 +153,19 @@ namespace VibeNet.Controllers
             await vibeNetService.UpdateAsync(vibeNetUser);
 
             return RedirectToAction("ShowProfile", "User", new { userId = vibeNetUser.IdentityUserId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Searched(string searchTerm, int pageNumber = 1, int pageSize = 4)
+        {
+            var (users, totalCount) = await vibeNetService.FindUsers(searchTerm, User.Id(), pageNumber, pageSize);
+
+            ViewBag.TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.SearchTerm = searchTerm;
+            ViewBag.PageSize = pageSize;
+
+            return View(users);
         }
     }
 }

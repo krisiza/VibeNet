@@ -8,6 +8,19 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/VibeNet.styles.css" asp-append-version="true" />
+
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-container{
+            width: 50%;
+            align-self: center;
+            margin: 3em 0;
+        }
+    </style>
 </head>
 <body style="width:90%; margin:auto;">
     <header>
@@ -33,6 +46,12 @@
             </div>
         </nav>
     </header>
+    @if (User?.Identity?.IsAuthenticated ?? true)
+    {
+        <div class="search-container">
+            @await Component.InvokeAsync(nameof(SearchComponent))
+        </div>
+    }
     <div class="main-container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -41,7 +60,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; @DateTime.Today.Year - VibeNet 
+            &copy; @DateTime.Today.Year - VibeNet
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

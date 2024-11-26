@@ -17,15 +17,14 @@
 
 .name-buttons-container {
     display: flex;
-    gap: 3em;
+    flex-direction:column;
     width: 100%;
     justify-content: space-between;
 }
 
-    .name-buttons-container p {
+    .name-buttons-container p:first-child {
         color: rebeccapurple;
         font-weight: bold;
-        align-self: end;
     }
 
 .buttons-container {

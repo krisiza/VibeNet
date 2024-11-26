@@ -111,5 +111,42 @@ namespace VibeNet.Core.Services
             profilePictureService.Delete(user.ProfilePictureId);
             userRepository.Delete(user.Id);
         }
+
+        public async Task<(IEnumerable<VibeNetUserProfileViewModel> Users, int TotalCount)> FindUsers(string searchedTerm, string userId, int pageNumber, int pageSize)
+        {
+            var query = userRepository.GetAllAttached()
+                .Where(u => (u.FirstName.ToLower().Contains(searchedTerm.ToLower())
+                          || u.LastName.ToLower().Contains(searchedTerm.ToLower())
+                          || (u.HomeTown != null && u.HomeTown.ToLower().Contains(searchedTerm.ToLower())))
+                          && u.IdentityUserId != userId);
+
+            int totalCount = await query.CountAsync();
+
+            var users = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var models = new List<VibeNetUserProfileViewModel>();
+
+            foreach (var user in users)
+            {
+                var model = new VibeNetUserProfileViewModel
+                {
+                    Id = user.Id,
+                    IdentityId = user.IdentityUserId,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Gender = user.Gender,
+                    HomeTown = user.HomeTown,
+                    Birthday = user.Birthday.ToString(Validations.DateTimeFormat.Format),
+                    ProfilePicture = await profilePictureService.GetProfilePictureAsync(user.ProfilePictureId)
+                };
+
+                models.Add(model);
+            }
+
+            return (models, totalCount);
+        }
     }
 }

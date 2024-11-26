@@ -19,5 +19,7 @@ namespace VibeNet.Core.Interfaces
         Task DeleteAsync(string userId);
 
         Task<VibeNetUserFormViewModel?> CreateRegisterUserViewModel(string userId);
+
+        Task<(IEnumerable<VibeNetUserProfileViewModel> Users, int TotalCount)> FindUsers(string searchedTerm, string userId, int pageNumber, int pageSize);
     }
 }
