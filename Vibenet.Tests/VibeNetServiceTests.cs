@@ -1,22 +1,17 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using System.Globalization;
 using Vibenet.Tests.CustomComparers;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Services;
-using VibeNet.Core.Utilities;
 using VibeNet.Core.ViewModels;
 using VibeNet.Infrastucture.Data;
 using VibeNet.Infrastucture.Data.Models;
-using VibeNet.Infrastucture.Repository;
 using VibeNet.Infrastucture.Repository.Contracts;
 using VibeNet.Infrastucture.Utilities;
 using VibeNetInfrastucture.Constants;
 using VibeNetInfrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models.Enums;
-using static VibeNetInfrastucture.Constants.Validations;
 
 namespace Vibenet.Tests
 {
@@ -28,7 +23,6 @@ namespace Vibenet.Tests
         private Mock<UserManager<IdentityUser>> userManagerMock;
         private VibeNetService vibeNetService;
         private VibeNetDbContext vibeNetDbContext;
-        private IEnumerable<VibeNetUser> users;
         VibeNetUser? vibeNetUser;
 
         [SetUp]
@@ -66,7 +60,7 @@ namespace Vibenet.Tests
 
             vibeNetUser = AddUser().Result;
         }
-  
+
         [Test]
         public async Task GetByIdentityId_Should_Return_User()
         {
@@ -131,10 +125,10 @@ namespace Vibenet.Tests
 
             VibeNetUserProfileViewModel? actual = await vibeNetService.CreateVibeNetUserProfileViewModel(user.IdentityUserId);
 
-            Assert.That(actual, Is.Not.Null); 
+            Assert.That(actual, Is.Not.Null);
             Assert.That(actual, Is.EqualTo(model).Using(new VibeNetUserProfileViewModelComparer()));
         }
-        
+
         [Test]
         public async Task CreateFormUserViewModel_Should_Create_Model()
         {

@@ -1,6 +1,6 @@
 ﻿namespace VibeNet.Infrastucture.Repository.Contracts
 {
-    public interface IRepository<TType, TId> 
+    public interface IRepository<TType, TId>
     {
         TType? GetById(TId id);
 

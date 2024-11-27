@@ -17,7 +17,7 @@ namespace VibeNet.Infrastucture.Repository
         }
 
         public TType? GetById(TId id)
-            =>  this.dbSet.Find(id);
+            => this.dbSet.Find(id);
 
         public async Task<TType?> GetByIdAsync(TId id)
             => await this.dbSet.FindAsync(id);
@@ -47,7 +47,7 @@ namespace VibeNet.Infrastucture.Repository
         {
             TType? entity = GetById(id);
 
-            if(entity == null) return false;
+            if (entity == null) return false;
 
             dbSet.Remove(entity);
             context.SaveChanges();
@@ -75,7 +75,7 @@ namespace VibeNet.Infrastucture.Repository
         }
 
         public async Task<bool> DeleteEntityAsync(TType entity)
-        {         
+        {
             if (entity == null) return false;
 
             dbSet.Remove(entity);

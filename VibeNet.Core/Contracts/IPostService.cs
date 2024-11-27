@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using VibeNet.Core.ViewModels;
+﻿using VibeNet.Core.ViewModels;
 
 namespace VibeNet.Core.Contracts
 {

@@ -56,7 +56,7 @@ namespace VibeNet.Core.Services
         }
 
         public void Delete(int pictureId)
-            => profilePictureRepository.Delete(pictureId);        
-        
+            => profilePictureRepository.Delete(pictureId);
+
     }
 }

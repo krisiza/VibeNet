@@ -2,7 +2,6 @@
 using VibeNet.Attributes;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
-using VibeNet.Core.Services;
 using VibeNet.Core.ViewModels;
 using VibeNet.Extensions;
 using static VibeNet.Infrastucture.Constants.AdminConstant;
@@ -58,7 +57,7 @@ namespace VibeNet.Controllers
 
         public async Task<IActionResult> ShowFeeds(string userId)
         {
-            if(userId != User.Id()) return BadRequest();
+            if (userId != User.Id()) return BadRequest();
 
             var vibenetEntity = await vibeNetService.GetByIdentityIdAsync(userId);
             var model = await vibeNetService.CreateVibeNetUserProfileViewModel(userId);

@@ -24,7 +24,7 @@ namespace Vibenet.Tests
             this.vibeNetDbContext = new VibeNetDbContext(options);
 
             profilePictureRepositoryMock = new Mock<IRepository<ProfilePicture, int>>();
-            profilePictureService = new ProfilePictureService(profilePictureRepositoryMock.Object); 
+            profilePictureService = new ProfilePictureService(profilePictureRepositoryMock.Object);
         }
 
         [Test]

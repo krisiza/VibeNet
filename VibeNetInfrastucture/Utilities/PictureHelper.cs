@@ -1,14 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
-using Mono.Cecil;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static VibeNetInfrastucture.Constants.Validations;
 
 namespace VibeNet.Infrastucture.Utilities
 {
@@ -17,7 +8,7 @@ namespace VibeNet.Infrastucture.Utilities
         public static async Task<byte[]> ConvertToBytesAsync(string pictureName)
         {
             string defaultPicturePath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.Parent!.FullName, "ProfilePictures", pictureName);
-                return await File.ReadAllBytesAsync(defaultPicturePath);
+            return await File.ReadAllBytesAsync(defaultPicturePath);
         }
 
         public static async Task<IFormFile?> CreateFormFileFromByteArray(string pictureName)

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using VibeNet.Infrastucture.Constants;
-using VibeNetInfrastucture.Data.Models;
 using static VibeNetInfrastucture.Constants.Validations.Post;
 
 namespace VibeNet.Core.ViewModels

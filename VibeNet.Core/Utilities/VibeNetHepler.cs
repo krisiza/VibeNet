@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
@@ -19,7 +18,7 @@ namespace VibeNet.Core.Utilities
             string defaultPicturePath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.FullName, "wwwroot", "my-icons", "profile-avatar.jpg");
 
             if (file == null || file.Length == 0)
-                return await File.ReadAllBytesAsync(defaultPicturePath);            
+                return await File.ReadAllBytesAsync(defaultPicturePath);
 
             using (var memoryStream = new MemoryStream())
             {

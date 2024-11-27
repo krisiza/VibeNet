@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using VibeNet.Core.ViewModels;
+﻿using VibeNet.Core.ViewModels;
 
 namespace Vibenet.Tests.CustomComparers
 {

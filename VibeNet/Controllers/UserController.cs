@@ -8,7 +8,6 @@ using VibeNet.Core.Utilities;
 using VibeNet.Core.ViewModels;
 using VibeNet.Extensions;
 using VibeNetInfrastucture.Data.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static VibeNet.Infrastucture.Constants.CustomClaims;
 using static VibeNetInfrastucture.Constants.Validations;
 
@@ -65,7 +64,7 @@ namespace VibeNet.Controllers
                         await userManager.AddClaimAsync(user, new System.Security.Claims.Claim(userClaim.ClaimType, userClaim.ClaimValue));
                     }
                 }
-                catch (Exception ex) 
+                catch (Exception ex)
                 {
                     var userIden = await userManager.FindByIdAsync(userId);
                     await userManager.DeleteAsync(userIden);

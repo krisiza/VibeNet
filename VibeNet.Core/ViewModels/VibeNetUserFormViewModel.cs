@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using VibeNetInfrastucture.Data.Models.Enums;
-using static VibeNetInfrastucture.Constants.Validations.User;
 using static VibeNetInfrastucture.Constants.Validations.DateTimeFormat;
+using static VibeNetInfrastucture.Constants.Validations.User;
 
 namespace VibeNet.Core.ViewModels
 {
-    public class VibeNetUserFormViewModel 
+    public class VibeNetUserFormViewModel
     {
-        public Guid Id { get; set; } 
+        public Guid Id { get; set; }
 
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
         [Required]

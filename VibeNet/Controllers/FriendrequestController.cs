@@ -15,7 +15,7 @@ namespace VibeNet.Controllers
 
         public async Task<IActionResult> ShowFriendrequests(string userId)
         {
-            if(userId == User.Id()) 
+            if (userId == User.Id())
                 return View(await friendshiprequestService.GetFriendrequets(userId));
 
             return BadRequest();

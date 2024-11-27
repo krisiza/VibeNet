@@ -4,8 +4,8 @@ using VibeNet.Infrastucture.Data.Models;
 using VibeNet.Infrastucture.Utilities;
 using VibeNetInfrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models.Enums;
-using static VibeNet.Infrastucture.Constants.CustomClaims;
 using static VibeNet.Infrastucture.Constants.AdminConstant;
+using static VibeNet.Infrastucture.Constants.CustomClaims;
 
 namespace VibeNet.Infrastucture.SeedDb
 {
