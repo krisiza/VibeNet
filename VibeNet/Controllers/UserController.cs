@@ -127,7 +127,7 @@ namespace VibeNet.Controllers
         [HttpGet]
         public async Task<IActionResult> EditProfile(string userId)
         {
-            var model = await vibeNetService.CreateRegisterUserViewModel(userId);
+            var model = await vibeNetService.CreateFormUserViewModel(userId);
             return View(model);
         }
 
@@ -148,7 +148,7 @@ namespace VibeNet.Controllers
             if (model.ProfilePictureFile != null)
             {
                 byte[] data = await VibeNetHepler.ConvertToBytesAsync(model.ProfilePictureFile);
-                vibeNetUser.ProfilePicture = await profilePictureService.SavePicture(model.ProfilePictureFile, data);
+                vibeNetUser.ProfilePicture = await profilePictureService.SavePictureAsync(model.ProfilePictureFile, data);
             }
             await vibeNetService.UpdateAsync(vibeNetUser);
 

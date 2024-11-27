@@ -1,14 +1,22 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using System.Globalization;
+using Vibenet.Tests.CustomComparers;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Services;
+using VibeNet.Core.Utilities;
+using VibeNet.Core.ViewModels;
 using VibeNet.Infrastucture.Data;
 using VibeNet.Infrastucture.Data.Models;
+using VibeNet.Infrastucture.Repository;
 using VibeNet.Infrastucture.Repository.Contracts;
 using VibeNet.Infrastucture.Utilities;
+using VibeNetInfrastucture.Constants;
 using VibeNetInfrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models.Enums;
+using static VibeNetInfrastucture.Constants.Validations;
 
 namespace Vibenet.Tests
 {
@@ -58,14 +66,7 @@ namespace Vibenet.Tests
 
             vibeNetUser = AddUser().Result;
         }
-
-        [Test]
-        public void AddUserAsync_Should_Add_User()
-        {
-            Assert.IsNotNull(vibeNetUser);
-            Assert.IsTrue(vibeNetDbContext.VibeNetUsers.Contains(vibeNetUser));
-        }
-
+  
         [Test]
         public async Task GetByIdentityId_Should_Return_User()
         {
@@ -75,6 +76,99 @@ namespace Vibenet.Tests
 
             var actualUser = await vibeNetService.GetByIdentityIdAsync(vibeNetUser.IdentityUserId);
             Assert.That(actualUser, Is.SameAs(vibeNetUser));
+        }
+
+        [Test]
+        public async Task GetByIdAsync_Should_Return_User()
+        {
+            userRepositoryMock
+                .Setup(ur => ur.GetAllAttached())
+                .Returns(vibeNetDbContext.VibeNetUsers);
+
+            var actualUser = await vibeNetService.GetByIdAsync(vibeNetUser.Id);
+            Assert.That(actualUser, Is.SameAs(vibeNetUser));
+        }
+
+        [Test]
+        public async Task CreateVibeNetUserProfileViewModel_Should_Create_Model()
+        {
+            userRepositoryMock
+                .Setup(ur => ur.GetAllAttached())
+                .Returns(vibeNetDbContext.VibeNetUsers);
+
+            var user = await vibeNetService.GetByIdentityIdAsync(vibeNetUser.IdentityUserId);
+
+            var profilePicture = new ProfilePicture
+            {
+                Name = "jane",
+                ContentType = "jpeg",
+                Data = await PictureHelper.ConvertToBytesAsync("jane.jpeg")
+            };
+
+            ProfilePictureViewModel profilePictureViewModel = new ProfilePictureViewModel()
+            {
+                Id = profilePicture.Id,
+                ContentType = profilePicture.ContentType,
+                Data = profilePicture.Data,
+                Name = profilePicture.Name,
+            };
+
+            profilePictureServiceMock
+                .Setup(pp => pp.GetProfilePictureAsync(user.ProfilePictureId).Result)
+                .Returns(profilePictureViewModel);
+
+            VibeNetUserProfileViewModel? model = new VibeNetUserProfileViewModel
+            {
+                Id = user.Id,
+                IdentityId = user.IdentityUserId,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                HomeTown = user.HomeTown,
+                Birthday = user.Birthday.ToString(Validations.DateTimeFormat.Format),
+                ProfilePicture = profilePictureViewModel
+            };
+
+            VibeNetUserProfileViewModel? actual = await vibeNetService.CreateVibeNetUserProfileViewModel(user.IdentityUserId);
+
+            Assert.That(actual, Is.Not.Null); 
+            Assert.That(actual, Is.EqualTo(model).Using(new VibeNetUserProfileViewModelComparer()));
+        }
+        
+        [Test]
+        public async Task CreateFormUserViewModel_Should_Create_Model()
+        {
+            userRepositoryMock
+                .Setup(ur => ur.GetAllAttached())
+                .Returns(vibeNetDbContext.VibeNetUsers);
+
+            var user = await vibeNetService.GetByIdentityIdAsync(vibeNetUser.IdentityUserId);
+
+            VibeNetUserFormViewModel? model = new VibeNetUserFormViewModel
+            {
+
+                Id = Guid.Parse(user.IdentityUserId),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                HomeTown = user.HomeTown,
+                Birthday = user.Birthday.ToString(Validations.DateTimeFormat.Format)
+            };
+
+            VibeNetUserFormViewModel? actual = await vibeNetService.CreateFormUserViewModel(user.IdentityUserId);
+
+            Assert.That(actual, Is.Not.Null);
+            Assert.That(actual, Is.EqualTo(model).Using(new VibeNetUserFormViewModelComparer()));
+        }
+
+        [Test]
+        public async Task UpdateAsync_Should_Update_User()
+        {
+            vibeNetUser.FirstName = "Kristiyana";
+            await vibeNetService.UpdateAsync(vibeNetUser);
+
+            var foundUser = vibeNetDbContext.VibeNetUsers.FirstOrDefault(u => u.Id == vibeNetUser.Id);
+            Assert.IsTrue("Kristiyana" == foundUser.FirstName);
         }
 
         [TearDown]

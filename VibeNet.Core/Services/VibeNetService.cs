@@ -1,12 +1,12 @@
-﻿using VibeNet.Core.Interfaces;
-using VibeNet.Infrastucture.Repository.Contracts;
-using VibeNet.Core.ViewModels;
-using VibeNetInfrastucture.Data.Models;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Globalization;
-using Microsoft.EntityFrameworkCore;
 using VibeNet.Core.Contracts;
+using VibeNet.Core.Interfaces;
 using VibeNet.Core.Utilities;
+using VibeNet.Core.ViewModels;
+using VibeNet.Infrastucture.Repository.Contracts;
 using VibeNetInfrastucture.Constants;
+using VibeNetInfrastucture.Data.Models;
 using static VibeNetInfrastucture.Constants.Validations;
 
 namespace VibeNet.Core.Services
@@ -36,7 +36,7 @@ namespace VibeNet.Core.Services
                 CreatedOn = DateTime.ParseExact(model.CreatedOn, DateTimeFormat.Format, CultureInfo.InvariantCulture),
                 Gender = model.Gender,
                 IdentityUserId = model.Id.ToString(),
-                ProfilePicture = await profilePictureService.SavePicture(model.ProfilePictureFile, data)
+                ProfilePicture = await profilePictureService.SavePictureAsync(model.ProfilePictureFile, data)
             };
 
             await userRepository.AddAsync(user);
@@ -84,7 +84,7 @@ namespace VibeNet.Core.Services
             return model;
         }
 
-        public async Task<VibeNetUserFormViewModel?> CreateRegisterUserViewModel(string userId)
+        public async Task<VibeNetUserFormViewModel?> CreateFormUserViewModel(string userId)
         {
             var user = await GetByIdentityIdAsync(userId);
 
