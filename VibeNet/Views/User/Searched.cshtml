@@ -3,40 +3,6 @@
 @model IEnumerable<VibeNetUserProfileViewModel>?
 <link rel="stylesheet" href="~/css/ShowFriendrequestsStyleSheet.css" asp-append-version="true" />
 
-<style>
-    .pagination-container {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-    }
-
-    .pagination {
-        list-style: none;
-        padding: 0;
-        display: flex;
-    }
-
-        .pagination .page-item {
-            margin: 0 5px;
-        }
-
-        .pagination .page-link {
-            display: block;
-            padding: 8px 16px;
-            text-decoration: none;
-            color: #007bff;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            background-color: #fff;
-        }
-
-        .pagination .page-item.active .page-link {
-            background-color: #007bff;
-            color: #fff;
-            border-color: #007bff;
-        }
-</style>
-
 @if (Model != null && Model.Any())
 {
     foreach (var user in Model)

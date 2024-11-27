@@ -139,7 +139,7 @@ namespace VibeNet.Core.Services
                     LastName = user.LastName,
                     Gender = user.Gender,
                     HomeTown = user.HomeTown,
-                    Birthday = user.Birthday.ToString(Validations.DateTimeFormat.Format),
+                    Birthday = user.Birthday.ToString(DateTimeFormat.Format),
                     ProfilePicture = await profilePictureService.GetProfilePictureAsync(user.ProfilePictureId)
                 };
 

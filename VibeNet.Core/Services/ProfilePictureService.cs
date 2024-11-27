@@ -14,7 +14,7 @@ namespace VibeNet.Core.Services
         {
             this.profilePictureRepository = profilePictureRepository;
         }
-        public async Task<ProfilePictureViewModel?> GetProfilePictureAsync(int pictureId)
+        public async Task<ProfilePictureViewModel?> GetProfilePictureAsync(int? pictureId)
         {
             var entity = await profilePictureRepository.GetAllAttached()
                   .Where(p => p.Id == pictureId)
@@ -56,8 +56,7 @@ namespace VibeNet.Core.Services
         }
 
         public void Delete(int pictureId)
-        {          
-            profilePictureRepository.Delete(pictureId);        
-        }
+            => profilePictureRepository.Delete(pictureId);        
+        
     }
 }
