@@ -11,7 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6fc90041-c76c-4c1b-bd30-c225fc76d3f2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vibenet.Tests/VibeNetServiceTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Vibenet.Tests/VibeNetServiceTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet.Core/VibeNet.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/VibeNet.Core.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/VibeNet.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/VibeNet.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/VibeNet.Infrastucture.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/VibeNet.Infrastucture.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vibenet.Tests/Vibenet.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Vibenet.Tests/Vibenet.Tests.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,6 +146,9 @@
       <workItem from="1732703443940" duration="754000" />
       <workItem from="1732706665336" duration="239000" />
       <workItem from="1732706924164" duration="131000" />
+      <workItem from="1732707736389" duration="4224000" />
+      <workItem from="1732714024632" duration="68000" />
+      <workItem from="1732714339639" duration="108000" />
     </task>
     <servers />
   </component>
@@ -150,35 +156,12 @@
     <option name="version" value="3" />
   </component>
   <component name="UnitTestsCoverage.Settings">
-    <option name="coveragePercentColumnWidth" value="150" />
-    <option name="sortOrder" value="DESCENDING" />
+    <option name="coveragePercentColumnWidth" value="138" />
+    <option name="sortOrder" value="ASCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="395" />
+    <option name="symbolColumnWidth" value="365" />
     <coverage-tree-state>
-      <expand>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 30% 259/371" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 30% 259/371" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="VibeNet.Core 30% 259/371" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 30% 259/371" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="VibeNet.Core 30% 259/371" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="VibeNet.Core 30% 259/371" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-        <path>
-          <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 30% 259/371" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="VibeNet.Core 30% 259/371" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="VibeNet.Core 30% 259/371" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="Services 20% 200/250" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-        </path>
-      </expand>
+      <expand />
       <select />
     </coverage-tree-state>
   </component>
