@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using VibeNet.Core.Interfaces;
+using VibeNet.Core.Services;
 using VibeNet.Core.ViewModels;
 using VibeNet.Infrastucture.Data;
 using VibeNet.Infrastucture.Data.Models;
@@ -19,8 +20,11 @@ namespace Vibenet.Tests
         private Mock<IVibeNetService> vibeNetServiceMock;
         private Mock<UserManager<IdentityUser>> userManagerMock;
         private VibeNetDbContext vibeNetDbContext;
-        VibeNetUser? firstVibeNetUser;
-        VibeNetUser? secondVibeNetUser;
+        private VibeNetUser? firstVibeNetUser;
+        private IdentityUser? firstIdentityUser;
+        private IdentityUser? secondIdentityUser;
+        private VibeNetUser? secondVibeNetUser;
+        private FriendshipService friendshipService;
 
         [SetUp]
         public void Setup()
@@ -35,6 +39,7 @@ namespace Vibenet.Tests
             var passwordHasher = new Mock<IPasswordHasher<IdentityUser>>();
             var normalizer = new Mock<ILookupNormalizer>();
             var describer = new Mock<IdentityErrorDescriber>();
+          
 
             userManagerMock = new Mock<UserManager<IdentityUser>>(
                 store.Object,
@@ -49,14 +54,32 @@ namespace Vibenet.Tests
             );
 
             this.vibeNetDbContext = new VibeNetDbContext(options);
-            firstVibeNetUser = AddUser("Maria", "Ivanova").Result;
-            secondVibeNetUser = AddUser("Sonia", "Petrova").Result;
+            friendshipRepositoryMock = new Mock<IRepository<Friendship, object>>();
+            vibeNetServiceMock = new Mock<IVibeNetService>();
+            friendshipService = new FriendshipService(friendshipRepositoryMock.Object, vibeNetServiceMock.Object);
+
+            firstIdentityUser = CreateIdentityUser("Maria", "Ivanova").Result;
+            secondIdentityUser = CreateIdentityUser("Sonia", "Petrova").Result;
+            firstVibeNetUser = CreateVibeNetUser("Maria", "Ivanova", firstIdentityUser).Result;
+            secondVibeNetUser = CreateVibeNetUser("Sonia", "Petrova", secondIdentityUser).Result;
         }
 
         [Test]
         public async Task GetFriendsAsync_ShouldReturnFriendsList()
         {
-            if (secondVibeNetUser == null) return;
+            var friendship = new Friendship()
+            {
+                FirstUser = firstIdentityUser,
+                SecondUser = secondIdentityUser,
+                FriendsSince = DateTime.Now
+            };
+
+            vibeNetDbContext.Friendships.Add(friendship);
+            vibeNetDbContext.SaveChanges();
+
+            friendshipRepositoryMock
+                .Setup(fr => fr.GetAllAttached())
+                .Returns(vibeNetDbContext.Friendships );
 
             var friend = new VibeNetUserProfileViewModel()
             {
@@ -70,16 +93,49 @@ namespace Vibenet.Tests
                 ProfilePicture = null
             };
 
+            vibeNetServiceMock
+                .Setup(v => v.CreateVibeNetUserProfileViewModel(friend.IdentityId))
+                .ReturnsAsync(friend);
+
+            var friendsList =await friendshipService.GetFriendsAsync(firstVibeNetUser.IdentityUserId);
+
+            Assert.IsNotNull(friendsList);
+            Assert.IsTrue(friendsList.Count() == 1);
+        }
+
+        [Test]
+        public async Task FindByIdAsync_Should_Return_True()
+        {
             var friendship = new Friendship()
             {
-                FirstUserId = firstVibeNetUser.IdentityUserId,
-                SecondUserId = secondVibeNetUser.IdentityUserId,
+                FirstUser = firstIdentityUser,
+                SecondUser = secondIdentityUser,
                 FriendsSince = DateTime.Now
             };
 
+            vibeNetDbContext.Friendships.Add(friendship);
+            vibeNetDbContext.SaveChanges();
+
             friendshipRepositoryMock
                 .Setup(fr => fr.GetAllAttached())
-                .Returns(new List<Friendship>() { friendship }.AsQueryable);
+                .Returns(vibeNetDbContext.Friendships);
+
+            var result = await friendshipService.FindByIdAsync(firstIdentityUser.Id, secondIdentityUser.Id);
+
+            Assert.IsTrue(result);
+        }
+
+
+        [Test]
+        public async Task FindByIdAsync_Should_Return_False()
+        {
+            friendshipRepositoryMock
+                .Setup(fr => fr.GetAllAttached())
+                .Returns(vibeNetDbContext.Friendships);
+
+            var result = await friendshipService.FindByIdAsync(firstIdentityUser.Id, secondIdentityUser.Id);
+
+            Assert.IsFalse(result);
         }
 
         [TearDown]
@@ -88,26 +144,13 @@ namespace Vibenet.Tests
             vibeNetDbContext.Dispose();
         }
 
-        private async Task<VibeNetUser?> AddUser(string firstname, string lastname)
+        private async Task<VibeNetUser?> CreateVibeNetUser(string firstname, string lastname, IdentityUser identityUser)
         {
-            userManagerMock
-             .Setup(um => um.CreateAsync(It.IsAny<IdentityUser>(), It.IsAny<string>()))
-             .ReturnsAsync(IdentityResult.Success);
-
-            var identityUser = new IdentityUser
-            {
-                UserName = $"{firstname}@example.com",
-                Email = $"{firstname}@example.com",
-                EmailConfirmed = true
-            };
-
-            var result = await userManagerMock.Object.CreateAsync(identityUser, "Password123!");
-
             var profilePicture = new ProfilePicture
             {
                 Name = "jane",
                 ContentType = "jpeg",
-                Data = await PictureHelper.ConvertToBytesAsync("jane.jpeg")
+                Data = await PictureFileHelper.ConvertToBytesAsync("jane.jpeg")
             };
 
             vibeNetDbContext.ProfilePictures.Add(profilePicture);
@@ -128,6 +171,24 @@ namespace Vibenet.Tests
             vibeNetDbContext.SaveChanges();
 
             return user;
+        }
+
+        private async Task<IdentityUser?> CreateIdentityUser(string firstname, string lastname)
+        {
+            userManagerMock
+             .Setup(um => um.CreateAsync(It.IsAny<IdentityUser>(), It.IsAny<string>()))
+             .ReturnsAsync(IdentityResult.Success);
+
+            var identityUser = new IdentityUser
+            {
+                UserName = $"{firstname}@example.com",
+                Email = $"{firstname}@example.com",
+                EmailConfirmed = true
+            };
+
+            var result = await userManagerMock.Object.CreateAsync(identityUser, "Password123!");
+
+            return identityUser;
         }
     }
 }

@@ -4,16 +4,9 @@ using System.Reflection;
 
 namespace VibeNet.Core.Utilities
 {
-    public static class VibeNetHepler
+    public class PictureHelper : IPictureHelper
     {
-        public static string GetDisplayName(this Enum value)
-        {
-            var type = value.GetType();
-            var member = type.GetMember(value.ToString()).FirstOrDefault();
-            var attribute = member?.GetCustomAttribute<DisplayAttribute>();
-            return attribute?.Name ?? value.ToString();
-        }
-        public static async Task<byte[]> ConvertToBytesAsync(IFormFile? file)
+        public async Task<byte[]> ConvertToBytesAsync(IFormFile? file)
         {
             string defaultPicturePath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.FullName, "wwwroot", "my-icons", "profile-avatar.jpg");
 

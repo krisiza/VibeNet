@@ -6,7 +6,6 @@ using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
 using VibeNet.Core.Utilities;
 using VibeNet.Core.ViewModels;
-using VibeNet.Extensions;
 using VibeNetInfrastucture.Data.Models;
 using static VibeNet.Infrastucture.Constants.CustomClaims;
 using static VibeNetInfrastucture.Constants.Validations;
@@ -20,16 +19,18 @@ namespace VibeNet.Controllers
         private readonly IFriendshiprequestService friendshiprequestService;
         private readonly IFriendshipService friendshipService;
         private readonly UserManager<IdentityUser> userManager;
+        private readonly IPictureHelper _pictureHelper;
 
         public UserController(IProfilePictureService profilePictureService, IFriendshiprequestService friendshiprequestService,
             IFriendshipService friendshipService, UserManager<IdentityUser> userManager,
-            IVibeNetService vibeNetService)
+            IVibeNetService vibeNetService, IPictureHelper pictureHelper)
         {
             this.vibeNetService = vibeNetService;
             this.profilePictureService = profilePictureService;
             this.friendshiprequestService = friendshiprequestService;
             this.friendshipService = friendshipService;
             this.userManager = userManager;
+            this._pictureHelper = pictureHelper;  
         }
 
         [HttpGet]
@@ -146,7 +147,7 @@ namespace VibeNet.Controllers
 
             if (model.ProfilePictureFile != null)
             {
-                byte[] data = await VibeNetHepler.ConvertToBytesAsync(model.ProfilePictureFile);
+                byte[] data = await _pictureHelper.ConvertToBytesAsync(model.ProfilePictureFile);
                 vibeNetUser.ProfilePicture = await profilePictureService.SavePictureAsync(model.ProfilePictureFile, data);
             }
             await vibeNetService.UpdateAsync(vibeNetUser);

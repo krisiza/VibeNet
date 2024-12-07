@@ -12,9 +12,9 @@
 
         IQueryable<TType> GetAllAttached();
 
-        void Add(TType item);
+        int Add(TType item);
 
-        Task AddAsync(TType item);
+        Task<int> AddAsync(TType item);
 
         bool Delete(TId id);
 

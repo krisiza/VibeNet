@@ -204,7 +204,7 @@ namespace Vibenet.Tests
             {
                 Name = "jane",
                 ContentType = "jpeg",
-                Data = await PictureHelper.ConvertToBytesAsync("jane.jpeg")
+                Data = await PictureFileHelper.ConvertToBytesAsync("jane.jpeg")
             };
 
             vibeNetDbContext.ProfilePictures.Add(profilePicture);

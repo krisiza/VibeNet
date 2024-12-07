@@ -3,7 +3,6 @@ using VibeNet.Attributes;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
 using VibeNet.Core.ViewModels;
-using VibeNet.Extensions;
 using static VibeNet.Infrastucture.Constants.AdminConstant;
 
 namespace VibeNet.Controllers

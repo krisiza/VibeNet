@@ -116,49 +116,49 @@ namespace VibeNet.Infrastucture.SeedDb
             {
                 Name = "jane",
                 ContentType = "jpeg",
-                Data = await PictureHelper.ConvertToBytesAsync("jane.jpeg")
+                Data = await PictureFileHelper.ConvertToBytesAsync("jane.jpeg")
             };
 
             ProfilePictures[1] = new ProfilePicture
             {
                 Name = "tom",
                 ContentType = "jpeg",
-                Data = await PictureHelper.ConvertToBytesAsync("tom.jpeg")
+                Data = await PictureFileHelper.ConvertToBytesAsync("tom.jpeg")
             };
 
             ProfilePictures[2] = new ProfilePicture
             {
                 Name = "niko",
                 ContentType = "jpeg",
-                Data = await PictureHelper.ConvertToBytesAsync("niko.jpeg")
+                Data = await PictureFileHelper.ConvertToBytesAsync("niko.jpeg")
             };
 
             ProfilePictures[3] = new ProfilePicture
             {
                 Name = "alexandra",
                 ContentType = "jpeg",
-                Data = await PictureHelper.ConvertToBytesAsync("alexandra.jpeg")
+                Data = await PictureFileHelper.ConvertToBytesAsync("alexandra.jpeg")
             };
 
             ProfilePictures[4] = new ProfilePicture
             {
                 Name = "daniel",
                 ContentType = "jpg",
-                Data = await PictureHelper.ConvertToBytesAsync("daniel.jpg")
+                Data = await PictureFileHelper.ConvertToBytesAsync("daniel.jpg")
             };
 
             ProfilePictures[5] = new ProfilePicture
             {
                 Name = "emily",
                 ContentType = "jpeg",
-                Data = await PictureHelper.ConvertToBytesAsync("emily.jpeg")
+                Data = await PictureFileHelper.ConvertToBytesAsync("emily.jpeg")
             };
 
             ProfilePictures[6] = new ProfilePicture
             {
                 Name = "john",
                 ContentType = "jpeg",
-                Data = await PictureHelper.ConvertToBytesAsync("john.jpeg")
+                Data = await PictureFileHelper.ConvertToBytesAsync("john.jpeg")
             };
 
 
@@ -166,21 +166,21 @@ namespace VibeNet.Infrastucture.SeedDb
             {
                 Name = "michael",
                 ContentType = "jpeg",
-                Data = await PictureHelper.ConvertToBytesAsync("michael.jpeg")
+                Data = await PictureFileHelper.ConvertToBytesAsync("michael.jpeg")
             };
 
             ProfilePictures[8] = new ProfilePicture
             {
                 Name = "sarah",
                 ContentType = "jpeg",
-                Data = await PictureHelper.ConvertToBytesAsync("sarah.jpeg")
+                Data = await PictureFileHelper.ConvertToBytesAsync("sarah.jpeg")
             };
 
             ProfilePictures[9] = new ProfilePicture
             {
                 Name = "claire",
                 ContentType = "jpg",
-                Data = await PictureHelper.ConvertToBytesAsync("claire.jpg")
+                Data = await PictureFileHelper.ConvertToBytesAsync("claire.jpg")
             };
 
             await context.ProfilePictures.AddRangeAsync(ProfilePictures);
@@ -634,7 +634,7 @@ namespace VibeNet.Infrastucture.SeedDb
                 {
                     Name = "admin",
                     ContentType = "jpg",
-                    Data = await PictureHelper.ConvertToBytesAsync("admin.jpg")
+                    Data = await PictureFileHelper.ConvertToBytesAsync("admin.jpg")
                 };
 
                 await context.ProfilePictures.AddAsync(profilePicture);

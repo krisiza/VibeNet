@@ -34,5 +34,19 @@ namespace VibeNet.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [AllowAnonymous]
+        [Route("/StatusCodeError/{statusCode}")]
+        public IActionResult Error(int statusCode)
+        {
+            if(statusCode == 404)
+            {
+                ViewBag.ErorMessage = "404 Page Not Found";
+                return View("404");
+            }
+
+            return View("500");
+        }
     }
 }

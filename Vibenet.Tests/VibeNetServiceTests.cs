@@ -4,6 +4,7 @@ using Moq;
 using Vibenet.Tests.CustomComparers;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Services;
+using VibeNet.Core.Utilities;
 using VibeNet.Core.ViewModels;
 using VibeNet.Infrastucture.Data;
 using VibeNet.Infrastucture.Data.Models;
@@ -12,6 +13,7 @@ using VibeNet.Infrastucture.Utilities;
 using VibeNetInfrastucture.Constants;
 using VibeNetInfrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models.Enums;
+using PictureHelper = VibeNet.Core.Utilities.PictureHelper;
 
 namespace Vibenet.Tests
 {
@@ -21,6 +23,7 @@ namespace Vibenet.Tests
         private Mock<IRepository<VibeNetUser, int>> userRepositoryMock;
         private Mock<IProfilePictureService> profilePictureServiceMock;
         private Mock<UserManager<IdentityUser>> userManagerMock;
+        private Mock<IPictureHelper> pictureHelper;
         private VibeNetService vibeNetService;
         private VibeNetDbContext vibeNetDbContext;
         VibeNetUser? vibeNetUser;
@@ -44,6 +47,8 @@ namespace Vibenet.Tests
             var normalizer = new Mock<ILookupNormalizer>();
             var describer = new Mock<IdentityErrorDescriber>();
 
+            pictureHelper = new Mock<IPictureHelper>();
+
             userManagerMock = new Mock<UserManager<IdentityUser>>(
                 store.Object,
                 null,
@@ -56,10 +61,12 @@ namespace Vibenet.Tests
                 null
             );
 
-            vibeNetService = new VibeNetService(userRepositoryMock.Object, profilePictureServiceMock.Object);
+            vibeNetService = new VibeNetService(userRepositoryMock.Object, profilePictureServiceMock.Object, 
+                pictureHelper.Object);
 
             vibeNetUser = AddUser().Result;
         }
+
 
         [Test]
         public async Task GetByIdentityId_Should_Return_User()
@@ -96,7 +103,7 @@ namespace Vibenet.Tests
             {
                 Name = "jane",
                 ContentType = "jpeg",
-                Data = await PictureHelper.ConvertToBytesAsync("jane.jpeg")
+                Data = await VibeNet.Infrastucture.Utilities.PictureFileHelper.ConvertToBytesAsync("jane.jpeg")
             };
 
             ProfilePictureViewModel profilePictureViewModel = new ProfilePictureViewModel()
@@ -190,7 +197,7 @@ namespace Vibenet.Tests
             {
                 Name = "jane",
                 ContentType = "jpeg",
-                Data = await PictureHelper.ConvertToBytesAsync("jane.jpeg")
+                Data = await VibeNet.Infrastucture.Utilities.PictureFileHelper.ConvertToBytesAsync("jane.jpeg")
             };
 
             vibeNetDbContext.ProfilePictures.Add(profilePicture);

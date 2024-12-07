@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
 using VibeNet.Core.Services;
+using VibeNet.Core.Utilities;
 using VibeNet.Infrastucture.Data;
 using VibeNet.Infrastucture.Data.Models;
 using VibeNet.Infrastucture.Repository;
@@ -22,6 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ILikeService, LikeService>();
             services.AddScoped<IFriendshiprequestService, FriendshiprequestService>();
             services.AddScoped<IFriendshipService, FriendshipService>();
+            services.AddScoped<IPictureHelper, PictureHelper>();
 
             return services;
         }

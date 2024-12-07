@@ -2,7 +2,7 @@
 using VibeNet.Infrastucture.Data;
 using VibeNet.Infrastucture.SeedDb;
 
-namespace VibeNet.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceProviderExtension
     {

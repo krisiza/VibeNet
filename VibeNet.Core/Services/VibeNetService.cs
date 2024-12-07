@@ -15,16 +15,19 @@ namespace VibeNet.Core.Services
     {
         private readonly IRepository<VibeNetUser, int> userRepository;
         private readonly IProfilePictureService profilePictureService;
-        public VibeNetService(IRepository<VibeNetUser, int> userRepository, IProfilePictureService profilePictureService)
+        private readonly IPictureHelper pictureHelper;
+        public VibeNetService(IRepository<VibeNetUser, int> userRepository, IProfilePictureService profilePictureService, 
+             IPictureHelper pictureHelper)
 
         {
             this.userRepository = userRepository;
             this.profilePictureService = profilePictureService;
+            this.pictureHelper = pictureHelper;
         }
 
-        public async Task AddUserAsync(VibeNetUserFormViewModel model)
+        public async Task<int> AddUserAsync(VibeNetUserFormViewModel model)
         {
-            byte[] data = await VibeNetHepler.ConvertToBytesAsync(model.ProfilePictureFile);
+            byte[] data = await pictureHelper.ConvertToBytesAsync(model.ProfilePictureFile);
             model.Birthday = Convert.ToDateTime(model.Birthday).ToString(DateTimeFormat.Format);
 
             VibeNetUser user = new()
@@ -33,13 +36,15 @@ namespace VibeNet.Core.Services
                 LastName = model.LastName,
                 HomeTown = model.HomeTown,
                 Birthday = DateTime.ParseExact(model.Birthday, DateTimeFormat.Format, CultureInfo.InvariantCulture),
-                CreatedOn = DateTime.ParseExact(model.CreatedOn, DateTimeFormat.Format, CultureInfo.InvariantCulture),
+                CreatedOn = string.IsNullOrEmpty(model.CreatedOn)
+                    ? DateTime.Now
+                    : DateTime.ParseExact(model.CreatedOn, DateTimeFormat.Format, CultureInfo.InvariantCulture),
                 Gender = model.Gender,
                 IdentityUserId = model.Id.ToString(),
                 ProfilePicture = await profilePictureService.SavePictureAsync(model.ProfilePictureFile, data)
             };
 
-            await userRepository.AddAsync(user);
+            return await userRepository.AddAsync(user);
         }
 
         public Task<VibeNetUser?> GetByIdentityIdAsync(string userIdentityId)

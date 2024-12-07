@@ -22,7 +22,7 @@ namespace VibeNet.Core.ViewModels
         [DisplayFormat(DataFormatString = Format, ApplyFormatInEditMode = true)]
         public string Birthday { get; set; } = null!;
 
-        public string CreatedOn { get; set; } = null!;
+        public string? CreatedOn { get; set; } 
 
         [StringLength(HomeTownMaxLength, MinimumLength = HomeTownMinLength)]
         [Required]

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VibeNet.Core.Contracts;
-using VibeNet.Extensions;
 
 namespace VibeNet.Controllers
 {

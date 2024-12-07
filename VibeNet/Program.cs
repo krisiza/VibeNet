@@ -1,4 +1,5 @@
-using VibeNet.Extensions;
+
+using Microsoft.AspNetCore.Builder;
 
 namespace VibeNet
 {
@@ -32,6 +33,8 @@ namespace VibeNet
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithRedirects("/StatusCodeError/{0}");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -58,14 +61,6 @@ namespace VibeNet
                 name: "profile",
                 pattern: "Post/AllPosts/{userId}",
                 defaults: new { controller = "Post", action = "AllPosts" });
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //      name: "areas",
-            //      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-            //    );
-            //});
 
             app.MapRazorPages();
 

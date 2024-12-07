@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http.Internal;
 
 namespace VibeNet.Infrastucture.Utilities
 {
-    public static class PictureHelper
+    public static class PictureFileHelper
     {
         public static async Task<byte[]> ConvertToBytesAsync(string pictureName)
         {

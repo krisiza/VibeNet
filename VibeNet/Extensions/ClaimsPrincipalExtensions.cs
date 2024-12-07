@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace VibeNet.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ClaimsPrincipalExtensions
     {

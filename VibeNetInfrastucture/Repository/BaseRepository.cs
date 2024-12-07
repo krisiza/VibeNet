@@ -31,16 +31,16 @@ namespace VibeNet.Infrastucture.Repository
         public IQueryable<TType> GetAllAttached()
             => dbSet.AsQueryable();
 
-        public void Add(TType item)
+        public int Add(TType item)
         {
             dbSet.Add(item);
-            context.SaveChanges();
+            return context.SaveChanges();
         }
 
-        public async Task AddAsync(TType item)
+        public async Task<int> AddAsync(TType item)
         {
             await dbSet.AddAsync(item);
-            await context.SaveChangesAsync();
+            return await context.SaveChangesAsync();
         }
 
         public bool Delete(TId id)

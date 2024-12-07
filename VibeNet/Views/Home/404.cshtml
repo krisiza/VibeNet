@@ -1,0 +1,64 @@
+﻿@{
+    Layout = null; 
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 4em;
+            color: #ff6b6b;
+        }
+        p {
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+        a {
+            text-decoration: none;
+            color: #d8aded;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #b65be3;
+        }
+        .illustration {
+            margin: 20px 0;
+        }
+        .illustration img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>404</h1>
+        <p>Oops! The page you're looking for doesn't exist.</p>
+        <div class="illustration">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPBuxmi4ZuZtcqpZC0ipa-5mwlpJbXmDQotQ&s" alt="Lost in Space Illustration">
+        </div>
+        <p>
+            <a href="/">Go back to Home</a> or <a href="javascript:history.back()">Return to the previous page</a>.
+        </p>
+    </div>
+</body>
+</html>
