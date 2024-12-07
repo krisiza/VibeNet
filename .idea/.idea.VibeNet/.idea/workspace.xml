@@ -10,40 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fc90041-c76c-4c1b-bd30-c225fc76d3f2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/VibeNet.Core/Utilities/EnumHelper.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.VibeNet/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet.Core/Contracts/IVibeNetService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Contracts/IVibeNetService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Services/VibeNetService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/Utilities/VibeNetHepler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/Utilities/PictureHepler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.Core/ViewModels/VibeNetUserFormViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.Core/ViewModels/VibeNetUserFormViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet.sln.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet.sln.DotSettings" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Areas/Admin/Controllers/AdminController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Areas/Admin/Controllers/AdminController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Areas/Admin/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Areas/Admin/Views/Shared/_Layout.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/FriendrequestController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/FriendrequestController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/FriendshipController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/FriendshipController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/PostController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/PostController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Extensions/ClaimsPrincipalExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Extensions/ClaimsPrincipalExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Extensions/ServiceCollectionExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Extensions/ServiceCollectionExtension.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Extensions/ServiceProviderExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Extensions/ServiceProviderExtension.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Views/Friendrequest/ShowFriendrequests.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/Friendrequest/ShowFriendrequests.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Views/Post/AllPosts.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/Post/AllPosts.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Views/Shared/Components/MainMenuComponent/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/Shared/Components/MainMenuComponent/Default.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/Shared/_Layout.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Views/User/RegisterUser.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/User/RegisterUser.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Views/User/Searched.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/User/Searched.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNet/Views/User/ShowProfile.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/User/ShowProfile.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Repository/BaseRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Repository/BaseRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Repository/Contracts/IRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/Repository/Contracts/IRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/SeedDb/Seeder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNetInfrastucture/SeedDb/Seeder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VibeNetInfrastucture/Utilities/PictureHelper.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vibenet.Tests/FriendshipServiceTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Vibenet.Tests/FriendshipServiceTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vibenet.Tests/LikeServiceTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Vibenet.Tests/LikeServiceTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vibenet.Tests/PostServiceTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Vibenet.Tests/PostServiceTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vibenet.Tests/ProfilePictureServiceTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Vibenet.Tests/ProfilePictureServiceTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/Views/Shared/Components/SearchComponent/Default.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/Shared/Components/SearchComponent/Default.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VibeNet/Views/Shared/_LoginPartial.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/VibeNet/Views/Shared/_LoginPartial.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Vibenet.Tests/VibeNetServiceTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Vibenet.Tests/VibeNetServiceTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vibenet.Tests/Vibenet.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Vibenet.Tests/Vibenet.Tests.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +155,7 @@
       <workItem from="1732714339639" duration="108000" />
       <workItem from="1732875329924" duration="2000" />
       <workItem from="1732875349893" duration="933000" />
-      <workItem from="1733498452923" duration="6794000" />
+      <workItem from="1733498452923" duration="8289000" />
     </task>
     <servers />
   </component>
@@ -197,25 +170,25 @@
       <expand>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 20% 1976/2460" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 19% 2022/2506" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 20% 1976/2460" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="VibeNet.Core 35% 297/458" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 19% 2022/2506" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="VibeNet.Core 34% 311/472" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 20% 1976/2460" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="VibeNet.Core 35% 297/458" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="VibeNet.Core.Services 28% 244/338" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 19% 2022/2506" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="VibeNet.Core 34% 311/472" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="VibeNet.Core.Services 27% 258/352" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
         <path>
           <item name="rootNode" type="c53c71d1:RiderDotCoverCoverageTreeModel$RootNode" />
-          <item name="Total 20% 1976/2460" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="VibeNet.Core 35% 297/458" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="VibeNet.Core.Services 28% 244/338" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
-          <item name="VibeNetService 7% 52/56" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="Total 19% 2022/2506" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="VibeNet.Core 34% 311/472" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="VibeNet.Core.Services 27% 258/352" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
+          <item name="VibeNetService 6% 66/70" type="8b8fad3a:RiderDotCoverCoverageTreeNode" />
         </path>
       </expand>
       <select />

@@ -156,9 +156,9 @@ namespace VibeNet.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Searched(string searchTerm, int pageNumber = 1, int pageSize = 4)
+        public async Task<IActionResult> Searched(string searchTerm, string category, int pageNumber = 1, int pageSize = 4)
         {
-            var (users, totalCount) = await vibeNetService.FindUsers(searchTerm, User.Id(), pageNumber, pageSize);
+            var (users, totalCount) = await vibeNetService.FindUsers(searchTerm, category, User.Id(), pageNumber, pageSize);
 
             ViewBag.TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
             ViewBag.CurrentPage = pageNumber;

@@ -16,7 +16,7 @@ namespace VibeNet.Core.Services
         private readonly IRepository<VibeNetUser, int> userRepository;
         private readonly IProfilePictureService profilePictureService;
         private readonly IPictureHelper pictureHelper;
-        public VibeNetService(IRepository<VibeNetUser, int> userRepository, IProfilePictureService profilePictureService, 
+        public VibeNetService(IRepository<VibeNetUser, int> userRepository, IProfilePictureService profilePictureService,
              IPictureHelper pictureHelper)
 
         {
@@ -117,13 +117,36 @@ namespace VibeNet.Core.Services
             userRepository.Delete(user.Id);
         }
 
-        public async Task<(IEnumerable<VibeNetUserProfileViewModel> Users, int TotalCount)> FindUsers(string searchedTerm, string userId, int pageNumber, int pageSize)
+        public async Task<(IEnumerable<VibeNetUserProfileViewModel> Users, int TotalCount)> FindUsers(string searchedTerm, string? category, string userId, int pageNumber, int pageSize)
         {
-            var query = userRepository.GetAllAttached()
-                .Where(u => (u.FirstName.ToLower().Contains(searchedTerm.ToLower())
-                          || u.LastName.ToLower().Contains(searchedTerm.ToLower())
-                          || (u.HomeTown != null && u.HomeTown.ToLower().Contains(searchedTerm.ToLower())))
-                          && u.IdentityUserId != userId);
+            IQueryable<VibeNetUser> query;
+
+            if (category == "firstname")
+            {
+                query = userRepository.GetAllAttached()
+                    .Where(u => (u.FirstName.ToLower().Contains(searchedTerm.ToLower()))
+                              && u.IdentityUserId != userId);
+            }
+            else if(category == "lastname")
+            {
+                query = userRepository.GetAllAttached()
+                    .Where(u => (u.LastName.ToLower().Contains(searchedTerm.ToLower()))
+                              && u.IdentityUserId != userId);
+            }
+            else if(category == "hometown")
+            {
+                query = userRepository.GetAllAttached()
+                    .Where(u => (u.HomeTown.ToLower().Contains(searchedTerm.ToLower()))
+                              && u.IdentityUserId != userId);
+            }
+            else
+            {
+                query = userRepository.GetAllAttached()
+                    .Where(u => (u.FirstName.ToLower().Contains(searchedTerm.ToLower())
+                              || u.LastName.ToLower().Contains(searchedTerm.ToLower())
+                              || (u.HomeTown != null && u.HomeTown.ToLower().Contains(searchedTerm.ToLower())))
+                              && u.IdentityUserId != userId);
+            }
 
             int totalCount = await query.CountAsync();
 

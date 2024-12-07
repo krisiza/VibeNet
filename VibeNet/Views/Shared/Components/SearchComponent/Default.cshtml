@@ -1,4 +1,12 @@
 ﻿<style>
+    .search-container {
+        display:flex;
+        flex-direction:column;
+        width:100%;
+        justify-content:center;
+        gap:2em;
+    }
+
     button{
         border:none;
         background-color: transparent;
@@ -10,14 +18,23 @@
 </style>
 
 <form asp-controller="User" asp-action="Searched" method="post">
-    <div class="input-group rounded">
-        <input type="search" name="searchTerm" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-        <span class="input-group-text border-0" id="search-addon">
-            <button type="submit">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
-                </svg>
-            </button>
-        </span>
+    <div class="search-container">
+        <div class="input-group rounded search">
+            <input type="search" name="searchTerm" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+                <button type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
+                    </svg>
+                </button>
+            </span>
+        </div>
+
+        <select class="form-select" name="category">
+            <option value="" disabled selected hidden>Choose a category</option>
+            <option value="firstname">FirstName</option>
+            <option value="lastname">LastName</option>
+            <option value="hometown">HomeTown</option>
+        </select>
     </div>
 </form>

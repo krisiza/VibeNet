@@ -20,6 +20,6 @@ namespace VibeNet.Core.Interfaces
 
         Task<VibeNetUserFormViewModel?> CreateFormUserViewModel(string userId);
 
-        Task<(IEnumerable<VibeNetUserProfileViewModel> Users, int TotalCount)> FindUsers(string searchedTerm, string userId, int pageNumber, int pageSize);
+        Task<(IEnumerable<VibeNetUserProfileViewModel> Users, int TotalCount)> FindUsers(string searchedTerm,string category, string userId, int pageNumber, int pageSize);
     }
 }

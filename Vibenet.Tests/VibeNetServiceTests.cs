@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using System.Collections.Immutable;
+using System.Linq.Expressions;
 using Vibenet.Tests.CustomComparers;
 using VibeNet.Core.Contracts;
 using VibeNet.Core.Services;
@@ -220,5 +222,183 @@ namespace Vibenet.Tests
             return user;
         }
 
+        [Test]
+        public async Task FindUsers_Should_Return_Filtered_Users_By_Category_FirstName()
+        {
+            userManagerMock
+             .Setup(um => um.CreateAsync(It.IsAny<IdentityUser>(), It.IsAny<string>()))
+             .ReturnsAsync(IdentityResult.Success);
+
+            var identityUser = new IdentityUser
+            {
+                UserName = "tina@example.com",
+                Email = "tina@example.com",
+                EmailConfirmed = true
+            };
+
+            var result = await userManagerMock.Object.CreateAsync(identityUser, "Password123!");
+
+            var profilePicture = new ProfilePicture
+            {
+                Name = "jane",
+                ContentType = "jpeg",
+                Data = await VibeNet.Infrastucture.Utilities.PictureFileHelper.ConvertToBytesAsync("jane.jpeg")
+            };
+
+            vibeNetDbContext.ProfilePictures.Add(profilePicture);
+
+            var user = new VibeNetUser()
+            {
+                User = identityUser,
+                FirstName = "Tina",
+                LastName = "Petrova",
+                Birthday = DateTime.Parse("1998-09-19"),
+                CreatedOn = DateTime.Parse("2006-01-01"),
+                HomeTown = "Plovdiv",
+                Gender = Gender.Female,
+                ProfilePicture = profilePicture
+            };
+
+            vibeNetDbContext.VibeNetUsers.Add(user);
+            vibeNetDbContext.SaveChanges();
+
+            var searchTerm = "Tina";
+            var category = "firstname";
+
+            userRepositoryMock
+                .Setup(ur => ur.GetAllAttached())
+                .Returns(vibeNetDbContext.VibeNetUsers.Where(u => u.FirstName == searchTerm));
+
+            var (resultUser, count) = await vibeNetService.FindUsers(searchTerm, category, null, 1, 10);
+
+            Assert.IsNotNull(resultUser);
+            Assert.AreEqual(1, count);
+        }
+
+
+        [Test]
+        public async Task FindUsers_Should_Return_Filtered_Users_By_Category_Lastname()
+        {
+            userManagerMock
+             .Setup(um => um.CreateAsync(It.IsAny<IdentityUser>(), It.IsAny<string>()))
+             .ReturnsAsync(IdentityResult.Success);
+
+            var identityUser = new IdentityUser
+            {
+                UserName = "simo@example.com",
+                Email = "simo@example.com",
+                EmailConfirmed = true
+            };
+
+            var result = await userManagerMock.Object.CreateAsync(identityUser, "Password123!");
+
+            var profilePicture = new ProfilePicture
+            {
+                Name = "jane",
+                ContentType = "jpeg",
+                Data = await VibeNet.Infrastucture.Utilities.PictureFileHelper.ConvertToBytesAsync("jane.jpeg")
+            };
+
+            vibeNetDbContext.ProfilePictures.Add(profilePicture);
+
+            var user = new VibeNetUser()
+            {
+                User = identityUser,
+                FirstName = "Simo",
+                LastName = "Kirilov",
+                Birthday = DateTime.Parse("1998-09-19"),
+                CreatedOn = DateTime.Parse("2006-01-01"),
+                HomeTown = "Plovdiv",
+                Gender = Gender.Female,
+                ProfilePicture = profilePicture
+            };
+
+            vibeNetDbContext.VibeNetUsers.Add(user);
+            vibeNetDbContext.SaveChanges();
+
+            var searchTerm = "Kirilov";
+            var category = "lastname";
+
+            userRepositoryMock
+                .Setup(ur => ur.GetAllAttached())
+                .Returns(vibeNetDbContext.VibeNetUsers.Where(u => u.LastName == searchTerm));
+
+            var (resultUser, count) = await vibeNetService.FindUsers(searchTerm, category, null, 1, 10);
+
+            Assert.IsNotNull(resultUser);
+            Assert.AreEqual(1, count);
+        }
+
+        [Test]
+        public async Task FindUsers_Should_Return_Filtered_Users_By_Category_Hometown()
+        {
+            userManagerMock
+             .Setup(um => um.CreateAsync(It.IsAny<IdentityUser>(), It.IsAny<string>()))
+             .ReturnsAsync(IdentityResult.Success);
+
+            var identityUser = new IdentityUser
+            {
+                UserName = "christina@example.com",
+                Email = "christina@example.com",
+                EmailConfirmed = true
+            };
+
+            var result = await userManagerMock.Object.CreateAsync(identityUser, "Password123!");
+
+            var profilePicture = new ProfilePicture
+            {
+                Name = "jane",
+                ContentType = "jpeg",
+                Data = await VibeNet.Infrastucture.Utilities.PictureFileHelper.ConvertToBytesAsync("jane.jpeg")
+            };
+
+            vibeNetDbContext.ProfilePictures.Add(profilePicture);
+
+            var user = new VibeNetUser()
+            {
+                User = identityUser,
+                FirstName = "Christina",
+                LastName = "Smith",
+                Birthday = DateTime.Parse("1998-09-19"),
+                CreatedOn = DateTime.Parse("2006-01-01"),
+                HomeTown = "Montana",
+                Gender = Gender.Female,
+                ProfilePicture = profilePicture
+            };
+
+            vibeNetDbContext.VibeNetUsers.Add(user);
+            vibeNetDbContext.SaveChanges();
+
+            var searchTerm = "Montana";
+            var category = "hometown";
+
+            userRepositoryMock
+                .Setup(ur => ur.GetAllAttached())
+                .Returns(vibeNetDbContext.VibeNetUsers.Where(u => u.HomeTown == searchTerm));
+
+            var (resultUser, count) = await vibeNetService.FindUsers(searchTerm, category, null, 1, 10);
+
+            Assert.IsNotNull(resultUser);
+            Assert.AreEqual(1, count);
+        }
+
+        [Test]
+        public async Task FindUsers_Should_Return_Filtered_Users_By_Category_None()
+        {
+            userManagerMock
+             .Setup(um => um.CreateAsync(It.IsAny<IdentityUser>(), It.IsAny<string>()))
+             .ReturnsAsync(IdentityResult.Success);
+
+            var searchTerm = "notexisting";
+            var category = "hometown";
+
+            userRepositoryMock
+                .Setup(ur => ur.GetAllAttached())
+                .Returns(vibeNetDbContext.VibeNetUsers.Where(u => u.HomeTown == searchTerm));
+
+            var (resultUser, count) = await vibeNetService.FindUsers(searchTerm, category, null, 1, 10);
+
+            Assert.AreEqual(0, count);
+        }
     }
 }
