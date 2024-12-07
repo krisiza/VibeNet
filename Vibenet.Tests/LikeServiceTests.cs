@@ -178,6 +178,28 @@ namespace Vibenet.Tests
             Assert.IsTrue(result);
         }
 
+        [Test]
+        public async Task DeleteAsync_ShouldDeleteLikes()
+        {
+            var post = new Post() { OwnerId = vibeNetUser.IdentityUserId, Content = "Test post", PostedOn = DateTime.Now };
+            vibeNetDbContext.Posts.Add(post);
+            vibeNetDbContext.SaveChanges();
+
+            var like = new Like() { PostId = post.Id, OwnerId = vibeNetUser.IdentityUserId };
+            vibeNetDbContext.Likes.Add(like);
+            vibeNetDbContext.SaveChanges();
+
+            likeRepositoryMock.Setup(r => r.GetAllAttached())
+                              .Returns(vibeNetDbContext.Likes.Where(l => l.OwnerId == vibeNetUser.IdentityUserId));
+
+            likeRepositoryMock.Setup(r => r.DeleteEntityRangeAsync(It.IsAny<IEnumerable<Like>>()))
+                              .ReturnsAsync(true);
+
+            await likeService.DeleteAsync(vibeNetUser.IdentityUserId);
+
+            likeRepositoryMock.Verify(r => r.DeleteEntityRangeAsync(It.IsAny<IEnumerable<Like>>()), Times.Once);  // Ensure the delete method was called
+        }
+
 
         [TearDown]
         public void Teardown()

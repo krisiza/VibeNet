@@ -1,6 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using VibeNet.Core.Contracts;
 using VibeNet.Core.Interfaces;
 using VibeNet.Core.Services;
 using VibeNet.Core.ViewModels;
@@ -8,27 +14,30 @@ using VibeNet.Infrastucture.Data;
 using VibeNet.Infrastucture.Data.Models;
 using VibeNet.Infrastucture.Repository.Contracts;
 using VibeNet.Infrastucture.Utilities;
-using VibeNetInfrastucture.Constants;
 using VibeNetInfrastucture.Data.Models;
 using VibeNetInfrastucture.Data.Models.Enums;
 
 namespace Vibenet.Tests
 {
-    public class FriendshipServiceTests
+    public class FriendshiprequestServiceTests
     {
-        private Mock<IRepository<Friendship, object>> friendshipRepositoryMock;
+        private Mock<IRepository<Friendshiprequest, object>> friendshipRequestRepositoryMock;
         private Mock<IVibeNetService> vibeNetServiceMock;
+        private Mock<IFriendshipService> friendshipServiceMock;
         private Mock<UserManager<IdentityUser>> userManagerMock;
         private VibeNetDbContext vibeNetDbContext;
         private VibeNetUser? firstVibeNetUser;
         private IdentityUser? firstIdentityUser;
         private IdentityUser? secondIdentityUser;
         private VibeNetUser? secondVibeNetUser;
-        private FriendshipService friendshipService;
+        private FriendshiprequestService friendshiprequestService;
+        private Friendshiprequest friendshiprequest;
+
 
         [SetUp]
         public void Setup()
         {
+
             var options = new DbContextOptionsBuilder<VibeNetDbContext>()
                 .UseInMemoryDatabase("VibeNetInMemoryDb")
                 .Options;
@@ -39,7 +48,7 @@ namespace Vibenet.Tests
             var passwordHasher = new Mock<IPasswordHasher<IdentityUser>>();
             var normalizer = new Mock<ILookupNormalizer>();
             var describer = new Mock<IdentityErrorDescriber>();
-          
+
 
             userManagerMock = new Mock<UserManager<IdentityUser>>(
                 store.Object,
@@ -54,102 +63,65 @@ namespace Vibenet.Tests
             );
 
             this.vibeNetDbContext = new VibeNetDbContext(options);
-            friendshipRepositoryMock = new Mock<IRepository<Friendship, object>>();
+            friendshipRequestRepositoryMock = new Mock<IRepository<Friendshiprequest, object>>();
             vibeNetServiceMock = new Mock<IVibeNetService>();
-            friendshipService = new FriendshipService(friendshipRepositoryMock.Object, vibeNetServiceMock.Object);
+            friendshipServiceMock = new Mock<IFriendshipService>();
+            friendshiprequestService = new FriendshiprequestService(friendshipRequestRepositoryMock.Object, vibeNetServiceMock.Object
+                , friendshipServiceMock.Object);
 
             firstIdentityUser = CreateIdentityUser("Maria", "Ivanova").Result;
             secondIdentityUser = CreateIdentityUser("Sonia", "Petrova").Result;
             firstVibeNetUser = CreateVibeNetUser("Maria", "Ivanova", firstIdentityUser).Result;
             secondVibeNetUser = CreateVibeNetUser("Sonia", "Petrova", secondIdentityUser).Result;
+
+            friendshiprequest = new Friendshiprequest()
+            {
+                UserRecipient = firstIdentityUser,
+                UserTransmitter = secondIdentityUser,
+            };
+
+            vibeNetDbContext.Friendshiprequests.Add(friendshiprequest);
+            vibeNetDbContext.SaveChanges();
         }
 
         [Test]
-        public async Task GetFriendsAsync_ShouldReturnFriendsList()
+        public async Task FindByIdAsync_ShouldReturnTrue_WhenRequestExists()
         {
-            var friendship = new Friendship()
-            {
-                FirstUser = firstIdentityUser,
-                SecondUser = secondIdentityUser,
-                FriendsSince = DateTime.Now
-            };
+            var requestList = new List<Friendshiprequest> { friendshiprequest };
+            friendshipRequestRepositoryMock
+                .Setup(repo => repo.GetAllAttached())
+                .Returns(vibeNetDbContext.Friendshiprequests);
 
-            vibeNetDbContext.Friendships.Add(friendship);
-            vibeNetDbContext.SaveChanges();
-
-            friendshipRepositoryMock
-                .Setup(fr => fr.GetAllAttached())
-                .Returns(vibeNetDbContext.Friendships );
-
-            var friend = new VibeNetUserProfileViewModel()
-            {
-                Id = secondVibeNetUser.Id,
-                IdentityId = secondVibeNetUser.IdentityUserId,
-                FirstName = secondVibeNetUser.FirstName,
-                LastName = secondVibeNetUser.LastName,
-                Gender = secondVibeNetUser.Gender,
-                HomeTown = secondVibeNetUser.HomeTown,
-                Birthday = secondVibeNetUser.Birthday.ToString(Validations.DateTimeFormat.Format),
-                ProfilePicture = null
-            };
-
-            vibeNetServiceMock
-                .Setup(v => v.CreateVibeNetUserProfileViewModel(friend.IdentityId))
-                .ReturnsAsync(friend);
-
-            var friendsList =await friendshipService.GetFriendsAsync(firstVibeNetUser.IdentityUserId);
-
-            Assert.IsNotNull(friendsList);
-            Assert.IsTrue(friendsList.Count() == 1);
-        }
-
-        [Test]
-        public async Task FindByIdAsync_Should_Return_True()
-        {
-            var friendship = new Friendship()
-            {
-                FirstUser = firstIdentityUser,
-                SecondUser = secondIdentityUser,
-                FriendsSince = DateTime.Now
-            };
-
-            vibeNetDbContext.Friendships.Add(friendship);
-            vibeNetDbContext.SaveChanges();
-
-            friendshipRepositoryMock
-                .Setup(fr => fr.GetAllAttached())
-                .Returns(vibeNetDbContext.Friendships);
-
-            var result = await friendshipService.FindByIdAsync(firstIdentityUser.Id, secondIdentityUser.Id);
+            var result = await friendshiprequestService.FindByIdAsync(firstIdentityUser.Id, secondIdentityUser.Id);
 
             Assert.IsTrue(result);
         }
 
         [Test]
-        public async Task FindByIdAsync_Should_Return_False()
+        public async Task SendRequestAsync_ShouldSendRequest()
         {
-            friendshipRepositoryMock
-                .Setup(fr => fr.GetAllAttached())
-                .Returns(vibeNetDbContext.Friendships);
-
-            var result = await friendshipService.FindByIdAsync(firstIdentityUser.Id, secondIdentityUser.Id);
-
-            Assert.IsFalse(result);
+            await friendshiprequestService.SendRequestAsync(firstIdentityUser.Id, secondIdentityUser.Id);
+            friendshipRequestRepositoryMock.Verify(repo => repo.AddAsync(It.IsAny<Friendshiprequest>()), Times.Once);
         }
 
         [Test]
-        public async Task AddFriendShipAsync_ShouldAddFriendship()
+        public async Task AcceptRequest_ShouldReturn_Null()
         {
-            var friendshipRequest = new Friendshiprequest()
-            {
-                UserTransmitterId = firstIdentityUser.Id,
-                UserRecipientId = secondIdentityUser.Id
-            };
 
-            await friendshipService.AddFriendShipAsync(friendshipRequest);
+            friendshipRequestRepositoryMock
+                .Setup(repo => repo.GetAllAttached())
+                .Returns(vibeNetDbContext.Friendshiprequests);
 
-            friendshipRepositoryMock.Verify(fr => fr.AddAsync(It.IsAny<Friendship>()), Times.Once);
+            friendshipServiceMock
+                .Setup(service => service.AddFriendShipAsync(It.IsAny<Friendshiprequest>()))
+                .Returns(Task.CompletedTask);
+
+            await friendshiprequestService.AcceptRequest("notExistinfId2", "notExistinfId1");
+
+            friendshipRequestRepositoryMock.Verify(repo => repo.DeleteEntityAsync(It.IsAny<Friendshiprequest>()), Times.Never);
+            friendshipServiceMock.Verify(service => service.AddFriendShipAsync(It.IsAny<Friendshiprequest>()), Times.Never);
         }
+
 
         [TearDown]
         public void Teardown()
@@ -204,4 +176,5 @@ namespace Vibenet.Tests
             return identityUser;
         }
     }
+
 }

@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -66,7 +68,7 @@ namespace Vibenet.Tests
             vibeNetService = new VibeNetService(userRepositoryMock.Object, profilePictureServiceMock.Object, 
                 pictureHelper.Object);
 
-            vibeNetUser = AddUser().Result;
+            vibeNetUser = AddUserAsync().Result;
         }
 
 
@@ -139,6 +141,17 @@ namespace Vibenet.Tests
         }
 
         [Test]
+        public async Task CreateVibeNetUserProfileViewModel_Should_Returs_Null()
+        {
+            userRepositoryMock
+                .Setup(ur => ur.GetAllAttached())
+                .Returns(vibeNetDbContext.VibeNetUsers);
+
+            VibeNetUserProfileViewModel? actual = await vibeNetService.CreateVibeNetUserProfileViewModel("notexisting");
+            Assert.That(actual, Is.Null);
+        }
+
+        [Test]
         public async Task CreateFormUserViewModel_Should_Create_Model()
         {
             userRepositoryMock
@@ -164,6 +177,7 @@ namespace Vibenet.Tests
             Assert.That(actual, Is.EqualTo(model).Using(new VibeNetUserFormViewModelComparer()));
         }
 
+
         [Test]
         public async Task UpdateAsync_Should_Update_User()
         {
@@ -180,7 +194,7 @@ namespace Vibenet.Tests
             vibeNetDbContext.Dispose();
         }
 
-        private async Task<VibeNetUser?> AddUser()
+        private async Task<VibeNetUser?> AddUserAsync()
         {
             userManagerMock
              .Setup(um => um.CreateAsync(It.IsAny<IdentityUser>(), It.IsAny<string>()))
@@ -382,6 +396,28 @@ namespace Vibenet.Tests
             Assert.AreEqual(1, count);
         }
 
+
+        [Test]
+        public async Task FindUsers_Should_Return_Filtered_Users_By_Category_All()
+        {
+            userManagerMock
+             .Setup(um => um.CreateAsync(It.IsAny<IdentityUser>(), It.IsAny<string>()))
+             .ReturnsAsync(IdentityResult.Success);
+
+            var searchTerm = "gfdg";
+            string category = null;
+
+            userRepositoryMock
+                .Setup(ur => ur.GetAllAttached())
+                .Returns(vibeNetDbContext.VibeNetUsers.Where(u => u.HomeTown.ToLower() == searchTerm.ToLower()
+                || u.FirstName.ToLower().Contains(searchTerm.ToLower())
+                || u.LastName.ToLower().Contains(searchTerm.ToLower())));
+
+            var (resultUser, count) = await vibeNetService.FindUsers(searchTerm, category, null, 1, 10);
+
+            Assert.AreEqual(0, count);
+        }
+
         [Test]
         public async Task FindUsers_Should_Return_Filtered_Users_By_Category_None()
         {
@@ -400,5 +436,68 @@ namespace Vibenet.Tests
 
             Assert.AreEqual(0, count);
         }
+
+        [Test]
+        public async Task DeleteAsync_Should_Delete_User_And_Profile_Picture()
+        {
+            userManagerMock
+                .Setup(um => um.CreateAsync(It.IsAny<IdentityUser>(), It.IsAny<string>()))
+                .ReturnsAsync(IdentityResult.Success);
+
+            var identityUser = new IdentityUser
+            {
+                UserName = "milo@example.com",
+                Email = "milo@example.com",
+                EmailConfirmed = true
+            };
+
+            var result = await userManagerMock.Object.CreateAsync(identityUser, "Password123!");
+
+            var profilePicture = new ProfilePicture
+            {
+                Name = "jane",
+                ContentType = "jpeg",
+                Data = await VibeNet.Infrastucture.Utilities.PictureFileHelper.ConvertToBytesAsync("jane.jpeg")
+            };
+
+            vibeNetDbContext.ProfilePictures.Add(profilePicture);
+            vibeNetDbContext.SaveChanges();  
+
+            var user = new VibeNetUser()
+            {
+                User = identityUser,
+                FirstName = "Milo",
+                LastName = "Milov",
+                Birthday = DateTime.Parse("1998-09-19"),
+                CreatedOn = DateTime.Parse("2006-01-01"),
+                HomeTown = "Bodenwöhr",
+                Gender = Gender.Female,
+                ProfilePicture = profilePicture,
+                ProfilePictureId = profilePicture.Id 
+            };
+
+            vibeNetDbContext.VibeNetUsers.Add(user);
+            vibeNetDbContext.SaveChanges();  
+
+            userRepositoryMock
+                .Setup(x => x.GetAllAttached())
+                .Returns(vibeNetDbContext.VibeNetUsers);
+
+            profilePictureServiceMock
+                .Setup(x => x.Delete(It.IsAny<int>()))
+                .Verifiable();
+
+            userRepositoryMock
+                .Setup(x => x.Delete(It.IsAny<int>()))
+                .Verifiable();
+
+
+            await vibeNetService.DeleteAsync(user.IdentityUserId);  
+
+
+            profilePictureServiceMock.Verify(x => x.Delete(profilePicture.Id), Times.Once);  
+            userRepositoryMock.Verify(x => x.Delete(user.Id), Times.Once);  
+        }
+
     }
 }

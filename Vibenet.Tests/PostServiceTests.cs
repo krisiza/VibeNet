@@ -74,6 +74,46 @@ namespace Vibenet.Tests
         }
 
         [Test]
+        public async Task GetFriendsPostsAsync_Should_Returns_PostViewModel_List()
+        {
+            // Arrange
+            var post = new Post()
+            {
+                OwnerId = vibeNetUser.IdentityUserId,
+                Content = "How are you?",
+                PostedOn = DateTime.Now,
+            };
+
+            var model = await CreatePostViewModel(post);
+            vibeNetDbContext.Posts.Add(post);
+            await vibeNetDbContext.SaveChangesAsync();
+
+            List<VibeNetUserProfileViewModel> friends = new List<VibeNetUserProfileViewModel> { vibeNetUserProfileViewModel };
+
+            friendshipService
+                .Setup(fr => fr.GetFriendsAsync(vibeNetUser.IdentityUserId))
+                .ReturnsAsync(friends);
+
+            postRepositoryMock
+                .Setup(p => p.GetAllAttached())
+                .Returns(vibeNetDbContext.Posts.AsQueryable()); // Mock posts retrieval
+
+            vibeNetService
+                .Setup(vs => vs.CreateVibeNetUserProfileViewModel(vibeNetUser.IdentityUserId))
+                .ReturnsAsync(vibeNetUserProfileViewModel);
+
+            // Act
+            var models = await postService.GetFriendsPostsAsync(vibeNetUser.IdentityUserId);
+
+            // Assert
+            Assert.That(models, Has.Some.Matches<PostViewModel>(m =>
+                     m.OwnerId == model.OwnerId &&
+                     m.Content == model.Content &&
+                     m.PostedOn == model.PostedOn
+                 ));
+        }
+
+        [Test]
         public async Task GetAllAsync_Should_Return_Entities()
         {
             var post = new Post()
@@ -105,44 +145,6 @@ namespace Vibenet.Tests
                  ));
         }
 
-        [Test]
-        public async Task GetFriendsPostsAsync_Should_Returns_PostViewModel_List()
-        {
-            var post = new Post()
-            {
-                OwnerId = vibeNetUser.IdentityUserId,
-                Content = "How are you?",
-                PostedOn = DateTime.Now,
-            };
-
-            var model = await CreatePostViewModel(post);
-            vibeNetDbContext.Posts.Add(post);
-            vibeNetDbContext.SaveChanges();
-
-            List<VibeNetUserProfileViewModel> friends = new List<VibeNetUserProfileViewModel>() { vibeNetUserProfileViewModel };
-
-            friendshipService
-                .Setup(fr => fr.GetFriendsAsync(vibeNetUser.IdentityUserId))
-                .ReturnsAsync(friends);
-
-            postRepositoryMock
-                .Setup(p => p.GetAllAttached())
-                .Returns(new List<Post>() { post }.AsQueryable);
-
-            vibeNetService
-               .Setup(vs => vs.CreateVibeNetUserProfileViewModel(vibeNetUser.IdentityUserId))
-               .ReturnsAsync(vibeNetUserProfileViewModel);
-
-            List<PostViewModel> postViewModels = new List<PostViewModel>();
-
-            postViewModels.Add(model);
-
-            Assert.That(postViewModels, Has.Some.Matches<PostViewModel>(m =>
-                 m.OwnerId == model.OwnerId &&
-                 m.Content == model.Content &&
-                 m.PostedOn == model.PostedOn
-             ));
-        }
 
         [Test]
         public async Task GetByIdAsync_Should_Return_PostViewModel()
@@ -170,6 +172,27 @@ namespace Vibenet.Tests
 
             Assert.That(actual, Is.Not.Null);
             Assert.IsTrue(actual.Owner == model.Owner && actual.Content == model.Content);
+        }
+
+        [Test]
+        public async Task AddPostAsync_Should_Create_Post()
+        {
+            // Arrange
+            var postContent = "New Post Content";
+            var userId = vibeNetUser.IdentityUserId;
+
+            postRepositoryMock
+                .Setup(p => p.AddAsync(It.IsAny<Post>()))
+                .ReturnsAsync(1);  // Simulating async add operation
+
+            // Act
+            await postService.AddPostAsync(postContent, userId);
+
+            // Assert
+            postRepositoryMock.Verify(p => p.AddAsync(It.Is<Post>(p =>
+                p.Content == postContent &&
+                p.OwnerId == userId
+            )), Times.Once);
         }
 
         [TearDown]
