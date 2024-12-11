@@ -126,3 +126,18 @@ hr {
     .btn-primary:hover {
         background-color: purple;
     }
+
+
+@media (max-width: 790px) {
+    .main-container[b-msnk45w1y7] {
+        padding: 1em;
+    }
+
+    .main-container {
+        padding: 1em;
+    }
+
+    .footer[b-msnk45w1y7]{
+        height:2em;
+    }
+}

@@ -49,3 +49,17 @@ img:hover {
     width: 80px;
     height: 80px;
 }
+
+@media (max-width: 790px) {
+    body > div.main-container {
+        padding: 1.5em;
+    }
+
+    .user-container{
+        flex-direction:column;
+        padding:1em 0.5em;
+        align-items:center;
+        text-align:center
+    }
+}
+

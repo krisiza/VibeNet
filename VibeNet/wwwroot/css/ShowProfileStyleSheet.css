@@ -115,3 +115,36 @@ svg{
     background-color: #d9bdf2;
 }
 
+@media (max-width: 790px) {
+
+    .main-container[b-msnk45w1y7] {
+        padding: 1.5em;
+    }
+
+    .profile-container {
+        width: 100%;
+    }
+
+    svg {
+        width: 20px;
+        height: auto;
+    }
+
+    .profile-container img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+        transition: transform 0.3s;
+    }
+
+    .add-friend-button {
+        padding: 0.5em 1em;
+        background-color: transparent;
+        border-radius: 25px;
+        font-size: 5px;
+        border: none
+    }
+}
+
+
