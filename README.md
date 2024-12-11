@@ -3,13 +3,20 @@ VibeNet is a social networking platform designed to help users connect with frie
 
 Features
 Search for Friends: Users can search for others by their name or hometown to find people they know or make new connections.
+
 Profile Creation: Each user has a personalized profile with details such as name, hometown, and profile picture.
+
 Friendship Requests: Users can send and receive friendship requests to grow their network.
+
 Admin Panel: The admin has special access to manage users and content on the platform.
+
 Admin Features
 Delete Users: The admin can remove users from the platform when necessary.
+
 Delete Posts and Comments: The admin has the ability to delete posts and comments made by users.
+
 View All Posts: The admin can view all posts made by users across the network.
+
 Logging Into the Admin Profile
 To log into the admin profile, use the following credentials:
 
