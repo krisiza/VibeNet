@@ -33,6 +33,7 @@ namespace VibeNet
                 app.UseHsts();
             }
 
+
             app.UseStatusCodePagesWithRedirects("/StatusCodeError/{0}");
 
             app.UseHttpsRedirection();

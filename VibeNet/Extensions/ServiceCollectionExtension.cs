@@ -59,6 +59,10 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireDigit = true;
+                options.User.RequireUniqueEmail = true;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
             })
                 .AddEntityFrameworkStores<VibeNetDbContext>()
                 .AddDefaultTokenProviders();

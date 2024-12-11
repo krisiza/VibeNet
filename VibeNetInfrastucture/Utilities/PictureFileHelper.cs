@@ -11,8 +11,10 @@ namespace VibeNet.Infrastucture.Utilities
             return await File.ReadAllBytesAsync(defaultPicturePath);
         }
 
-        public static async Task<IFormFile?> CreateFormFileFromByteArray(string pictureName)
+        public static async Task<IFormFile?> CreateFormFileFromByteArray(string? pictureName)
         {
+            if(pictureName == null) return null;
+
             string defaultPicturePath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory)!.Parent!.Parent!.Parent!.Parent!.FullName, "ProfilePictures", pictureName);
 
             if (!File.Exists(defaultPicturePath))
