@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VibeNet.Core.Contracts;
+using VibeNet.Core.Services;
 
 namespace VibeNet.Controllers
 {
@@ -19,6 +20,13 @@ namespace VibeNet.Controllers
 
 
             return BadRequest();
+        }
+
+        public async Task<IActionResult> Delete(string userId)
+        {
+            await friendshipService.DeleteAsync(userId);
+            var friends = await friendshipService.GetFriendsAsync(User.Id());
+            return View("ShowFriends", friends);
         }
     }
 }

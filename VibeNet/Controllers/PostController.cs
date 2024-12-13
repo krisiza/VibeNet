@@ -100,7 +100,7 @@ namespace VibeNet.Controllers
             };
 
             await commentservice.AddCommentAsync(postId, commentViewModel, userId);
-            return RedirectToAction("AllPosts", "Post", new { userId = ownerId });
+            return RedirectToAction("ShowFeeds", "Post", new { userId = User.Id() });
         }
 
         [NotExistingUser]
@@ -119,7 +119,7 @@ namespace VibeNet.Controllers
             else
                 TempData["AlertMessage"] = "Post is already liked";
 
-            return RedirectToAction("AllPosts", "Post", new { userId = userId });
+            return RedirectToAction("ShowFeeds", "Post", new { userId = likeOwner });
         }
 
         public async Task<IActionResult> DeletePost(int postId)
